@@ -1,8 +1,8 @@
 apply plugin: 'war'
 apply plugin: 'idea'
+apply plugin: 'jetty'
 
-
-repositoriess { 
+repositories { 
   mavenLocal()
   mavenCentral()
 }
@@ -11,6 +11,10 @@ dependencies {
   
 }
 
+
+jettyRun {
+    httpPort 8080
+}
 
 task wrapper(type: Wrapper) { 
   gradleVersion = '1.3'
