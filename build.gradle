@@ -1,0 +1,17 @@
+apply plugin: 'war'
+apply plugin: 'idea'
+
+
+repositoriess { 
+  mavenLocal()
+  mavenCentral()
+}
+
+dependencies {
+  
+}
+
+
+task wrapper(type: Wrapper) { 
+  gradleVersion = '1.3'
+}
