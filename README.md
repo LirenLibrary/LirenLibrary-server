@@ -4,16 +4,16 @@ LirenLibrary-server
 The server side of the LirenLirary Project
 
 
-# Developer Guide
+## Developer Guide
 We use [Gradle](http://gradle.org/) as the build tool. And the [Gradle wrapper](http://gradle.org/docs/current/userguide/gradle_wrapper.html) is configured and checked into the repo.
 
-## build project
+### build project
 ```shell
 ./gradlew build
 ```
 
-## run embedded jetty
+### run embedded jetty
 ```shell
 ./gradlew jettyRun
 ```
-
+Then you should be able to access [http://localhost:8080/lirenlibrary/pages/about](http://localhost:8080/lirenlibrary/pages/about)
