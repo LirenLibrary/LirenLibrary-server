@@ -1,0 +1,64 @@
+ext {
+    databaseMigrationBaseDir = 'database'
+    liquibaseChangeLogFile = "${databaseMigrationBaseDir}/changelogs/changelog.xml"
+    liquibaseChangeLogTable = 'liquibase_change_log'
+    liquibaseChangeLogLockTable = 'liquibase_change_log_lock'
+    liquibaseRollbackCount = 1
+}
+
+
+ant {
+    ant.path(id: 'mysqlClasspath') {
+        ant.pathelement(path: configurations.mysql.asPath)
+    }
+    taskdef resource: 'liquibasetasks.properties', classpath: configurations.liquibase.asPath
+
+}
+
+task updateDatabase {
+    description 'Update to latest database.'
+    group = 'liquibase'
+}
+
+updateDatabase << {
+    ant {
+        updateDatabase(
+                changeLogFile: liquibaseChangeLogFile,
+                driver: migrationDbConnectionDriver,
+                url: migrationDbConnectionUrl,
+                username: migrationDbConnectionUsername,
+                password: migrationDbConnectionPassword,
+                promptOnNonLocalDatabase: 'false',
+                dropFirst: 'false',
+                classpathref: 'mysqlClasspath',
+                databasechangelogtablename: liquibaseChangeLogTable,
+                databasechangeloglocktablename: liquibaseChangeLogLockTable
+        )
+    }
+}
+
+
+task rollbackDatabase {
+    description 'Rollback liquibase migration.'
+    group 'liquibase'
+
+}
+
+rollbackDatabase << {
+    ant {
+        rollbackDatabase(
+                changeLogFile: liquibaseChangeLogFile,
+                driver: migrationDbConnectionDriver,
+                url: migrationDbConnectionUrl,
+                username: migrationDbConnectionUsername,
+                password: migrationDbConnectionPassword,
+                classpathref: 'mysqlClasspath',
+                rollbackcount: liquibaseRollbackCount,
+                databasechangelogtablename: liquibaseChangeLogTable,
+                databasechangeloglocktablename: liquibaseChangeLogLockTable
+        )
+    }
+}
+
+updateDatabase.dependsOn 'loadEnvironment'
+rollbackDatabase.dependsOn 'loadEnvironment'

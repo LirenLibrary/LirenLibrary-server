@@ -65,75 +65,39 @@ dependencies {
     )
 }
 
-
-ext {
-    //TODO: refactor to Plugin
-    databaseBaseDir = 'database'
-    liquibaseChangeLogFile = "${databaseBaseDir}/changelogs/changelog.xml"
-    liquibaseChangeLogTable = 'liquibase_change_log'
-    liquibaseChangeLogLockTable = 'liquibase_change_log_lock'
-    liquibaseRollbackCount = 1
-    dbConnectionDriver = 'com.mysql.jdbc.Driver'
-    dbConnectionUsername = 'liren'
-    dbConnectionPassword = 'liren'
-    dbConnectionUrl = 'jdbc:mysql://localhost:3306/liren'
+task loadEnvironment {
+    description = 'load environment properties.'
+    group = 'liren'
 }
 
+loadEnvironment << {
+    project.ext['env'] = environment()
+    println "using environment:${env}"
 
-task updateDatabase {
-    description 'Update to latest database.'
-    group = 'liquibase'
+    loadMigrationEnvironmentProps()
+}
+def loadMigrationEnvironmentProps() {
+    def migrationProps = "database/${env}.properties"
 
-    doLast {
-        ant {
-            ant.path(id: 'mysqlClasspath') {
-                ant.pathelement(path: configurations.mysql.asPath)
-            }
+    println "loading ${migrationProps} for database migration"
 
-            taskdef resource: 'liquibasetasks.properties', classpath: configurations.liquibase.asPath
-
-            updateDatabase(
-                    changeLogFile: liquibaseChangeLogFile,
-                    driver: dbConnectionDriver,
-                    url: dbConnectionUrl,
-                    username: dbConnectionUsername,
-                    password: dbConnectionPassword,
-                    promptOnNonLocalDatabase: 'false',
-                    dropFirst: 'false',
-                    classpathref: 'mysqlClasspath',
-                    databasechangelogtablename: liquibaseChangeLogTable,
-                    databasechangeloglocktablename: liquibaseChangeLogLockTable
-            )
+    file(migrationProps).withReader { reader ->
+        configure(new Properties()) { load(reader) }.each { key, value ->
+            def camelKey = key.split('\\.')*.capitalize().join()
+            camelKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
+            println "${camelKey}=${value}"
+            project.ext[camelKey] = value
         }
     }
 }
 
-task rollbackDatabase {
-    description 'Rollback liquibase migration.'
-    group 'liquibase'
 
-    doLast {
-        ant {
-            ant.path(id: 'mysqlClasspath') {
-                ant.pathelement(path: configurations.mysql.asPath)
-            }
-
-            taskdef resource: 'liquibasetasks.properties', classpath: configurations.liquibase.asPath
-
-            rollbackDatabase(
-                    changeLogFile: liquibaseChangeLogFile,
-                    driver: dbConnectionDriver,
-                    url: dbConnectionUrl,
-                    username: dbConnectionUsername,
-                    password: dbConnectionPassword,
-                    classpathref: 'mysqlClasspath',
-                    rollbackcount: liquibaseRollbackCount,
-                    databasechangelogtablename: liquibaseChangeLogTable,
-                    databasechangeloglocktablename: liquibaseChangeLogLockTable
-            )
-        }
-    }
+def environment() {
+    System.properties['env'] == null ? 'dev' : System.properties['env']
 }
+
+
+
 
 jettyRun {
     httpPort 8080
@@ -143,3 +107,5 @@ jettyRun {
 task wrapper(type: Wrapper) {
     gradleVersion = '1.3'
 }
+
+apply from: 'migration.gradle'
