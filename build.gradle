@@ -43,12 +43,16 @@ dependencies {
             "org.freemarker:freemarker:2.3.19",
             "org.hibernate:hibernate-core:${hibernateVersion}",
             "org.hibernate:hibernate-entitymanager:${hibernateVersion}",
+            "cglib:cglib:2.2.2",
             "c3p0:c3p0:0.9.1.2",
             "com.sun.jersey:jersey-core:1.16",
             "com.sun.jersey:jersey-servlet:1.16",
             "com.sun.jersey:jersey-server:1.16",
             "com.sun.jersey.contribs:jersey-spring:1.16",
-            "com.sun.jersey:jersey-json:1.16"
+            "com.sun.jersey:jersey-json:1.16",
+            "org.slf4j:slf4j-api:1.7.2",
+            "org.slf4j:slf4j-log4j12:1.7.2",
+            "log4j:log4j:1.2.17"
     )
 
     compile()
