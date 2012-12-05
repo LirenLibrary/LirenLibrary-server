@@ -79,16 +79,17 @@ task loadEnvironment {
 
 loadEnvironment << {
     project.ext['env'] = environment()
-    println "using environment:${env}"
+    println "current environment:${env}"
 
-    loadMigrationEnvironmentProps()
+    loadDatabaseProps()
 }
-def loadMigrationEnvironmentProps() {
-    def migrationProps = "database/${env}.properties"
 
-    println "loading ${migrationProps} for database migration"
+def loadDatabaseProps() {
+    def propsFilePath = "src/main/resources/database.properties"
+    if ('local' != env) propsFilePath = "database/database.${env}.properties"
+    println "loading ${propsFilePath}"
 
-    file(migrationProps).withReader { reader ->
+    file(propsFilePath).withReader { reader ->
         configure(new Properties()) { load(reader) }.each { key, value ->
             def camelKey = key.split('\\.')*.capitalize().join()
             camelKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
@@ -98,12 +99,9 @@ def loadMigrationEnvironmentProps() {
     }
 }
 
-
 def environment() {
-    System.properties['env'] == null ? 'dev' : System.properties['env']
+    System.properties['env'] == null ? 'local' : System.properties['env']
 }
-
-
 
 
 jettyRun {

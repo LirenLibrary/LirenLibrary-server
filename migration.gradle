@@ -24,10 +24,10 @@ updateDatabase << {
     ant {
         updateDatabase(
                 changeLogFile: liquibaseChangeLogFile,
-                driver: migrationDbConnectionDriver,
-                url: migrationDbConnectionUrl,
-                username: migrationDbConnectionUsername,
-                password: migrationDbConnectionPassword,
+                driver: dbConnectionDriver,
+                url: dbConnectionUrl,
+                username: dbConnectionUsername,
+                password: dbConnectionPassword,
                 promptOnNonLocalDatabase: 'false',
                 dropFirst: 'false',
                 classpathref: 'mysqlClasspath',
@@ -39,7 +39,7 @@ updateDatabase << {
 
 
 task rollbackDatabase {
-    description 'Rollback liquibase migration.'
+    description 'Rollback database migration.'
     group 'liquibase'
 
 }
@@ -48,10 +48,10 @@ rollbackDatabase << {
     ant {
         rollbackDatabase(
                 changeLogFile: liquibaseChangeLogFile,
-                driver: migrationDbConnectionDriver,
-                url: migrationDbConnectionUrl,
-                username: migrationDbConnectionUsername,
-                password: migrationDbConnectionPassword,
+                driver: dbConnectionDriver,
+                url: dbConnectionUrl,
+                username: dbConnectionUsername,
+                password: dbConnectionPassword,
                 classpathref: 'mysqlClasspath',
                 rollbackcount: liquibaseRollbackCount,
                 databasechangelogtablename: liquibaseChangeLogTable,
