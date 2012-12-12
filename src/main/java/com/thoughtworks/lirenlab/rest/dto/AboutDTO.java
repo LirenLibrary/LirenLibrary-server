@@ -1,4 +1,4 @@
-package com.liren.rest.dto;
+package com.thoughtworks.lirenlab.rest.dto;
 
 /**
  * User: zhengli

@@ -1,4 +1,4 @@
-package com.liren.rest.provider;
+package com.thoughtworks.lirenlab.rest.provider;
 
 import org.codehaus.jackson.map.ObjectMapper;
 

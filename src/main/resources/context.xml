@@ -8,6 +8,6 @@
     <import resource="classpath:context-infrastructure-persistence.xml"/>
 
     <context:annotation-config  />
-    <context:component-scan base-package="com.liren"/>
+    <context:component-scan base-package="com.thoughtworks.lirenlab"/>
 
 </beans>

@@ -1,4 +1,4 @@
-package com.liren.repository.impl;
+package com.thoughtworks.lirenlab.repository.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

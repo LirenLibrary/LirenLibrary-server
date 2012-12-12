@@ -1,7 +1,7 @@
-package com.liren.repository.impl;
+package com.thoughtworks.lirenlab.repository.impl;
 
-import com.liren.domain.About;
-import com.liren.repository.AboutRepository;
+import com.thoughtworks.lirenlab.domain.About;
+import com.thoughtworks.lirenlab.repository.AboutRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

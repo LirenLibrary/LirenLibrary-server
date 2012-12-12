@@ -1,8 +1,8 @@
-package com.liren.rest;
+package com.thoughtworks.lirenlab.rest;
 
-import com.liren.domain.About;
-import com.liren.rest.dto.AboutDTO;
-import com.liren.service.AboutService;
+import com.thoughtworks.lirenlab.domain.About;
+import com.thoughtworks.lirenlab.rest.dto.AboutDTO;
+import com.thoughtworks.lirenlab.service.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.liren.controller;
+package com.thoughtworks.lirenlab.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

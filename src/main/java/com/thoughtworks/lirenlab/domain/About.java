@@ -1,4 +1,4 @@
-package com.liren.domain;
+package com.thoughtworks.lirenlab.domain;
 
 import javax.persistence.*;
 
