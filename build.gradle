@@ -73,6 +73,7 @@ dependencies {
 
     testCompile(
             "junit:junit:${junitVersion}",
+            "org.mockito:mockito-core:1.9.5",
             "org.springframework:spring-test:${springVersion}"
     )
 }

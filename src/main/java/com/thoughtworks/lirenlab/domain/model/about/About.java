@@ -1,4 +1,4 @@
-package com.thoughtworks.lirenlab.domain;
+package com.thoughtworks.lirenlab.domain.model.about;
 
 import javax.persistence.*;
 

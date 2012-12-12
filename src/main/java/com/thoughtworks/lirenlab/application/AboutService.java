@@ -1,6 +1,6 @@
-package com.thoughtworks.lirenlab.service;
+package com.thoughtworks.lirenlab.application;
 
-import com.thoughtworks.lirenlab.domain.About;
+import com.thoughtworks.lirenlab.domain.model.about.About;
 
 import java.util.List;
 

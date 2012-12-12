@@ -1,8 +1,8 @@
-package com.thoughtworks.lirenlab.rest;
+package com.thoughtworks.lirenlab.interfaces.about.mobile;
 
-import com.thoughtworks.lirenlab.domain.About;
-import com.thoughtworks.lirenlab.rest.dto.AboutDTO;
-import com.thoughtworks.lirenlab.service.AboutService;
+import com.thoughtworks.lirenlab.domain.model.about.About;
+import com.thoughtworks.lirenlab.interfaces.about.mobile.dto.AboutDTO;
+import com.thoughtworks.lirenlab.application.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

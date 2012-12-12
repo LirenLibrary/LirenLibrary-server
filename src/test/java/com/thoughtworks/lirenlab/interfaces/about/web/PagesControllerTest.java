@@ -1,4 +1,4 @@
-package com.thoughtworks.lirenlab.controller;
+package com.thoughtworks.lirenlab.interfaces.about.web;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.thoughtworks.lirenlab.rest.dto;
+package com.thoughtworks.lirenlab.interfaces.about.mobile.dto;
 
 /**
  * User: zhengli

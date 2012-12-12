@@ -1,7 +1,7 @@
-package com.thoughtworks.lirenlab.repository.impl;
+package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 
-import com.thoughtworks.lirenlab.domain.About;
-import com.thoughtworks.lirenlab.repository.AboutRepository;
+import com.thoughtworks.lirenlab.domain.model.about.About;
+import com.thoughtworks.lirenlab.domain.model.about.AboutRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

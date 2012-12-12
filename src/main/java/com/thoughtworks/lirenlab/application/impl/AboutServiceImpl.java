@@ -1,8 +1,8 @@
-package com.thoughtworks.lirenlab.service.impl;
+package com.thoughtworks.lirenlab.application.impl;
 
-import com.thoughtworks.lirenlab.domain.About;
-import com.thoughtworks.lirenlab.repository.AboutRepository;
-import com.thoughtworks.lirenlab.service.AboutService;
+import com.thoughtworks.lirenlab.domain.model.about.About;
+import com.thoughtworks.lirenlab.domain.model.about.AboutRepository;
+import com.thoughtworks.lirenlab.application.AboutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
