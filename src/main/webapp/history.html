@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    <title>捐赠选择</title>
+    <title>捐赠历史</title>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/reset.css" />
@@ -59,20 +59,20 @@
     <!-- Primary navigation -->
     <nav id="primary">
       <ul>
-        <li class="active">
+        <li>
           <a href="index.html">
             <span class="icon32 love"></span>
             捐赠
           </a>
         </li>
-        <li>
+        <li class="active">
           <a href="history.html">
             <span class="icon32 listicon"></span>
             历史
           </a>
         </li>
         <li>
-          <a href="manage.html">
+          <a href="#">
             <span class="icon32 tools"></span>
             管理
           </a>
@@ -109,32 +109,23 @@
       <div id="main" class="container_12">
         <div class="box">
           <div class="box-header">
-            <h1>选择通过的书目</h1>
+            <h1>捐赠书目</h1>
           </div>
           <table>
             <thead>
               <tr>
                 <th width="10%">ISBN号</th>
                 <th width="70%">书名</th>
-                <th width="20%">动作</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>9787536474543</td>
                 <td>关妖精的瓶子</td>
-                <td>
-                  <a href="#" class="button plain green">通过</a>
-                  <a href="#" class="button plain red active">拒绝</a>
-                </td>
               </tr>
               <tr>
                 <td>1287536214543</td>
                 <td>圣母悼歌</td>
-                <td>
-                  <a href="#" class="button plain green active">通过</a>
-                  <a href="#" class="button plain red">拒绝</a>
-                </td>
               </tr>
             </tbody>
           </table>
@@ -142,11 +133,11 @@
 
          <div class="box ">
           <div class="box-header">
-            <h1>选择寄送的图书馆</h1>
+            <h1>已寄往图书馆</h1>
           </div>
            <form action="/" method="post">
                   <p>
-                    <select name="city" id="city" placeholder="City" class="{validate:{required:true}}">
+                    <select name="city" id="city" placeholder="City" class="{validate:{required:true}}" disabled>
                       <option>h黄侃图书馆</option>
                       <option>z张国栋图书馆</option>
                       <option>z张国栋图书馆二分馆</option>
@@ -163,7 +154,6 @@
                   </p>
               </form>
           </div>
-          <input type="submit" class="button blue" value="确认捐助" />
       
       </div>
     </section>

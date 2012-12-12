@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>管理功能</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/icons.css" />
+    <link rel="stylesheet" href="css/formalize.css" />
+    <link rel="stylesheet" href="css/checkboxes.css" />
+    <link rel="stylesheet" href="css/sourcerer.css" />
+    <link rel="stylesheet" href="css/jqueryui.css" />
+    <link rel="stylesheet" href="css/tipsy.css" />
+    <link rel="stylesheet" href="css/calendar.css" />
+    <link rel="stylesheet" href="css/tags.css" />
+    <link rel="stylesheet" href="css/selectboxes.css" />
+    <link rel="stylesheet" href="css/960.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" media="all and (orientation:portrait)" href="css/portrait.css" />
+    <link rel="apple-touch-icon" href="apple-touch-icon-precomposed.png" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/excanvas.js"></script>
+    <![endif]-->
+    
+    <!-- JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jqueryui.min.js"></script>
+    <script src="js/jquery.cookies.js"></script>
+    <script src="js/jquery.pjax.js"></script>
+    <script src="js/formalize.min.js"></script>
+    <script src="js/jquery.metadata.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.checkboxes.js"></script>
+    <script src="js/jquery.chosen.js"></script>
+    <script src="js/jquery.fileinput.js"></script>
+    <script src="js/jquery.datatables.js"></script>
+    <script src="js/jquery.sourcerer.js"></script>
+    <script src="js/jquery.tipsy.js"></script>
+    <script src="js/jquery.calendar.js"></script>
+    <script src="js/jquery.inputtags.min.js"></script>
+    <script src="js/jquery.wymeditor.js"></script>
+    <script src="js/jquery.livequery.js"></script>
+    <script src="js/jquery.flot.min.js"></script>
+    <script src="js/application.js"></script>
+  </head>
+  
+  <body>
+
+    <!-- Primary navigation -->
+    <nav id="primary">
+      <ul>
+        <li>
+          <a href="index.html">
+            <span class="icon32 love"></span>
+            捐赠
+          </a>
+        </li>
+        <li>
+          <a href="history.html">
+            <span class="icon32 listicon"></span>
+            历史
+          </a>
+        </li>
+        <li class="active">
+          <a href="#">
+            <span class="icon32 tools"></span>
+            管理
+          </a>
+        </li>
+        <li class="bottom">
+          <a href="#">
+            <span class="icon32 quit"></span>
+            退出
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Secondary navigation -->
+    <nav id="secondary">
+       <ul class="book-order">
+        <li class="active"><a href="#">黑白名单</a></li>
+        <li><a href="manage-address.html">图书馆地址</a></li>
+      </ul>
+    </nav>
+    
+    <section id="maincontainer">
+      <div id="main" class="container_12">
+      
+        <div class="box">
+          <div class="box-header">
+            <h1>黑白名单</h1>
+          </div>
+        
+          <table class="datatable">
+            <thead>
+              <tr>
+                <th width="30%">书名</th>
+                <th width="15%">作者</th>
+                <th width="30%">详情</th>
+                <th>自动通过／拒绝</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>丰乳肥臀</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀2</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀3</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀4</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀5</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀6</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀7</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀8</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀9</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green active">通过</a>
+                  <a href="#" class="button plain red ">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀101</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀11</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green active">通过</a>
+                  <a href="#" class="button plain red">拒绝</a>
+                </td>
+              </tr>
+              <tr>
+                <td>丰乳肥臀10</td>
+                <td>莫言</td>
+                <td>诺贝尔文学奖作者写的黄色小说。</td>
+                <td>
+                  <a href="#" class="button plain green">通过</a>
+                  <a href="#" class="button plain red active">拒绝</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </section>
+  </body>
+</html>

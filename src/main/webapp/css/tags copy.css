@@ -1,0 +1,5 @@
+/*=BOOK ORDER*/
+.book-order li {position: relative;}
+label.number {position: absolute; right: 10px;}
+.approve {background: #6CB94A}
+.disapprove {background: #FF8168}

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=1024px, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    <title>捐赠选择</title>
+    <title>管理功能</title>
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/reset.css" />
@@ -59,7 +59,7 @@
     <!-- Primary navigation -->
     <nav id="primary">
       <ul>
-        <li class="active">
+        <li>
           <a href="index.html">
             <span class="icon32 love"></span>
             捐赠
@@ -71,8 +71,8 @@
             历史
           </a>
         </li>
-        <li>
-          <a href="manage.html">
+        <li class="active">
+          <a href="#">
             <span class="icon32 tools"></span>
             管理
           </a>
@@ -89,82 +89,44 @@
     <!-- Secondary navigation -->
     <nav id="secondary">
        <ul class="book-order">
-        <li class="active"><a href="#">12/19/2012 08:12 <label class="number">15</label></a></li>
-        <li><a href="#">11/19/2012 08:12 <label class="number">15</label></a></li>
-        <li><a href="#">11/28/2012 12:13 <label class="number">5</label></a></li>
-        <li><a href="#">11/30/2012 18:16 <label class="number">1</label></a></li>
-        <li><a href="#">11/21/2012 21:17 <label class="number">9</label></a></li>
-        <li><a href="#">11/13/2012 12:18 <label class="number">10</label></a></li>
-        <li><a href="#">11/14/2012 09:10 <label class="number">13</label></a></li>
-        <li><a href="#">11/15/2012 13:11 <label class="number">25</label></a></li>
-        <li><a href="#">10/17/2012 14:21 <label class="number">1</label></a></li>
-        <li><a href="#">09/18/2012 16:32 <label class="number">5</label></a></li>
-        <li><a href="#">09/09/2012 18:52 <label class="number">8</label></a></li>
-        <li><a href="#">09/02/2012 21:19 <label class="number">9</label></a></li>
-        <li><a href="#">08/01/2012 08:40 <label class="number">5</label></a></li>
+        <li><a href="#">黑白名单</a></li>
+        <li class="active"><a href="manage－address.html">图书馆地址</a></li>
       </ul>
     </nav>
     
     <section id="maincontainer">
-      <div id="main" class="container_12">
+      <div id="main">
+      
         <div class="box">
           <div class="box-header">
-            <h1>选择通过的书目</h1>
+            <h1>图书馆地址</h1>
           </div>
-          <table>
+        
+          <table class="datatable">
             <thead>
               <tr>
-                <th width="10%">ISBN号</th>
-                <th width="70%">书名</th>
-                <th width="20%">动作</th>
+                <th width="15%">名字</th>
+                <th width="10%">联系人</th>
+                <th width="30%">地址</th>
+                <th width="10%">邮编</th>
+                <th width="15%">电话</th>
+                <th>动作</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>9787536474543</td>
-                <td>关妖精的瓶子</td>
+                <td>张国栋图书馆二分馆</td>
+                <td>张国栋</td>
+                <td>河南省嵩山市少林寺A栋藏经阁2楼清洁处</td>
+                <td>612921</td>
+                <td>135 1000 2000</td>
                 <td>
-                  <a href="#" class="button plain green">通过</a>
-                  <a href="#" class="button plain red active">拒绝</a>
-                </td>
-              </tr>
-              <tr>
-                <td>1287536214543</td>
-                <td>圣母悼歌</td>
-                <td>
-                  <a href="#" class="button plain green active">通过</a>
-                  <a href="#" class="button plain red">拒绝</a>
+                  <a href="#" class="button plain">编辑</a>
+                  <a href="#" class="button plain">删除</a>
                 </td>
               </tr>
             </tbody>
           </table>
-        </div>
-
-         <div class="box ">
-          <div class="box-header">
-            <h1>选择寄送的图书馆</h1>
-          </div>
-           <form action="/" method="post">
-                  <p>
-                    <select name="city" id="city" placeholder="City" class="{validate:{required:true}}">
-                      <option>h黄侃图书馆</option>
-                      <option>z张国栋图书馆</option>
-                      <option>z张国栋图书馆二分馆</option>
-                      <option>t唐仲容图书馆</option>
-                      <option>y晏阳初图书馆</option>
-                      <option>y晏阳初图书馆二分馆</option>
-                      <option>s孙世祥图书馆</option>
-                      <option>g甘泉图书馆</option>
-                      <option>x熊培云图书馆</option>
-                      <option>z志翔图书馆</option>
-                      <option>t陶行知图书馆</option>
-                      <option>z卓英图书馆</option>
-                    </select>
-                  </p>
-              </form>
-          </div>
-          <input type="submit" class="button blue" value="确认捐助" />
-      
       </div>
     </section>
   </body>
