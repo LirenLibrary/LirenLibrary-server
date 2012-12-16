@@ -5,4 +5,3 @@ build
 *.iws
 buildSrc/build
 buildSrc/.gradle
-buildSrc

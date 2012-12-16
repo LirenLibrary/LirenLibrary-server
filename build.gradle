@@ -2,6 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'war'
 apply plugin: 'idea'
 apply plugin: 'jetty'
+apply plugin: 'properties-configuration'
 
 version = 1.0
 
