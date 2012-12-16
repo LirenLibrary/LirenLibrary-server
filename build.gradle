@@ -3,7 +3,6 @@ apply plugin: 'war'
 apply plugin: 'idea'
 apply plugin: 'jetty'
 
-
 version = 1.0
 
 archivesBaseName = 'lirenlibrary'
@@ -16,6 +15,7 @@ ext {
     junitVersion = '4.11'
     springVersion = '3.2.0.RC2'
     hibernateVersion = '4.1.8.Final'
+    env = envPath()
 }
 
 configurations {
@@ -25,7 +25,7 @@ configurations {
 }
 
 repositories {
-    mavenLocal()
+//    mavenLocal()
     mavenCentral()
     mavenRepo name: 'Springframwork Milestone', url: 'http://repo.springsource.org/milestone'
 }
@@ -78,35 +78,20 @@ dependencies {
     )
 }
 
-task loadEnvironment {
-    description = 'load environment properties.'
-    group = 'liren'
-}
-
-loadEnvironment << {
-    project.ext['env'] = environment()
-    println "current environment:${env}"
-
-    loadDatabaseProps()
-}
-
-def loadDatabaseProps() {
-    def propsFilePath = "src/main/resources/database.properties"
-    if ('local' != env) propsFilePath = "database/database.${env}.properties"
-    println "loading ${propsFilePath}"
-
-    file(propsFilePath).withReader { reader ->
-        configure(new Properties()) { load(reader) }.each { key, value ->
-            def camelKey = key.split('\\.')*.capitalize().join()
-            camelKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
-            println "${camelKey}=${value}"
-            project.ext[camelKey] = value
+sourceSets {
+    main {
+        resources {
+            srcDir env
         }
     }
 }
 
 def environment() {
     System.properties['env'] == null ? 'local' : System.properties['env']
+}
+
+def envPath() {
+    return "env/${environment()}"
 }
 
 

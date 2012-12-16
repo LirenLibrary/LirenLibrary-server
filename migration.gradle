@@ -60,5 +60,19 @@ rollbackDatabase << {
     }
 }
 
-updateDatabase.dependsOn 'loadEnvironment'
-rollbackDatabase.dependsOn 'loadEnvironment'
+updateDatabase.dependsOn 'loadDatabaseProps'
+rollbackDatabase.dependsOn 'loadDatabaseProps'
+
+task loadDatabaseProps << {
+    def propsFilePath = "${env}/database.properties"
+    println "loading ${propsFilePath}"
+
+    file(propsFilePath).withReader { reader ->
+        configure(new Properties()) { load(reader) }.each { key, value ->
+            def camelKey = key.split('\\.')*.capitalize().join()
+            camelKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
+            println "${camelKey}=${value}"
+            project.ext[camelKey] = value
+        }
+    }
+}
