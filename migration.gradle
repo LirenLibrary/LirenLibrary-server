@@ -1,3 +1,5 @@
+import groovy.sql.Sql
+
 ext {
     databaseMigrationBaseDir = 'database'
     liquibaseChangeLogFile = "${databaseMigrationBaseDir}/changelogs/changelog.xml"
@@ -75,4 +77,35 @@ task loadDatabaseProps << {
             project.ext[camelKey] = value
         }
     }
+
 }
+
+task initDatabase(dependsOn: ['loadDatabaseProps']) << {
+    URLClassLoader loader = GroovyObject.class.classLoader
+    configurations.mysql.each { File file ->
+        loader.addURL(file.toURL())
+    }
+
+    def sql = Sql.newInstance(
+            "jdbc:mysql://${dbHost}:${dbPort}/mysql",
+            dbRootUsername,
+            dbRootPassword,
+            dbConnectionDriver
+    )
+
+    sql.execute "CREATE DATABASE IF NOT EXISTS liren default character set utf8 COLLATE utf8_general_ci"
+    println "Prepare liren database."
+
+    def result = sql.firstRow("SELECT COUNT(*) AS USERCOUNT FROM user WHERE User = ${dbConnectionUsername} and Host = ${dbHost}")
+    if (result.USERCOUNT > 0) {
+        println "User ${dbConnectionUsername} is already existed."
+    } else {
+        println "Creating User ${dbConnectionUsername} ..."
+        sql.execute "CREATE USER ${dbConnectionUsername}@${dbHost} IDENTIFIED BY ${dbConnectionPassword}"
+        sql.execute "GRANT ALL ON liren.* TO ${dbConnectionUsername}@${dbHost}"
+        println "${dbConnectionUsername} created."
+    }
+}
+
+updateDatabase.dependsOn 'initDatabase'
+test.dependsOn 'updateDatabase'
