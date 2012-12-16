@@ -88,7 +88,10 @@ sourceSets {
 }
 
 def environment() {
-    System.properties['env'] == null ? 'local' : System.properties['env']
+    def env = System.properties['env'] == null ? 'local' : System.properties['env']
+    logger.quiet "Current environment: ${env}"
+
+    return env
 }
 
 def envPath() {
