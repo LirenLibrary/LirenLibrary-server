@@ -97,10 +97,11 @@ initDatabase << {
         logger.quiet "Creating database user ${dbConnectionUsername} ..."
         sql.execute "CREATE USER ${dbConnectionUsername}@'localhost' IDENTIFIED BY ${dbConnectionPassword}"
         sql.execute "CREATE USER ${dbConnectionUsername}@'%' IDENTIFIED BY ${dbConnectionPassword}"
-        logger.quiet "Granting database privileges to user ${dbConnectionUsername}..."
-        sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'localhost'"
-        sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'%'"
     }
+
+    logger.quiet "Granting database privileges to user ${dbConnectionUsername}..."
+    sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'localhost'"
+    sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'%'"
 
     logger.quiet "Database ${dbConnectionUsername} is ready."
 }

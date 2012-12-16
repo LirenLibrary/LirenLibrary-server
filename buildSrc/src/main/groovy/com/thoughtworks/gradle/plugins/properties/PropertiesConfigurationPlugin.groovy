@@ -18,6 +18,7 @@ class PropertiesConfigurationPlugin implements Plugin<Project> {
     private static final String TASK_NAME_LOAD_PROPERTIES = 'loadPropertiesConfiguration'
 
     void apply(Project project) {
+
         def extension = project.extensions.create(PropertiesConfigurationExtension.NAME, PropertiesConfigurationExtension)
         def task = project.tasks.add(TASK_NAME_LOAD_PROPERTIES, PropertiesConfigurationTask)
 
