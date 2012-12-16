@@ -23,7 +23,7 @@ ant {
 
 task updateDatabase {
     description 'Update to latest database.'
-    group = 'liquibase'
+    group = 'database'
 }
 
 updateDatabase << {
@@ -46,7 +46,7 @@ updateDatabase << {
 
 task rollbackDatabase {
     description 'Rollback database migration.'
-    group 'liquibase'
+    group 'database'
 
 }
 
@@ -66,7 +66,13 @@ rollbackDatabase << {
     }
 }
 
-task initDatabase << {
+task initDatabase {
+    description 'Initialize database.'
+    group 'database'
+}
+
+initDatabase << {
+
     URLClassLoader loader = GroovyObject.class.classLoader
     configurations.mysql.each { File file ->
         loader.addURL(file.toURL())
@@ -79,18 +85,24 @@ task initDatabase << {
             dbConnectionDriver
     )
 
-    sql.execute "CREATE DATABASE IF NOT EXISTS liren default character set utf8 COLLATE utf8_general_ci"
-    println "Prepare liren database."
+    logger.quiet "Preparing database ${dbConnectionDatabase}..."
+    sql.execute 'CREATE DATABASE IF NOT EXISTS ' + dbConnectionDatabase + ' DEFAULT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI'
 
-    def result = sql.firstRow("SELECT COUNT(*) AS USERCOUNT FROM user WHERE User = ${dbConnectionUsername} and Host = ${dbHost}")
-    if (result.USERCOUNT > 0) {
-        println "User ${dbConnectionUsername} is already existed."
+    def result = sql.firstRow("SELECT COUNT(*) AS USERCOUNT FROM user WHERE User = ${dbConnectionUsername}")
+
+    if (result['USERCOUNT'] > 0) {
+        logger.quiet "Database user ${dbConnectionUsername} is already existed."
+
     } else {
-        println "Creating User ${dbConnectionUsername} ..."
-        sql.execute "CREATE USER ${dbConnectionUsername}@${dbHost} IDENTIFIED BY ${dbConnectionPassword}"
-        sql.execute "GRANT ALL ON liren.* TO ${dbConnectionUsername}@${dbHost}"
-        println "${dbConnectionUsername} created."
+        logger.quiet "Creating database user ${dbConnectionUsername} ..."
+        sql.execute "CREATE USER ${dbConnectionUsername}@'localhost' IDENTIFIED BY ${dbConnectionPassword}"
+        sql.execute "CREATE USER ${dbConnectionUsername}@'%' IDENTIFIED BY ${dbConnectionPassword}"
+        logger.quiet "Granting database privileges to user ${dbConnectionUsername}..."
+        sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'localhost'"
+        sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'%'"
     }
+
+    logger.quiet "Database ${dbConnectionUsername} is ready."
 }
 
 updateDatabase.dependsOn 'initDatabase'
