@@ -4,6 +4,6 @@ repositories {
 
 dependencies {
     compile gradleApi()
-    compile "commons-configuration:commons-configuration:1.9"
     groovy localGroovy()
+    compile "commons-configuration:commons-configuration:1.9"
 }
