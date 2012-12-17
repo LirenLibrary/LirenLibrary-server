@@ -16,7 +16,7 @@ class PropertiesConfigurationTask extends DefaultTask {
             def configuration = new PropertiesConfiguration(prop)
             configuration.getKeys().each { key ->
                 def value = configuration.getString(key)
-                project.logger.quiet "${key}=${value}"
+//                project.logger.quiet "${key}=${value}"
                 def camelKey = key.split('\\.')*.capitalize().join()
                 def camelizedKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
                 project.ext[camelizedKey] = value
