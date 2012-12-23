@@ -1,0 +1,26 @@
+ant.taskdef(name: 'sshexec', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.SSHExec',
+        classpath: configurations.jsch.asPath)
+
+ant.taskdef(name: 'scp', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
+        classpath: configurations.jsch.asPath)
+
+task deploy(dependsOn: ['updateDatabase', 'war']) {
+
+    doLast {
+        def tomcatHome = System.properties['tomcatHome']
+        def sshHost = System.properties['sshHost']
+        def sshPass = System.properties['sshPass']
+        def sshUser = System.properties['sshUser']
+
+        assert tomcatHome != null
+        assert sshHost != null
+        assert sshPass != null
+        assert sshUser != null
+
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/shutdown.sh")
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary.war")
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary")
+        ant.scp(file: war.archivePath.path, todir: "${sshUser}@${sshHost}:${tomcatHome}/webapps/lirenlibrary.war", password: sshPass, verbose: 'true')
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/startup.sh")
+    }
+}

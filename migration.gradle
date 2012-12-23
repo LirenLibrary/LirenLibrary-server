@@ -1,9 +1,5 @@
 import groovy.sql.Sql
 
-propertiesConfiguration {
-    load "${env}/database.properties"
-}
-
 ext {
     databaseMigrationBaseDir = 'database'
     liquibaseChangeLogFile = "${databaseMigrationBaseDir}/changelogs/changelog.xml"

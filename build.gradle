@@ -11,17 +11,21 @@ archivesBaseName = 'lirenlibrary'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-
 ext {
     junitVersion = '4.11'
     springVersion = '3.2.0.RC2'
     hibernateVersion = '4.1.8.Final'
-    env = envPath()
+    env = environment()
+}
+
+propertiesConfiguration {
+    load "env/${env}/database.properties"
 }
 
 configurations {
     liquibase
     mysql
+    jsch
     compile {extendsFrom mysql}
 }
 
@@ -45,7 +49,6 @@ dependencies {
             "org.freemarker:freemarker:2.3.19",
             "org.hibernate:hibernate-core:${hibernateVersion}",
             "org.hibernate:hibernate-entitymanager:${hibernateVersion}",
-            "cglib:cglib:2.2.2",
             "c3p0:c3p0:0.9.1.2",
             "com.sun.jersey:jersey-core:1.16",
             "com.sun.jersey:jersey-servlet:1.16",
@@ -57,14 +60,17 @@ dependencies {
             "log4j:log4j:1.2.17"
     )
 
-    compile()
-
     mysql(
             "mysql:mysql-connector-java:5.1.22"
     )
 
     liquibase(
             "org.liquibase:liquibase-core:2.0.5"
+    )
+
+    jsch(
+            "org.apache.ant:ant-jsch:1.8.4",
+            "com.jcraft:jsch:0.1.49"
     )
 
     providedRuntime(
@@ -82,7 +88,7 @@ dependencies {
 sourceSets {
     main {
         resources {
-            srcDir env
+            srcDir "env/${env}"
         }
     }
 }
@@ -94,11 +100,6 @@ def environment() {
     return env
 }
 
-def envPath() {
-    return "env/${environment()}"
-}
-
-
 jettyRun {
     httpPort 8080
     contextPath 'lirenlibrary'
@@ -109,3 +110,4 @@ task wrapper(type: Wrapper) {
 }
 
 apply from: 'migration.gradle'
+apply from: 'deployment.gradle'

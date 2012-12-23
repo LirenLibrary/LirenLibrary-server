@@ -35,6 +35,7 @@ public class AboutResources {
     private void prepareTestData() {
         aboutService.removeAll();
         aboutService.create(new About("metaphor", "Hello Metaphor!"));
+        aboutService.create(new About("mike1", "Hello Mike!"));
         aboutService.create(new About("jojo", "Hello JoJo!"));
     }
 
