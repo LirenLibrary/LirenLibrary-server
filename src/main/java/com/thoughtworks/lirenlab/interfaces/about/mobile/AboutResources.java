@@ -37,6 +37,8 @@ public class AboutResources {
         aboutService.create(new About("metaphor", "Hello Metaphor!"));
         aboutService.create(new About("mike1", "Hello Mike!"));
         aboutService.create(new About("jojo", "Hello JoJo!"));
+        aboutService.create(new About("jojo2", "Hello JoJo2!"));
+        aboutService.create(new About("jojo3", "Hello JoJo3!"));
     }
 
     private List<AboutDTO> toDTOs(List<About> abouts) {
