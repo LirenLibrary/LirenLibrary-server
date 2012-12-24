@@ -17,10 +17,10 @@ task deploy(dependsOn: ['updateDatabase', 'war']) {
         assert sshPass != null
         assert sshUser != null
 
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/shutdown.sh")
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary.war")
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary")
-        ant.scp(file: war.archivePath.path, todir: "${sshUser}@${sshHost}:${tomcatHome}/webapps/lirenlibrary.war", password: sshPass, verbose: 'true')
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/startup.sh")
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/shutdown.sh", trust: 'true')
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary.war", trust: 'true')
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary", trust: 'true')
+        ant.scp(file: war.archivePath.path, todir: "${sshUser}@${sshHost}:${tomcatHome}/webapps/lirenlibrary.war", password: sshPass, verbose: 'true', trust: 'true')
+        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/startup.sh", trust: 'true')
     }
 }
