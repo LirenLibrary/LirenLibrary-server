@@ -1,69 +1,101 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+
+import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "donations")
+@Access(AccessType.FIELD)
+
 public class Donation {
-    private String donationId;
-    private String donationStatus;
-    private String postAddress;
-    private String postReceiver;
-    private String postCode;
-    private String postReceiverMobile;
-    private List<Book> bookList;
 
-    public String getDonationId() {
-        return donationId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    private DonationStatus status;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "books", joinColumns = @JoinColumn(name = "donation_id"))
+    private List<Book> books;
+
+    @Column
+    @AttributeOverride(name = "value", column = @Column(name = "device_id"))
+    private DeviceId deviceId;
+
+    @Column(name = "created_date")
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    @Column(name = "updated_date")
+    @Temporal(value = TemporalType.TIMESTAMP)
+    private Date updatedDate;
+
+
+    public Donation(DeviceId deviceId, List<Book> books) {
+        this.deviceId = deviceId;
+        this.books = Lists.newArrayList(books);
+        this.updatedDate = new Date();
+        this.createdDate = new Date();
+        this.status = DonationStatus.NEW;
     }
 
-    public void setDonationId(String donationId) {
-        this.donationId = donationId;
+
+    /**
+     * Required By Hibernate
+     */
+    public Donation() {
     }
 
-    public String getDonationStatus() {
-        return donationStatus;
+    public DonationId id() {
+        Preconditions.checkState(this.id != null,
+                "Id has not been set. Donation Id is generated using database auto incremental.");
+        return new DonationId(this.id.toString());
     }
 
-    public void setDonationStatus(String donationStatus) {
-        this.donationStatus = donationStatus;
+    public DonationStatus status() {
+        return status;
     }
 
-    public String getPostAddress() {
-        return postAddress;
+    public DeviceId deviceId() {
+        return deviceId;
     }
 
-    public void setPostAddress(String postAddress) {
-        this.postAddress = postAddress;
+    public List<Book> books() {
+        return ImmutableList.copyOf(books);
     }
 
-    public String getPostReceiver() {
-        return postReceiver;
+    public Date createdDate() {
+        return createdDate;
     }
 
-    public void setPostReceiver(String postReceiver) {
-        this.postReceiver = postReceiver;
+
+    public Date updatedDate() {
+        return updatedDate;
     }
 
-    public String getPostCode() {
-        return postCode;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Donation donation = (Donation) o;
+
+        if (!id.equals(donation.id)) return false;
+
+        return true;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
-    }
-
-    public String getPostReceiverMobile() {
-        return postReceiverMobile;
-    }
-
-    public void setPostReceiverMobile(String postReceiverMobile) {
-        this.postReceiverMobile = postReceiverMobile;
-    }
-
-    public List<Book> getBookList() {
-        return bookList;
-    }
-
-    public void setBookList(List<Book> bookList) {
-        this.bookList = bookList;
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="createDonationAndBookTable" author="UNKNOWN">
+        <sql>
+            CREATE TABLE `donations` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `device_id` varchar(255) DEFAULT NULL,
+            `status` varchar(255) DEFAULT NULL,
+            `created_date` datetime DEFAULT NULL,
+            `updated_date` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+            CREATE TABLE `books` (
+            `donation_id` bigint(20) NOT NULL,
+            `ISBN` varchar(255) DEFAULT NULL,
+            `status` varchar(255) DEFAULT NULL,
+            KEY `FK_DONATION_ID` (`donation_id`),
+            CONSTRAINT `FK_DONATION_ID` FOREIGN KEY (`donation_id`) REFERENCES `donations` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+        </sql>
+
+        <rollback>
+            DROP TABLE `books`;
+            DROP TABLE `donations`;
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

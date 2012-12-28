@@ -1,0 +1,9 @@
+!!com.thoughtworks.lirenlab.domain.model.donation.Donation
+id: 1
+deviceId: { value: 'device12234' }
+status: NEW
+createdDate: 2012-12-28 15:01:42 +8
+updatedDate: 2012-12-28 15:01:42 +8
+books:
+    - {ISBN: '1234556', status: 'Denied'}
+    - {ISBN: '1234557', status: 'Denied'}

@@ -4,12 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <import resource="classpath:context-interfaces-web.xml"/>
-    <import resource="classpath:context-interfaces-mobile.xml"/>
-    <import resource="classpath:context-infrastructure-persistence.xml"/>
-    <import resource="classpath:context-domain.xml"/>
-
     <context:annotation-config  />
-    <context:component-scan base-package="com.thoughtworks.lirenlab"/>
+    <context:component-scan base-package="com.thoughtworks.lirenlab.infrastructure.factory"/>
 
 </beans>

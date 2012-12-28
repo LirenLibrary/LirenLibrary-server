@@ -131,5 +131,10 @@ private def dropUser(sql, user, host){
         logger.quiet "database user ${user} not exist."
     }
 }
+
+['dev', 'local', 'test'].each {
+    if(env == it) initDatabase.dependsOn 'dropDatabase'
+}
+
 updateDatabase.dependsOn 'initDatabase'
 test.dependsOn 'updateDatabase'
