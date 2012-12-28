@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping(value = "/donations")
 public class DonationController {
 
-
     private DonationServiceFacade donationServiceFacade;
 
     @Autowired

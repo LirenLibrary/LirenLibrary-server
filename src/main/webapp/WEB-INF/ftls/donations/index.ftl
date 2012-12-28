@@ -60,9 +60,9 @@
 <nav id="primary">
     <ul>
         <li class="active">
-            <a href="index.html">
+            <a href="${requestContext.contextPath}/donations/index">
                 <span class="icon32 love"></span>
-                捐赠
+                待审核
             </a>
         </li>
         <li>

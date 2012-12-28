@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "donations")
 @Access(AccessType.FIELD)
-
 public class Donation {
 
     @Id
