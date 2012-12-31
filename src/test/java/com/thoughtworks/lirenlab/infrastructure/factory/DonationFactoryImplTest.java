@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.infrastructure.factory;
 
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.*;
 import org.junit.Test;
 

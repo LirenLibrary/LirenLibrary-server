@@ -2,6 +2,7 @@ package com.thoughtworks.lirenlab.application;
 
 import com.google.common.collect.Lists;
 import com.thoughtworks.lirenlab.application.impl.DonationServiceImpl;
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.*;
 import org.junit.Before;
 import org.junit.Test;

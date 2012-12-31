@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.*;
 import org.hibernate.Query;
 import org.hibernate.Session;

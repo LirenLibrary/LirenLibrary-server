@@ -3,7 +3,7 @@ package com.thoughtworks.lirenlab.integration;
 import com.google.common.collect.Lists;
 import com.thoughtworks.lirenlab.application.DonationService;
 import com.thoughtworks.lirenlab.domain.model.donation.Book;
-import com.thoughtworks.lirenlab.domain.model.donation.DeviceId;
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import org.hibernate.SessionFactory;

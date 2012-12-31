@@ -7,5 +7,6 @@
 
     <include relativeToChangelogFile="true" file="changesets/createAboutTable.xml"/>
     <include relativeToChangelogFile="true" file="changesets/createDonationAndBookTable.xml"/>
+    <include relativeToChangelogFile="true" file="changesets/createDeviceTable.xml"/>
 
 </databaseChangeLog>

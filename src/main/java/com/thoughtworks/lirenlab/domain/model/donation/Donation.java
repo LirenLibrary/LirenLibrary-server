@@ -3,6 +3,7 @@ package com.thoughtworks.lirenlab.domain.model.donation;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 
 import javax.persistence.*;
 import java.util.Date;

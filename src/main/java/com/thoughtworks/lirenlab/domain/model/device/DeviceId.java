@@ -1,9 +1,10 @@
-package com.thoughtworks.lirenlab.domain.model.donation;
+package com.thoughtworks.lirenlab.domain.model.device;
 
 import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 @Embeddable
-public class DeviceId {
+public class DeviceId implements Serializable {
 
     private String value;
 
