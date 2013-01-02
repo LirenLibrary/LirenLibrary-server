@@ -68,30 +68,15 @@ task initDatabase {
 }
 
 initDatabase << {
+    logger.quiet "Initializing database ${dbConnectionUsername} ..."
 
     def sql = sql()
-
-    logger.quiet "Preparing database ${dbConnectionDatabase}..."
-    sql.execute 'CREATE DATABASE IF NOT EXISTS ' + dbConnectionDatabase + ' DEFAULT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI'
-
-    def result = sql.firstRow("SELECT COUNT(*) AS USERCOUNT FROM user WHERE User = ${dbConnectionUsername}")
-
-    if (result['USERCOUNT'] > 0) {
-        logger.quiet "Database user ${dbConnectionUsername} is already existed."
-
-    } else {
-        logger.quiet "Creating database user ${dbConnectionUsername} ..."
-        sql.execute "CREATE USER ${dbConnectionUsername}@'localhost' IDENTIFIED BY ${dbConnectionPassword}"
-        sql.execute "CREATE USER ${dbConnectionUsername}@'%' IDENTIFIED BY ${dbConnectionPassword}"
-    }
-
-    logger.quiet "Granting database privileges to user ${dbConnectionUsername}..."
-    sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'localhost'"
-    sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'%'"
+    prepareDatabase(sql)
+    prepareDatabaseUser(sql)
+    grantAccess(sql)
 
     logger.quiet "Database ${dbConnectionUsername} is ready."
 }
-
 
 task dropDatabase {
     description 'Drop database and user.'
@@ -106,6 +91,31 @@ dropDatabase << {
     logger.quiet "Dropping database user ${dbConnectionUsername}..."
     dropUser sql, dbConnectionUsername, '%'
     dropUser sql, dbConnectionUsername, 'localhost'
+}
+
+private void prepareDatabase(sql) {
+    logger.quiet "Preparing database ${dbConnectionDatabase}..."
+    sql.execute 'CREATE DATABASE IF NOT EXISTS ' + dbConnectionDatabase + ' DEFAULT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI'
+}
+
+
+private void prepareDatabaseUser(sql) {
+    def result = sql.firstRow("SELECT COUNT(*) AS USERCOUNT FROM user WHERE User = ${dbConnectionUsername}")
+
+    if (result['USERCOUNT'] > 0) {
+        logger.quiet "Database user ${dbConnectionUsername} is already existed."
+
+    } else {
+        logger.quiet "Creating database user ${dbConnectionUsername} ..."
+        sql.execute "CREATE USER ${dbConnectionUsername}@'localhost' IDENTIFIED BY ${dbConnectionPassword}"
+        sql.execute "CREATE USER ${dbConnectionUsername}@'%' IDENTIFIED BY ${dbConnectionPassword}"
+    }
+}
+
+private void grantAccess(sql) {
+    logger.quiet "Granting database privileges to user ${dbConnectionUsername}..."
+    sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'localhost'"
+    sql.execute "GRANT ALL ON " + dbConnectionDatabase + ".* TO ${dbConnectionUsername}@'%'"
 }
 
 private def sql() {
