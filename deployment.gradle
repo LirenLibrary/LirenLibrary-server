@@ -4,23 +4,47 @@ ant.taskdef(name: 'sshexec', classname: 'org.apache.tools.ant.taskdefs.optional.
 ant.taskdef(name: 'scp', classname: 'org.apache.tools.ant.taskdefs.optional.ssh.Scp',
         classpath: configurations.jsch.asPath)
 
+
+ext {
+    tomcatHome = System.properties['tomcatHome']
+    sshHost = System.properties['sshHost']
+    sshPass = System.properties['sshPass']
+    sshUser = System.properties['sshUser']
+
+}
+
 task deploy(dependsOn: ['updateDatabase', 'war']) {
 
     doLast {
-        def tomcatHome = System.properties['tomcatHome']
-        def sshHost = System.properties['sshHost']
-        def sshPass = System.properties['sshPass']
-        def sshUser = System.properties['sshUser']
-
         assert tomcatHome != null
         assert sshHost != null
         assert sshPass != null
         assert sshUser != null
 
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/shutdown.sh", trust: 'true')
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary.war", trust: 'true')
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "rm -rf ${tomcatHome}/webapps/lirenlibrary", trust: 'true')
-        ant.scp(file: war.archivePath.path, todir: "${sshUser}@${sshHost}:${tomcatHome}/webapps/lirenlibrary.war", password: sshPass, verbose: 'true', trust: 'true')
-        ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: "${tomcatHome}/bin/startup.sh", trust: 'true')
+        logger.quiet "Stopping remote server..."
+        sshexec "${tomcatHome}/bin/shutdown.sh"
+
+        def timeout = 3
+        logger.quiet "Waiting for ${timeout} seconds for remote server to be stopped..."
+        sleep timeout * 1000
+
+        logger.quiet "Undeploying on remote server..."
+        sshexec "rm -rf ${tomcatHome}/webapps/${war.baseName}*"
+
+        logger.quiet "Deploying ${war.archiveName} to remote server..."
+        scp war.archivePath.path, "${sshUser}@${sshHost}:${tomcatHome}/webapps/${war.archiveName}"
+
+        logger.quiet "Starting remote server..."
+        sshexec "${tomcatHome}/bin/startup.sh"
+
+        logger.quiet "Deploy successfully."
     }
+}
+
+private void scp(source, destination) {
+    ant.scp(file: source, todir: destination, password: sshPass, verbose: 'true', trust: 'true')
+}
+
+private void sshexec(command) {
+    ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: command, trust: 'true')
 }

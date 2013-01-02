@@ -102,6 +102,10 @@ def environment() {
     return env
 }
 
+war {
+    archiveName = 'lirenlibrary.war'
+}
+
 jettyRun {
     httpPort 8080
     contextPath 'lirenlibrary'
