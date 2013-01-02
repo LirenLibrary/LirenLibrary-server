@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="createDeviceTable" author="UNKNOWN">
+        <sql>
+            CREATE TABLE `devices` (
+            `id` varchar(255) NOT NULL,
+            `token` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql>
+
+        <rollback>
+            DROP TABLE `devices`;
+        </rollback>
+
+    </changeSet>
+
+</databaseChangeLog>

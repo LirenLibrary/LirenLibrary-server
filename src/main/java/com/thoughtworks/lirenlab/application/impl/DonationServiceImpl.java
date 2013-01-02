@@ -1,6 +1,7 @@
 package com.thoughtworks.lirenlab.application.impl;
 
 import com.thoughtworks.lirenlab.application.DonationService;
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
