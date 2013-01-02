@@ -14,10 +14,21 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+
         <property name="driverClass" value="${db.connection.driver}" />
         <property name="jdbcUrl" value="${db.connection.url}" />
         <property name="user" value="${db.connection.username}" />
         <property name="password" value="${db.connection.password}" />
+
+        <property name="minPoolSize" value="${db.min.pool.size}" />
+        <property name="maxPoolSize" value="${db.max.pool.size}"/>
+        <property name="initialPoolSize" value="${db.initial.pool.size}"/>
+        <property name="maxIdleTime" value="${db.max.idle.time}"/>
+        <property name="acquireIncrement" value="${db.acquire.increment}"/>
+
+        <property name="preferredTestQuery" value="${db.preferred.test.query}"/>
+        <property name="idleConnectionTestPeriod" value="${db.idle.connection.test.period}"/>
+
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
