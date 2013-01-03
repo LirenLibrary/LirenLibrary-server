@@ -8,8 +8,12 @@ public class DonationId implements Serializable {
 
     private String id;
 
-    public DonationId(String id) {
+    private DonationId(String id) {
         this.id = id;
+    }
+
+    public static DonationId donationId(String id) {
+        return new DonationId(id);
     }
 
     public String strValue() {

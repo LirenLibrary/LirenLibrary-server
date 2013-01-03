@@ -37,11 +37,11 @@ public class DonationRepositoryHibernateTest {
     public void should_save_donation_return_donation_id() throws Exception {
         Donation donation = mock(Donation.class);
 
-        when(donation.id()).thenReturn(new DonationId("12345"));
+        when(donation.id()).thenReturn(DonationId.donationId("12345"));
         when(sessionFactory.getCurrentSession()).thenReturn(session);
 
         DonationId actualDonationId = donationRepository.save(donation);
-        assertThat(actualDonationId, is(equalTo(new DonationId("12345"))));
+        assertThat(actualDonationId, is(equalTo(DonationId.donationId("12345"))));
 
         verify(session).saveOrUpdate(donation);
     }

@@ -9,5 +9,5 @@ public interface DonationServiceFacade {
 
     public List<DonationDTO> getNewDonations();
 
-    String newDonation(String deviceId, List<BookDTO> books);
+    public String newDonation(String deviceId, List<BookDTO> books);
 }

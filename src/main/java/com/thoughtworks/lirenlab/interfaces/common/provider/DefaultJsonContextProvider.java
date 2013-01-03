@@ -8,11 +8,6 @@ import javax.ws.rs.ext.Provider;
 
 import static org.codehaus.jackson.map.SerializationConfig.Feature.INDENT_OUTPUT;
 
-/**
- * User: zhengli
- * Date: 12/5/12
- */
-
 @Provider
 @Component
 public class DefaultJsonContextProvider implements ContextResolver<ObjectMapper> {

@@ -16,13 +16,15 @@ public class DeviceResourcesTest {
     public void can_register_device_push_token() throws Exception {
         DeviceServiceFacade deviceServiceFacade = mock(DeviceServiceFacade.class);
         DeviceResources deviceResources = new DeviceResources(deviceServiceFacade);
-        DeviceRegisterCommand command = new DeviceRegisterCommand();
+
         String deviceId = "1234";
-        command.setDeviceToken("some token");
 
-        Response response = deviceResources.register(deviceId, command);
+        DeviceRegisterRequest request = new DeviceRegisterRequest();
+        request.setDeviceToken("some token");
 
-        verify(deviceServiceFacade).registerDevice(deviceId, command.getDeviceToken());
+        Response response = deviceResources.register(deviceId, request);
+
+        verify(deviceServiceFacade).registerDevice(deviceId, request.getDeviceToken());
         assertThat(response.getStatus(), is(200));
     }
 }

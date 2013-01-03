@@ -21,14 +21,13 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public void registerPushToken(DeviceId deviceId, DeviceToken pushToken) {
+    public void register(DeviceId deviceId, DeviceToken pushToken) {
         Device device = this.deviceRepository.find(deviceId);
-        if (device != null)
-        {
+        if (device != null) {
             device.updateToken(pushToken);
             deviceRepository.update(device);
             return;
         }
-        this.deviceRepository.save(new Device(deviceId, pushToken));
+        this.deviceRepository.save(Device.device(deviceId, pushToken));
     }
 }

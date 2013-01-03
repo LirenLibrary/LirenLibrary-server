@@ -15,9 +15,13 @@ public class Device {
     @AttributeOverride(name = "token", column = @Column(name = "token"))
     private DeviceToken token;
 
-    public Device(DeviceId id, DeviceToken deviceToken) {
+    private Device(DeviceId id, DeviceToken deviceToken) {
         this.id = id;
         this.token = deviceToken;
+    }
+
+    public static Device device(DeviceId id, DeviceToken deviceToken) {
+        return new Device(id, deviceToken);
     }
 
     public DeviceId id() {
@@ -35,7 +39,7 @@ public class Device {
     /**
      * Required By Hibernate
      */
-    public Device() {
+    protected Device() {
     }
 
     @Override

@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 
 public class DonationResourcesTest {
 
+    public static final String URI_DONATIONS = "http://www.abc.com/donations";
     private DonationServiceFacade donationServiceFacade;
     private DonationResources donationResources;
     private UriInfo uriInfo;
@@ -31,20 +32,22 @@ public class DonationResourcesTest {
 
     @Test
     public void send_donation_request() throws Exception {
-
         NewDonationRequest newDonationRequest = new NewDonationRequest();
         BookDTO book = new BookDTO();
         book.setIsbn("isbn1234");
+        book.setTitle("title");
         newDonationRequest.addBook(book);
 
         String deviceId = "iphone5";
         String donationId = "id123";
-        when(donationServiceFacade.newDonation(eq("iphone5"), anyListOf(BookDTO.class))).thenReturn(donationId);
-        when(uriInfo.getRequestUriBuilder()).thenReturn(UriBuilder.fromPath("http://www.abc.com/donations"));
+        when(donationServiceFacade.newDonation(eq(deviceId), anyListOf(BookDTO.class))).thenReturn(donationId);
+        when(uriInfo.getRequestUriBuilder()).thenReturn(UriBuilder.fromPath(URI_DONATIONS));
+
         Response response = donationResources.newDonation(uriInfo, deviceId, newDonationRequest);
+
         assertThat(response.getStatus(), is(200));
         NewDonationResponse entity = (NewDonationResponse) response.getEntity();
         assertThat(entity.getDonationId(), is(donationId));
-        assertThat(entity.getLink(), is("http://www.abc.com/donations/" + donationId));
+        assertThat(entity.getLink(), is(URI_DONATIONS + "/" + donationId));
     }
 }

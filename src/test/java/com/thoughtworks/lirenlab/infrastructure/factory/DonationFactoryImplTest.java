@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.Assert.assertThat;
@@ -16,9 +17,8 @@ public class DonationFactoryImplTest {
     @Test
     public void should_create_donation() throws Exception {
         DonationFactory donationFactory = new DonationFactoryImpl();
-        DeviceId deviceId = DeviceId.deviceId("12345");
+        DeviceId deviceId = deviceId("12345");
         ArrayList<Book> books = newArrayList(Book.newBook("1234", "title"));
-
 
         Donation donation = donationFactory.createDonation(deviceId, books);
         assertThat(donation.deviceId(), is(equalTo(deviceId)));

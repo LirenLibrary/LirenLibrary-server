@@ -64,6 +64,7 @@ public class Book implements Serializable {
 
         if (!isbn.equals(book.isbn)) return false;
         if (status != book.status) return false;
+        if (!title.equals(book.title)) return false;
 
         return true;
     }
@@ -72,6 +73,7 @@ public class Book implements Serializable {
     public int hashCode() {
         int result = isbn.hashCode();
         result = 31 * result + status.hashCode();
+        result = 31 * result + title.hashCode();
         return result;
     }
 }

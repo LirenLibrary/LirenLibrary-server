@@ -1,20 +1,19 @@
 package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 
 import com.thoughtworks.lirenlab.domain.model.device.Device;
-import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceRepository;
-import com.thoughtworks.lirenlab.domain.model.device.DeviceToken;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.thoughtworks.lirenlab.domain.model.device.Device.device;
+import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
+import static com.thoughtworks.lirenlab.domain.model.device.DeviceToken.deviceToken;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class DeviceRepositoryHibernateTest {
 
@@ -34,7 +33,7 @@ public class DeviceRepositoryHibernateTest {
     @Test
     public void should_save_device() throws Exception {
         //Given
-        Device device = device("12234", "token");
+        Device device = device(deviceId("12234"), deviceToken("token"));
         when(sessionFactory.getCurrentSession()).thenReturn(session);
 
         //When
@@ -47,7 +46,7 @@ public class DeviceRepositoryHibernateTest {
     @Test
     public void should_update_device() throws Exception {
         //Given
-        Device device = device("12234", "token");
+        Device device = device(deviceId("12234"), deviceToken("token"));
         when(sessionFactory.getCurrentSession()).thenReturn(session);
 
         //When
@@ -60,20 +59,15 @@ public class DeviceRepositoryHibernateTest {
     @Test
     public void should_find_device_by_id() throws Exception {
         //Given
-        Device device = device("12234", "token");
+        Device device = device(deviceId("12234"), deviceToken("token"));
         when(sessionFactory.getCurrentSession()).thenReturn(session);
-        when(session.get(Device.class, DeviceId.deviceId("12234"))).thenReturn(device);
+        when(session.get(Device.class, deviceId("12234"))).thenReturn(device);
 
         //When
-        Device actualDevice = deviceRepository.find(DeviceId.deviceId("12234"));
+        Device actualDevice = deviceRepository.find(deviceId("12234"));
 
         //Then
         assertThat(actualDevice, is(equalTo(device)));
     }
 
-    private Device device(String id, String token) {
-        DeviceId deviceId = DeviceId.deviceId(id);
-        DeviceToken pushToken = new DeviceToken(token);
-        return new Device(deviceId, pushToken);
-    }
 }

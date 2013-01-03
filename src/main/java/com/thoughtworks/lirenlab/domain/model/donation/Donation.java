@@ -75,7 +75,7 @@ public class Donation {
     public DonationId id() {
         Preconditions.checkState(this.id != null,
                 "Id has not been set. Donation Id is generated using database auto incremental.");
-        return new DonationId(this.id.toString());
+        return DonationId.donationId(this.id.toString());
     }
 
     public DonationStatus status() {

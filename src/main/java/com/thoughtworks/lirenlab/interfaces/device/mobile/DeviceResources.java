@@ -2,7 +2,6 @@ package com.thoughtworks.lirenlab.interfaces.device.mobile;
 
 import com.thoughtworks.lirenlab.interfaces.device.facade.DeviceServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
@@ -25,8 +24,8 @@ public class DeviceResources {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(
             @HeaderParam("device_id") String deviceId,
-            DeviceRegisterCommand command) {
-        this.deviceServiceFacade.registerDevice(deviceId, command.getDeviceToken());
+            DeviceRegisterRequest request) {
+        this.deviceServiceFacade.registerDevice(deviceId, request.getDeviceToken());
         return Response.ok().build();
     }
 }
