@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.interfaces.donation.mobile;
 
+import com.thoughtworks.lirenlab.interfaces.common.provider.Versions;
 import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.DonationDTO;
 import org.springframework.stereotype.Component;
 
@@ -16,9 +17,8 @@ public class DonationResources {
 
     @GET
     @Path("/{id}")
-//    @Produces("application/vnd.liren-donation+json;charset=UTF-8")
-    @Produces(MediaType.APPLICATION_JSON)
-//    @Versions(version = {"v1"})
+    @Produces("application/vnd.liren-donation+json")
+    @Versions(version = {"v1"})
     public Response donation(@QueryParam("id") String id){
         return Response.status(200).entity(mockDonation(id)).build();
     }
