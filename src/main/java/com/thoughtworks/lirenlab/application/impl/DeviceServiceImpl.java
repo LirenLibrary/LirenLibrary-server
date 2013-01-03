@@ -1,5 +1,6 @@
-package com.thoughtworks.lirenlab.application;
+package com.thoughtworks.lirenlab.application.impl;
 
+import com.thoughtworks.lirenlab.application.DeviceService;
 import com.thoughtworks.lirenlab.domain.model.device.Device;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceRepository;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceToken;

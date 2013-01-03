@@ -16,8 +16,8 @@ public class DonationFactoryImplTest {
     @Test
     public void should_create_donation() throws Exception {
         DonationFactory donationFactory = new DonationFactoryImpl();
-        DeviceId deviceId = new DeviceId("12345");
-        ArrayList<Book> books = newArrayList(new Book("ISBN1", "Approved"));
+        DeviceId deviceId = DeviceId.deviceId("12345");
+        ArrayList<Book> books = newArrayList(Book.newBook("1234"));
 
 
         Donation donation = donationFactory.createDonation(deviceId, books);

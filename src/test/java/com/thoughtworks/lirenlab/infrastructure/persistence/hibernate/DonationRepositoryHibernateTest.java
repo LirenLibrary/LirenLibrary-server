@@ -49,9 +49,9 @@ public class DonationRepositoryHibernateTest {
     @Test
     public void should_return_new_donations() throws Exception {
 
-        DeviceId deviceId = new DeviceId("iPhone4-1234");
+        DeviceId deviceId = DeviceId.deviceId("iPhone4-1234");
         List<Book> books = newArrayList();
-        Donation donation = new Donation(deviceId, books);
+        Donation donation = Donation.donation(deviceId, books);
 
         when(sessionFactory.getCurrentSession()).thenReturn(session);
         when(session.createQuery("from Donation d where d.status = :status order by d.createdDate asc")).thenReturn(query);

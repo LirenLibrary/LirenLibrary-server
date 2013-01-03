@@ -1,9 +1,6 @@
 package com.thoughtworks.lirenlab.integration;
 
-import com.google.common.collect.Lists;
 import com.thoughtworks.lirenlab.application.DonationService;
-import com.thoughtworks.lirenlab.domain.model.donation.Book;
-import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import org.hibernate.SessionFactory;
@@ -16,15 +13,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-
-import static org.hamcrest.CoreMatchers.*;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:context.xml"})
-@TransactionConfiguration(defaultRollback = false)
+@TransactionConfiguration(defaultRollback = true)
 @Transactional
 public class DonationIntegrationTest {
 
@@ -36,13 +35,10 @@ public class DonationIntegrationTest {
 
     @Test
     public void should_request_donation() throws Exception {
-        Book abc = new Book("ISBN1234", "Approved");
-        ArrayList<Book> books = Lists.<Book>newArrayList(abc);
-        DeviceId deviceId = new DeviceId("12345");
-        DonationId donationId = donationService.requestDonation(deviceId, books);
+        DonationId donationId = donationService.requestDonation(deviceId("12345"), newArrayList(newBook("isbn12345")));
         Donation actual = donationById(donationId);
         assertThat(actual, not(nullValue()));
-        assertThat(actual.books(), hasItem(abc));
+        assertThat(actual.books(), hasItem(newBook("isbn12345")));
     }
 
     private Donation donationById(DonationId donationId) {

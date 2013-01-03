@@ -17,6 +17,6 @@ public class DeviceServiceFacadeTest {
         DeviceServiceFacade deviceServiceFacade = new DeviceServiceFacadeImpl(deviceService);
         deviceServiceFacade.registerDevice("iphone5", "iphone5LTE124");
 
-        verify(deviceService).registerPushToken(new DeviceId("iphone5"), new DeviceToken("iphone5LTE124"));
+        verify(deviceService).registerPushToken(DeviceId.deviceId("iphone5"), new DeviceToken("iphone5LTE124"));
     }
 }

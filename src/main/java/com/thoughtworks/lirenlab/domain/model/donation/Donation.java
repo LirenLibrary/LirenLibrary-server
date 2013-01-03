@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.*;
+
 @Entity
 @Table(name = "donations")
 @Access(AccessType.FIELD)
@@ -40,19 +42,34 @@ public class Donation {
     private Date updatedDate;
 
 
-    public Donation(DeviceId deviceId, List<Book> books) {
+    private Donation(DeviceId deviceId, List<Book> books) {
         this.deviceId = deviceId;
         this.books = Lists.newArrayList(books);
-        this.updatedDate = new Date();
         this.createdDate = new Date();
+        this.updatedDate = createdDate;
         this.status = DonationStatus.NEW;
     }
-
 
     /**
      * Required By Hibernate
      */
     public Donation() {
+    }
+
+    public static Donation donation(DeviceId deviceId, List<Book> books) {
+        return new Donation(deviceId, books);
+    }
+
+    public void approve(String isbn) {
+        Book book = booksOf(isbn);
+        books.remove(book);
+        books.add(approvedBook(isbn));
+    }
+
+    public void reject(String isbn) {
+        Book book = booksOf(isbn);
+        books.remove(book);
+        books.add(rejectedBook(isbn));
     }
 
     public DonationId id() {
@@ -73,10 +90,10 @@ public class Donation {
         return ImmutableList.copyOf(books);
     }
 
+
     public Date createdDate() {
         return createdDate;
     }
-
 
     public Date updatedDate() {
         return updatedDate;
@@ -97,5 +114,12 @@ public class Donation {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    private Book booksOf(String isbn) {
+        for (Book book : books) {
+            if (book.isbn().equals(isbn)) return book;
+        }
+        return null;
     }
 }

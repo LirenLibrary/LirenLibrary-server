@@ -13,6 +13,6 @@ public class DonationFactoryImpl implements DonationFactory {
 
     @Override
     public Donation createDonation(DeviceId deviceId, List<Book> books) {
-        return new Donation(deviceId, books);
+        return Donation.donation(deviceId, books);
     }
 }

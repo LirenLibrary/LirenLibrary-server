@@ -35,10 +35,10 @@ public class DonationServiceTest {
     @Test
     public void should_request_donation_return_donation_id() throws Exception {
         DonationId donationId = new DonationId("12345");
-        DeviceId deviceId = new DeviceId("iPhone4-1234");
+        DeviceId deviceId = DeviceId.deviceId("iPhone4-1234");
         List<Book> books = Lists.newArrayList();
 
-        Donation donation = new Donation(deviceId, books);
+        Donation donation = Donation.donation(deviceId, books);
         when(donationFactory.createDonation(deviceId, books)).thenReturn(donation);
         when(donationRepository.save(donation)).thenReturn(donationId);
 

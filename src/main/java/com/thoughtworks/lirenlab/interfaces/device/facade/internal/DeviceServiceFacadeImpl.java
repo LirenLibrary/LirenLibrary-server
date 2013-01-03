@@ -21,6 +21,6 @@ public class DeviceServiceFacadeImpl implements DeviceServiceFacade {
 
     @Override
     public void registerDevice(String deviceId, String deviceToken) {
-        this.deviceService.registerPushToken(new DeviceId(deviceId), new DeviceToken(deviceToken));
+        this.deviceService.registerPushToken(DeviceId.deviceId(deviceId), new DeviceToken(deviceToken));
     }
 }

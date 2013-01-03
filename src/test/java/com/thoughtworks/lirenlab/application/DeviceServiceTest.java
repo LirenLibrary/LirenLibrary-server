@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.application;
 
+import com.thoughtworks.lirenlab.application.impl.DeviceServiceImpl;
 import com.thoughtworks.lirenlab.domain.model.device.Device;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceRepository;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceToken;
@@ -28,7 +29,7 @@ public class DeviceServiceTest {
 
     @Test
     public void should_register_push_token_when_device_not_existed() throws Exception {
-        DeviceId deviceId = new DeviceId("12234");
+        DeviceId deviceId = DeviceId.deviceId("12234");
         DeviceToken pushToken = new DeviceToken("token");
 
         deviceService.registerPushToken(deviceId, pushToken);
@@ -39,7 +40,7 @@ public class DeviceServiceTest {
     @Test
     public void should_update_push_token_when_device_existed() throws Exception {
         //Given
-        DeviceId deviceId = new DeviceId("12234");
+        DeviceId deviceId = DeviceId.deviceId("12234");
         DeviceToken pushToken = new DeviceToken("token");
         Device device = new Device(deviceId, pushToken);
         when(deviceRepository.find(deviceId)).thenReturn(device);

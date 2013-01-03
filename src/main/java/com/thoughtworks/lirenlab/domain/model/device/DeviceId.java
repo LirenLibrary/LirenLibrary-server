@@ -12,6 +12,10 @@ public class DeviceId implements Serializable {
         this.value = value;
     }
 
+    public static DeviceId deviceId(String value) {
+        return new DeviceId(value);
+    }
+
 
     public String strValue() {
         return value;

@@ -1,16 +1,23 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.io.Serializable;
+
+import static com.thoughtworks.lirenlab.domain.model.donation.BookStatus.*;
 
 @Embeddable
 public class Book implements Serializable {
-    private String ISBN;
-    private String status;
+
+    @Column(name = "ISBN")
+    private String isbn;
+
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    private BookStatus status;
 
 
-    public Book(String ISBN, String status) {
-        this.ISBN = ISBN;
+    public Book(String isbn, BookStatus status) {
+        this.isbn = isbn;
         this.status = status;
     }
 
@@ -20,20 +27,24 @@ public class Book implements Serializable {
     public Book() {
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String isbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    public String getStatus() {
+    public BookStatus status() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public static Book approvedBook(String isbn) {
+        return new Book(isbn, APPROVED);
+    }
+
+    public static Book newBook(String isbn) {
+        return new Book(isbn, NEW);
+    }
+
+    public static Book rejectedBook(String isbn) {
+        return new Book(isbn, REJECTED);
     }
 
     @Override
@@ -43,15 +54,15 @@ public class Book implements Serializable {
 
         Book book = (Book) o;
 
-        if (!ISBN.equals(book.ISBN)) return false;
-        if (!status.equals(book.status)) return false;
+        if (!isbn.equals(book.isbn)) return false;
+        if (status != book.status) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = ISBN.hashCode();
+        int result = isbn.hashCode();
         result = 31 * result + status.hashCode();
         return result;
     }

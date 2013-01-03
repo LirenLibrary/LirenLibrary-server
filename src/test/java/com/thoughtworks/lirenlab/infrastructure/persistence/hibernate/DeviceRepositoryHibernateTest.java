@@ -62,17 +62,17 @@ public class DeviceRepositoryHibernateTest {
         //Given
         Device device = device("12234", "token");
         when(sessionFactory.getCurrentSession()).thenReturn(session);
-        when(session.get(Device.class, new DeviceId("12234"))).thenReturn(device);
+        when(session.get(Device.class, DeviceId.deviceId("12234"))).thenReturn(device);
 
         //When
-        Device actualDevice = deviceRepository.find(new DeviceId("12234"));
+        Device actualDevice = deviceRepository.find(DeviceId.deviceId("12234"));
 
         //Then
         assertThat(actualDevice, is(equalTo(device)));
     }
 
     private Device device(String id, String token) {
-        DeviceId deviceId = new DeviceId(id);
+        DeviceId deviceId = DeviceId.deviceId(id);
         DeviceToken pushToken = new DeviceToken(token);
         return new Device(deviceId, pushToken);
     }
