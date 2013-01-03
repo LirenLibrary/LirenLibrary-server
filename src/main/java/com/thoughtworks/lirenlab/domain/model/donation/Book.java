@@ -15,10 +15,14 @@ public class Book implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private BookStatus status;
 
+    @Column(name = "title")
+    private String title;
 
-    public Book(String isbn, BookStatus status) {
+
+    public Book(String isbn, String title, BookStatus status) {
         this.isbn = isbn;
         this.status = status;
+        this.title = title;
     }
 
     /**
@@ -35,16 +39,20 @@ public class Book implements Serializable {
         return status;
     }
 
-    public static Book approvedBook(String isbn) {
-        return new Book(isbn, APPROVED);
+    public String title() {
+        return title;
     }
 
-    public static Book newBook(String isbn) {
-        return new Book(isbn, NEW);
+    public static Book approvedBook(String isbn, String title) {
+        return new Book(isbn, title, APPROVED);
     }
 
-    public static Book rejectedBook(String isbn) {
-        return new Book(isbn, REJECTED);
+    public static Book newBook(String isbn, String title) {
+        return new Book(isbn, title, NEW);
+    }
+
+    public static Book rejectedBook(String isbn, String title) {
+        return new Book(isbn, title, REJECTED);
     }
 
     @Override

@@ -35,10 +35,10 @@ public class DonationIntegrationTest {
 
     @Test
     public void should_request_donation() throws Exception {
-        DonationId donationId = donationService.requestDonation(deviceId("12345"), newArrayList(newBook("isbn12345")));
+        DonationId donationId = donationService.newDonation(deviceId("12345"), newArrayList(newBook("isbn12345", "title")));
         Donation actual = donationById(donationId);
         assertThat(actual, not(nullValue()));
-        assertThat(actual.books(), hasItem(newBook("isbn12345")));
+        assertThat(actual.books(), hasItem(newBook("isbn12345", "title")));
     }
 
     private Donation donationById(DonationId donationId) {

@@ -12,16 +12,16 @@ public class BookTest {
 
     @Test
     public void book_equals_by_isbn_and_book_status() throws Exception {
-        assertThat(newBook("ISBN1"), is(newBook(("ISBN1"))));
+        assertThat(newBook("ISBN1", "title"), is(newBook(("ISBN1"), "title")));
     }
 
     @Test
     public void book_not_equal_when_isbn_not_equal() throws Exception {
-        assertThat(newBook(("ISBN2")), not(newBook(("ISBN1"))));
+        assertThat(newBook(("ISBN2"), "title"), not(newBook(("ISBN1"), "title")));
     }
 
     @Test
     public void book_not_equal_when_status_not_equal() throws Exception {
-        assertThat(newBook(("ISBN1")), not(approvedBook(("ISBN1"))));
+        assertThat(newBook(("ISBN1"), "title"), not(approvedBook(("ISBN1"), "title")));
     }
 }

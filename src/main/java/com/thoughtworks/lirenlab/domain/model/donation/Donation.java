@@ -63,13 +63,13 @@ public class Donation {
     public void approve(String isbn) {
         Book book = booksOf(isbn);
         books.remove(book);
-        books.add(approvedBook(isbn));
+        books.add(approvedBook(isbn, "title"));
     }
 
     public void reject(String isbn) {
         Book book = booksOf(isbn);
         books.remove(book);
-        books.add(rejectedBook(isbn));
+        books.add(rejectedBook(isbn, "title"));
     }
 
     public DonationId id() {

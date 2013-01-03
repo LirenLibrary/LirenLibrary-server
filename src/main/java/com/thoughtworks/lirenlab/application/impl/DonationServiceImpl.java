@@ -24,7 +24,7 @@ public class DonationServiceImpl implements DonationService {
     }
 
     @Override
-    public DonationId requestDonation(DeviceId deviceId, List<Book> books) {
+    public DonationId newDonation(DeviceId deviceId, List<Book> books) {
         Donation donation = donationFactory.createDonation(deviceId, books);
         DonationId donationId = donationRepository.save(donation);
         return donationId;

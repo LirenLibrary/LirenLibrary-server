@@ -1,10 +1,27 @@
 package com.thoughtworks.lirenlab.interfaces.donation.facade.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DonationDTO {
 
     private String id;
     private String createdDate;
     private Integer bookAmount;
+
+    public List<BookDTO> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookDTO> books) {
+        this.books = books;
+    }
+
+    private List<BookDTO> books;
+
+    public DonationDTO() {
+        books = new ArrayList<BookDTO>();
+    }
 
     public String getId() {
         return id;

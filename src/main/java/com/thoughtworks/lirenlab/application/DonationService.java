@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface DonationService {
 
-    public DonationId requestDonation(DeviceId deviceId, List<Book> books);
+    public DonationId newDonation(DeviceId deviceId, List<Book> books);
 
 }

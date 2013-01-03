@@ -42,7 +42,7 @@ public class DonationServiceTest {
         when(donationFactory.createDonation(deviceId, books)).thenReturn(donation);
         when(donationRepository.save(donation)).thenReturn(donationId);
 
-        DonationId actualDonationId = donationService.requestDonation(deviceId, books);
+        DonationId actualDonationId = donationService.newDonation(deviceId, books);
 
         assertThat(actualDonationId, is(equalTo(donationId)));
     }
