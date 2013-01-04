@@ -1,6 +1,6 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
-import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
@@ -9,7 +9,10 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-import static com.thoughtworks.lirenlab.domain.model.donation.Book.*;
+import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.collect.Iterables.find;
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.approvedBook;
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
 
 @Entity
 @Table(name = "donations")
@@ -61,19 +64,19 @@ public class Donation {
     }
 
     public void approve(String isbn) {
-        Book book = booksOf(isbn);
+        Book book = find(books, byISBN(isbn));
         books.remove(book);
-        books.add(approvedBook(isbn, "title"));
+        books.add(approvedBook(book.isbn(), book.title()));
     }
 
     public void reject(String isbn) {
-        Book book = booksOf(isbn);
+        Book book = find(books, byISBN(isbn));
         books.remove(book);
-        books.add(rejectedBook(isbn, "title"));
+        books.add(rejectedBook(book.isbn(), book.title()));
     }
 
     public DonationId id() {
-        Preconditions.checkState(this.id != null,
+        checkState(this.id != null,
                 "Id has not been set. Donation Id is generated using database auto incremental.");
         return DonationId.donationId(this.id.toString());
     }
@@ -99,6 +102,19 @@ public class Donation {
         return updatedDate;
     }
 
+    private Book booksOf(final String isbn) {
+        return find(books, byISBN(isbn));
+    }
+
+    private Predicate<Book> byISBN(final String isbn) {
+        return new Predicate<Book>() {
+            @Override
+            public boolean apply(Book book) {
+                return book.isbn().equals(isbn);
+            }
+        };
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,12 +130,5 @@ public class Donation {
     @Override
     public int hashCode() {
         return id.hashCode();
-    }
-
-    private Book booksOf(String isbn) {
-        for (Book book : books) {
-            if (book.isbn().equals(isbn)) return book;
-        }
-        return null;
     }
 }

@@ -18,7 +18,6 @@ public class DonationServiceImpl implements DonationService {
 
     @Autowired
     public DonationServiceImpl(final DonationRepository donationRepository,final DonationFactory donationFactory) {
-
         this.donationRepository = donationRepository;
         this.donationFactory = donationFactory;
     }

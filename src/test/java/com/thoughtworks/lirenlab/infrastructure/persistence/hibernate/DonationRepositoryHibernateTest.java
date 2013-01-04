@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -37,11 +38,11 @@ public class DonationRepositoryHibernateTest {
     public void should_save_donation_return_donation_id() throws Exception {
         Donation donation = mock(Donation.class);
 
-        when(donation.id()).thenReturn(DonationId.donationId("12345"));
+        when(donation.id()).thenReturn(donationId("12345"));
         when(sessionFactory.getCurrentSession()).thenReturn(session);
 
         DonationId actualDonationId = donationRepository.save(donation);
-        assertThat(actualDonationId, is(equalTo(DonationId.donationId("12345"))));
+        assertThat(actualDonationId, is(equalTo(donationId("12345"))));
 
         verify(session).saveOrUpdate(donation);
     }

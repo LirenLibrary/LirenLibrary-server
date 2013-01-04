@@ -1,7 +1,5 @@
 package com.thoughtworks.lirenlab.interfaces.donation.facade.internal;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Iterables;
 import com.thoughtworks.lirenlab.application.DonationService;
 import com.thoughtworks.lirenlab.domain.model.donation.Book;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 
 @Service
@@ -36,19 +33,15 @@ public class DonationServiceFacadeImpl implements DonationServiceFacade {
 
     @Override
     public List<DonationDTO> getNewDonations() {
-        return assembler.toDTO(donationRepository.newDonations());
+        return assembler.toDonationDTOs(donationRepository.newDonations());
     }
 
     @Override
     public String newDonation(String deviceId, final List<BookDTO> bookDTOs) {
-        Iterable<Book> books = Iterables.transform(bookDTOs, new Function<BookDTO, Book>() {
-            @Override
-            public Book apply(BookDTO input) {
-               return Book.newBook(input.getIsbn(), input.getTitle());
-            }
-        });
+        List<Book> books = assembler.fromBookDTOs(bookDTOs);
 
-        DonationId donationId = donationService.newDonation(deviceId(deviceId), newArrayList(books));
+        DonationId donationId = donationService.newDonation(deviceId(deviceId), books);
         return donationId.strValue();
     }
+
 }

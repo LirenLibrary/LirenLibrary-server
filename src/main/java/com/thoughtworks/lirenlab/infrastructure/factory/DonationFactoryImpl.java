@@ -8,11 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+import static com.thoughtworks.lirenlab.domain.model.donation.Donation.donation;
+
 @Component
 public class DonationFactoryImpl implements DonationFactory {
 
     @Override
     public Donation createDonation(DeviceId deviceId, List<Book> books) {
-        return Donation.donation(deviceId, books);
+        return donation(deviceId, books);
     }
 }
