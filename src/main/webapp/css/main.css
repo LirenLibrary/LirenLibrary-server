@@ -79,7 +79,8 @@ nav#secondary {
   background: url(../img/nav_secondary_bg.png);
   float: left;
   height: 100%;
-  width: 254px;
+  overflow-y: scroll;
+  min-width: 254px;
 }
 
 nav#secondary ul {
