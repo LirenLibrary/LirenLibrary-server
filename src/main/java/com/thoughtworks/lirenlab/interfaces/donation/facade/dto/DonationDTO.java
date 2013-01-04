@@ -6,7 +6,7 @@ import java.util.List;
 public class DonationDTO {
 
     private String id;
-    private String createdDate;
+    private Long createdTimeStamp;
     private Integer bookAmount;
     private List<BookDTO> books;
 
@@ -30,19 +30,19 @@ public class DonationDTO {
         this.id = id;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public Integer getBookAmount() {
         return bookAmount;
     }
 
     public void setBookAmount(Integer bookAmount) {
         this.bookAmount = bookAmount;
+    }
+
+    public Long getCreatedTimeStamp() {
+        return createdTimeStamp;
+    }
+
+    public void setCreatedTimeStamp(Long createdTimeStamp) {
+        this.createdTimeStamp = createdTimeStamp;
     }
 }

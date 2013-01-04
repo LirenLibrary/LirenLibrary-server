@@ -90,7 +90,7 @@
 <nav id="secondary">
     <ul class="book-order">
         <#list donations as donation>
-            <li><a href="#">${donation.createdDate}<label class="number">${donation.bookAmount}</label></a></li>
+            <li><a href="#">${donation.createdTimeStamp?number_to_datetime?string('MM/dd/yyyy HH:mm')}<label class="number">${donation.bookAmount}</label></a></li>
         </#list>
 </ul>
 </nav>

@@ -37,7 +37,7 @@ public class DonationDTOAssembler {
             public DonationDTO apply(Donation donation) {
                 DonationDTO donationDTO = new DonationDTO();
                 donationDTO.setId(donation.id().strValue());
-                donationDTO.setCreatedDate(donation.createdDate().toString());
+                donationDTO.setCreatedTimeStamp(donation.createdDate().getTime());
                 donationDTO.setBookAmount(donation.books().size());
                 donationDTO.setBooks(transform(donation.books(), toBookDTOFunction()));
                 return donationDTO;
