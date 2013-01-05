@@ -7,11 +7,15 @@ angular.module('donation', ['donationService']).
 
     });
 
-function DonationsCtrl($scope, mockData) {
-    $scope.donations = mockData.getDonations();
-    $scope.books = $scope.donations[0].books;
+function DonationsCtrl($scope, Donations) {
+    Donations.get(function(donations){
+        $scope.donations = donations;
+        $scope.books = donations[0].books;
+    });
 }
 
-function BooksCtrl($scope, $routeParams, mockData){
-    $scope.books = mockData.getBooksById($routeParams.donationId)
+function BooksCtrl($scope, $routeParams, Donation){
+    Donation.get($routeParams.donationId, function(donation){
+        $scope.books = donation.books;
+    });
 }

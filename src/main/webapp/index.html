@@ -98,8 +98,8 @@
         <ul class="book-order">
             <li ng-repeat="donation in donations">
                 <a href="#/donation/{{donation.id}}">
-                    {{donation.date}}
-                    <label class="number">{{donation.num}}</label>
+                    {{donation.createdDate}}
+                    <label class="number">{{donation.bookAmount}}</label>
                 </a>
             </li>
         </ul>

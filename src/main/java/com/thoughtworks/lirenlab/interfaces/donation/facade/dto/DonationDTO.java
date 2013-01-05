@@ -7,6 +7,7 @@ public class DonationDTO {
 
     private String id;
     private Long createdTimeStamp;
+    private String createdDate;
     private Integer bookAmount;
     private List<BookDTO> books;
 
@@ -44,5 +45,13 @@ public class DonationDTO {
 
     public void setCreatedTimeStamp(Long createdTimeStamp) {
         this.createdTimeStamp = createdTimeStamp;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 }
