@@ -6,3 +6,5 @@ build
 buildSrc/build
 buildSrc/.gradle
 out
+logs
+*.log
