@@ -2,14 +2,19 @@ package com.thoughtworks.lirenlab.interfaces.donation.mobile;
 
 import com.thoughtworks.lirenlab.interfaces.donation.facade.DonationServiceFacade;
 import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.BookDTO;
+import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.DonationDTO;
+import com.thoughtworks.lirenlab.utils.Fixtures;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
@@ -52,16 +57,16 @@ public class DonationResourcesTest {
     }
 
     @Test
-    public void get_donation_by_id() throws Exception {
-//        String donationId = "id123";
-//        when(donationServiceFacade.getDonationById(donationId)).thenReturn(new ArrayList<DonationDTO>());
-//        when(uriInfo.getRequestUriBuilder()).thenReturn(UriBuilder.fromPath(URI_DONATIONS));
-//
-//        Response response = donationResources.newDonation(uriInfo, deviceId, newDonationRequest);
-//
-//        assertThat(response.getStatus(), is(200));
-//        NewDonationResponse entity = (NewDonationResponse) response.getEntity();
-//        assertThat(entity.getDonationId(), is(donationId));
-//        assertThat(entity.getLink(), is(URI_DONATIONS + "/" + donationId));
+    public void get_donations_of_specified_device() throws Exception {
+
+        DonationDTO donationDTO = Fixtures.loadDonationDTO("basic_1");
+        String deviceId = "iphone5";
+
+        when(donationServiceFacade.getDonationsOfDevice(deviceId)).thenReturn(newArrayList(donationDTO));
+
+        Response response = donationResources.donationsOfDevice(deviceId);
+
+        assertThat(response.getStatus(), is(200));
+        assertThat((List<DonationDTO>)response.getEntity(), hasItem(donationDTO));
     }
 }

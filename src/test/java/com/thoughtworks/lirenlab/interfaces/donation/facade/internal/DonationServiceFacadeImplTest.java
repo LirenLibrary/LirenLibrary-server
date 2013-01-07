@@ -8,6 +8,8 @@ import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.DonationDTO;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
@@ -51,6 +53,16 @@ public class DonationServiceFacadeImplTest {
         DonationDTO result = donationServiceFacade.getDonationById(donation.id().strValue());
 
         assertThat(result.getId(), is(donation.id().strValue()));
+    }
+
+    @Test
+    public void get_donations_by_device_id() throws Exception {
+        Donation donation = loadDonation("id_1");
+        when(donationRepository.find(donation.deviceId())).thenReturn(newArrayList(donation));
+
+        List<DonationDTO> result = donationServiceFacade.getDonationsOfDevice(donation.deviceId().strValue());
+
+        assertThat(result.get(0).getId(), is(donation.id().strValue()));
     }
 
 }

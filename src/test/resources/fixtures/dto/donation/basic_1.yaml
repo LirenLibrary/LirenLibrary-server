@@ -1,9 +1,9 @@
 !!com.thoughtworks.lirenlab.interfaces.donation.facade.dto.DonationDTO
 
 id: '99999'
-createdDate: '2013-01-07 13:48:08'
 createdTimeStamp: 1357537688640
 bookAmount: 2
+status: NEW
 
 books:
 - {isbn: isbn1, status: NEW, title: title1}

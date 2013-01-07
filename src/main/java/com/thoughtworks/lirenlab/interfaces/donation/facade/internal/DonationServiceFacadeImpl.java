@@ -52,4 +52,10 @@ public class DonationServiceFacadeImpl implements DonationServiceFacade {
         return assembler.toDonationDTO(donation);
     }
 
+    @Override
+    public List<DonationDTO> getDonationsOfDevice(String deviceId) {
+        List<Donation> donations = donationRepository.find(deviceId(deviceId));
+        return assembler.toDonationDTOs(donations);
+    }
+
 }

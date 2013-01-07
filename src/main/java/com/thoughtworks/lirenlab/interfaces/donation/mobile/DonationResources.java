@@ -61,4 +61,13 @@ public class DonationResources {
         newDonationResponse.setLink(link);
         return Response.ok().entity(newDonationResponse).build();
     }
+
+    @GET
+    @Path("/device")
+    @Produces("application/vnd.liren-donations+json")
+    @Versions(version = {"v1"})
+    public Response donationsOfDevice(@HeaderParam("device_id") String deviceId) {
+        List<DonationDTO> donationsOfDevice = donationServiceFacade.getDonationsOfDevice(deviceId);
+        return Response.ok().entity(donationsOfDevice).build();
+    }
 }
