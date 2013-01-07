@@ -1,6 +1,5 @@
 package com.thoughtworks.lirenlab.interfaces.donation.mobile;
 
-import com.google.common.collect.Collections2;
 import com.thoughtworks.lirenlab.interfaces.common.provider.Versions;
 import com.thoughtworks.lirenlab.interfaces.donation.facade.DonationServiceFacade;
 import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.BookDTO;
@@ -36,7 +35,7 @@ public class DonationResources {
     }
 
     @GET
-    @Path("donations")
+    @Path("donations/list")
     @Produces("application/vnd.liren-donations+json")
     @Versions(version = {"v1"})
     public Response donations() {

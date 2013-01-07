@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
@@ -30,6 +31,13 @@ public class DonationRepositoryHibernate extends HibernateRepository implements 
                 .createQuery("from Donation d where d.id = :id")
                 .setParameter("id", id.longValue())
                 .uniqueResult();
+    }
+
+    @Override
+    public List<Donation> find(DeviceId deviceId) {
+        return currentSession()
+                .createQuery("from Donation d where d.deviceId = :deviceId order by d.createdDate asc")
+                .setParameter("deviceId", deviceId).list();
     }
 
 

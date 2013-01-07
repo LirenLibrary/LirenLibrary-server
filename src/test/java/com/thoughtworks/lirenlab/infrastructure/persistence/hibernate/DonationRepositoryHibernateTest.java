@@ -70,4 +70,15 @@ public class DonationRepositoryHibernateTest {
 
         assertThat(actual.id(), is(donation.id()));
     }
+
+    @Test
+    public void should_find_by_device_id() throws Exception {
+        when(session.createQuery("from Donation d where d.deviceId = :deviceId order by d.createdDate asc")).thenReturn(query);
+        when(query.setParameter("deviceId", donation.deviceId())).thenReturn(query);
+        when(query.list()).thenReturn(newArrayList(donation));
+
+        List<Donation> donations = donationRepository.find(donation.deviceId());
+
+        assertThat(donations, hasItem(donation));
+    }
 }

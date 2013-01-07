@@ -1,5 +1,7 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
+import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
+
 import java.util.List;
 
 public interface DonationRepository {
@@ -9,4 +11,6 @@ public interface DonationRepository {
     List<Donation> newDonations();
 
     Donation find(DonationId id);
+
+    List<Donation> find(DeviceId deviceId);
 }
