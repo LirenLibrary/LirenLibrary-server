@@ -26,7 +26,7 @@ describe('Liren server side admin page', function () {
             element('.book-order li a:first').click();
 
             //then
-            expect(browser().location().url()).toBe('/donation/1');
+            expect(browser().location().url()).toMatch(/\/donations\/\d/);
             expect(repeater('tr').count()).toBeGreaterThan(1);
         });
     });
