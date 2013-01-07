@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -47,8 +46,9 @@ public class DonationResources {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes("application/vnd.liren-donation-submit-request+json")
+    @Produces("application/vnd.liren-donation-submit-response+json")
+    @Versions(version = {"v1"})
     public Response newDonation(
             @Context UriInfo uriInfo,
             @HeaderParam("device_id") String deviceId,
