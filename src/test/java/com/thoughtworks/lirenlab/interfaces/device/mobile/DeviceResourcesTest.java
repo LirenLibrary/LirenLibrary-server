@@ -13,7 +13,7 @@ import static org.mockito.Mockito.verify;
 public class DeviceResourcesTest {
 
     @Test
-    public void can_register_device_push_token() throws Exception {
+    public void can_register_device_with_device_token() throws Exception {
         DeviceServiceFacade deviceServiceFacade = mock(DeviceServiceFacade.class);
         DeviceResources deviceResources = new DeviceResources(deviceServiceFacade);
 

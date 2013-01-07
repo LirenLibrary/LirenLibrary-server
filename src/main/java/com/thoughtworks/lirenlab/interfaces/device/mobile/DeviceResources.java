@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Component
-@Path("/device")
+@Path("/devices")
 public class DeviceResources {
 
     private final DeviceServiceFacade deviceServiceFacade;
@@ -20,7 +20,6 @@ public class DeviceResources {
     }
 
     @POST
-    @Path("new")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(
             @HeaderParam("device_id") String deviceId,

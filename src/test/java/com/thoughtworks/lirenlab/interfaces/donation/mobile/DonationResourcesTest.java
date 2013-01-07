@@ -31,7 +31,7 @@ public class DonationResourcesTest {
     }
 
     @Test
-    public void send_donation_request() throws Exception {
+    public void submit_donation_request() throws Exception {
         NewDonationRequest newDonationRequest = new NewDonationRequest();
         BookDTO book = new BookDTO();
         book.setIsbn("isbn1234");
