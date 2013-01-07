@@ -17,6 +17,10 @@ public class DonationDTOAssembler {
         return transform(donations, toDonationDTOFunction());
     }
 
+    public DonationDTO toDonationDTO(Donation donation) {
+        return toDonationDTOFunction().apply(donation);
+    }
+
     public List<Book> fromBookDTOs(List<BookDTO> bookDTOs) {
         return transform(bookDTOs, fromBookDTOFunction());
     }
@@ -37,6 +41,7 @@ public class DonationDTOAssembler {
             public DonationDTO apply(Donation donation) {
                 DonationDTO donationDTO = new DonationDTO();
                 donationDTO.setId(donation.id().strValue());
+                donationDTO.setStatus(donation.status().toString());
                 donationDTO.setCreatedTimeStamp(donation.createdDate().getTime());
                 donationDTO.setBookAmount(donation.books().size());
                 donationDTO.setBooks(transform(donation.books(), toBookDTOFunction()));

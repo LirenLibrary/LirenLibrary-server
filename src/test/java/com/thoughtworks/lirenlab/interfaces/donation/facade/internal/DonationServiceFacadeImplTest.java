@@ -1,8 +1,10 @@
 package com.thoughtworks.lirenlab.interfaces.donation.facade.internal;
 
 import com.thoughtworks.lirenlab.application.DonationService;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
 import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.BookDTO;
+import com.thoughtworks.lirenlab.interfaces.donation.facade.dto.DonationDTO;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,6 +12,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
+import static com.thoughtworks.lirenlab.utils.Fixtures.loadDonation;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -39,4 +42,15 @@ public class DonationServiceFacadeImplTest {
 
         assertThat(donationId, is("12345"));
     }
+
+    @Test
+    public void get_donation_by_id() throws Exception {
+        Donation donation = loadDonation("id_1");
+        when(donationRepository.find(donation.id())).thenReturn(donation);
+
+        DonationDTO result = donationServiceFacade.getDonationById(donation.id().strValue());
+
+        assertThat(result.getId(), is(donation.id().strValue()));
+    }
+
 }

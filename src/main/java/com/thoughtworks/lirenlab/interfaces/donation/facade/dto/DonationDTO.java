@@ -1,14 +1,25 @@
 package com.thoughtworks.lirenlab.interfaces.donation.facade.dto;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class DonationDTO {
 
+    @JsonProperty("donation_id")
     private String id;
+
+    @JsonProperty("donation_status")
+    private String status;
+
+    @JsonProperty("donation_time")
     private Long createdTimeStamp;
-    private String createdDate;
+
+    @JsonProperty("donation_item_count")
     private Integer bookAmount;
+
+    @JsonProperty("books")
     private List<BookDTO> books;
 
     public DonationDTO() {
@@ -47,11 +58,11 @@ public class DonationDTO {
         this.createdTimeStamp = createdTimeStamp;
     }
 
-    public String getCreatedDate() {
-        return createdDate;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCreatedDate(String createdDate) {
-        this.createdDate = createdDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

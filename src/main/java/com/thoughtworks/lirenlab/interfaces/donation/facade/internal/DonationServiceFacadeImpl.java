@@ -2,6 +2,7 @@ package com.thoughtworks.lirenlab.interfaces.donation.facade.internal;
 
 import com.thoughtworks.lirenlab.application.DonationService;
 import com.thoughtworks.lirenlab.domain.model.donation.Book;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
 import com.thoughtworks.lirenlab.interfaces.donation.facade.DonationServiceFacade;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
 
 @Service
 @Transactional
@@ -42,6 +44,12 @@ public class DonationServiceFacadeImpl implements DonationServiceFacade {
 
         DonationId donationId = donationService.newDonation(deviceId(deviceId), books);
         return donationId.strValue();
+    }
+
+    @Override
+    public DonationDTO getDonationById(String id) {
+        Donation donation = donationRepository.find(donationId(id));
+        return assembler.toDonationDTO(donation);
     }
 
 }

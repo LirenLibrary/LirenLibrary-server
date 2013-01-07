@@ -10,4 +10,6 @@ public interface DonationServiceFacade {
     public List<DonationDTO> getNewDonations();
 
     public String newDonation(String deviceId, List<BookDTO> books);
+
+    DonationDTO getDonationById(String id);
 }

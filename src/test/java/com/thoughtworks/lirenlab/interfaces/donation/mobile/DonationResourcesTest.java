@@ -31,7 +31,7 @@ public class DonationResourcesTest {
     }
 
     @Test
-    public void submit_donation_request() throws Exception {
+    public void create_new_donation() throws Exception {
         NewDonationRequest newDonationRequest = new NewDonationRequest();
         BookDTO book = new BookDTO();
         book.setIsbn("isbn1234");
@@ -49,5 +49,19 @@ public class DonationResourcesTest {
         NewDonationResponse entity = (NewDonationResponse) response.getEntity();
         assertThat(entity.getDonationId(), is(donationId));
         assertThat(entity.getLink(), is(URI_DONATIONS + "/" + donationId));
+    }
+
+    @Test
+    public void get_donation_by_id() throws Exception {
+//        String donationId = "id123";
+//        when(donationServiceFacade.getDonationById(donationId)).thenReturn(new ArrayList<DonationDTO>());
+//        when(uriInfo.getRequestUriBuilder()).thenReturn(UriBuilder.fromPath(URI_DONATIONS));
+//
+//        Response response = donationResources.newDonation(uriInfo, deviceId, newDonationRequest);
+//
+//        assertThat(response.getStatus(), is(200));
+//        NewDonationResponse entity = (NewDonationResponse) response.getEntity();
+//        assertThat(entity.getDonationId(), is(donationId));
+//        assertThat(entity.getLink(), is(URI_DONATIONS + "/" + donationId));
     }
 }

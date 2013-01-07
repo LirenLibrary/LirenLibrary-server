@@ -12,11 +12,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Path("/")
+@Path("/donations")
 public class DonationResources {
 
     private final DonationServiceFacade donationServiceFacade;
@@ -27,63 +26,26 @@ public class DonationResources {
     }
 
     @GET
-    @Path("donation/{id}")
+    @Path("{id:\\d+}")
     @Produces("application/vnd.liren-donation+json")
     @Versions(version = {"v1"})
-    public Response donation(@QueryParam("id") String id) {
-        return Response.status(200).entity(mockDonations().get(1)).build();
+    public Response donation(@PathParam("id") String id) {
+        DonationDTO donation = donationServiceFacade.getDonationById(id);
+        return Response.status(200).entity(donation).build();
     }
 
     @GET
-    @Path("donations/list")
     @Produces("application/vnd.liren-donations+json")
     @Versions(version = {"v1"})
-    public Response donations() {
-        return Response.status(200).entity(mockDonations()).build();
+    public Response donations(@QueryParam("status") String status) {
+        if ("new".equals(status)) {
+            List<DonationDTO> newDonations = donationServiceFacade.getNewDonations();
+            return Response.ok().entity(newDonations).build();
+        }
+
+        return Response.noContent().build();
     }
 
-
-    // Todo create db entity and data logic when come to the releated story, Here Just using mock data
-    private List<DonationDTO> mockDonations() {
-        BookDTO bookDTO1 = new BookDTO();
-        bookDTO1.setIsbn("123");
-        bookDTO1.setTitle("Foo");
-
-        BookDTO bookDTO2 = new BookDTO();
-        bookDTO2.setIsbn("456");
-        bookDTO2.setTitle("Bar");
-
-        ArrayList<BookDTO> bookDTOs = new ArrayList<BookDTO>();
-        bookDTOs.add(bookDTO1);
-        bookDTOs.add(bookDTO2);
-
-        DonationDTO donation1 = new DonationDTO();
-        donation1.setId("1");
-        donation1.setCreatedDate("2012-12-01");
-        donation1.setBookAmount(100);
-        donation1.setBooks(bookDTOs);
-
-        DonationDTO donation2 = new DonationDTO();
-        donation2.setId("2");
-        donation2.setCreatedDate("2012-12-02");
-        donation2.setBookAmount(100);
-        donation2.setBooks(bookDTOs);
-
-        DonationDTO donation3 = new DonationDTO();
-        donation3.setCreatedDate("2012-12-03");
-        donation3.setId("3");
-        donation3.setBookAmount(100);
-        donation3.setBooks(bookDTOs);
-
-        ArrayList<DonationDTO> donationDTOs = new ArrayList<DonationDTO>();
-        donationDTOs.add(donation1);
-        donationDTOs.add(donation2);
-        donationDTOs.add(donation3);
-
-        return donationDTOs;
-    }
-
-    @Path("donations")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

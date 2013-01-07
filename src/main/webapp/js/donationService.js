@@ -2,7 +2,7 @@ angular.module('donationService', []).
     factory('Donations',function ($http) {
         var Donations = {
             get:function (callback) {
-                $http.get('/lirenlibrary/api/donations', {
+                $http.get('/lirenlibrary/api/donations?status=new', {
                     headers:{
                         'Accept':'application/vnd.liren-donations+json',
                         'Version':'v1'
@@ -19,7 +19,7 @@ angular.module('donationService', []).
 
         var Donation = {
             get:function (donationId, callback) {
-                $http.get("/lirenlibrary/api/donation/" + donationId, {
+                $http.get("/lirenlibrary/api/donations/" + donationId, {
                     headers:{
                         Accept:'application/vnd.liren-donation+json',
                         Version:'v1'
