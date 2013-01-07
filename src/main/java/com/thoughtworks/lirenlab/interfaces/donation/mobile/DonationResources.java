@@ -34,9 +34,10 @@ public class DonationResources {
     }
 
     @GET
+    @Path("/status/{status}")
     @Produces("application/vnd.liren-donations+json")
     @Versions(version = {"v1"})
-    public Response donations(@QueryParam("status") String status) {
+    public Response donations(@PathParam("status") String status) {
         if ("new".equals(status)) {
             List<DonationDTO> newDonations = donationServiceFacade.getNewDonations();
             return Response.ok().entity(newDonations).build();
