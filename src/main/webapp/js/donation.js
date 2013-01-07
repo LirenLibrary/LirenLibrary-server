@@ -13,6 +13,7 @@ function DonationsCtrl($scope, Donations) {
            donation.donation_created_date = new Date(donation.donation_time);
         });
         $scope.donations = donations;
+        $scope.donation = donations[0];
         $scope.books = donations[0].books;
     });
 }
