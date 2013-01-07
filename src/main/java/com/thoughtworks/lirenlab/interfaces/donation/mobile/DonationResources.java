@@ -47,6 +47,7 @@ public class DonationResources {
     }
 
     @POST
+    @Path("/new")
     @Consumes("application/vnd.liren-donation-submit-request+json")
     @Produces("application/vnd.liren-donation-submit-response+json")
     @Versions(version = {"v1"})
