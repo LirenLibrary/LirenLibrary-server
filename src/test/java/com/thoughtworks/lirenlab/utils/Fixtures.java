@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.utils;
 
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.yaml.snakeyaml.Yaml;
@@ -7,9 +8,15 @@ import org.yaml.snakeyaml.introspector.BeanAccess;
 
 import java.io.IOException;
 
-public class YamlLoader {
+import static java.lang.String.*;
 
-    public static <T> T load(String location, Class<T> clazz) {
+public class Fixtures {
+
+    public static Donation loadDonation(final String name) {
+        return doLoad(format("classpath:fixtures/donation/%s.yaml", name), Donation.class);
+    }
+
+    private static <T> T doLoad(final String location,final Class<T> clazz) {
         try {
             Yaml yaml = new Yaml();
             yaml.setBeanAccess(BeanAccess.FIELD);

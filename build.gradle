@@ -62,7 +62,9 @@ dependencies {
             "ch.qos.logback:logback-classic:1.0.9",
             "ch.qos.logback:logback-core:1.0.9",
             "com.google.guava:guava:14.0-rc1",
-            "org.yaml:snakeyaml:1.11"
+            "org.yaml:snakeyaml:1.11",
+            "joda-time:joda-time:2.1"
+
     )
 
     mysql(

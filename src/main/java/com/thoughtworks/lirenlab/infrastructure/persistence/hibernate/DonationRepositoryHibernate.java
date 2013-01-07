@@ -24,5 +24,13 @@ public class DonationRepositoryHibernate extends HibernateRepository implements 
                 .setParameter("status", DonationStatus.NEW).list();
     }
 
+    @Override
+    public Donation find(DonationId id) {
+        return (Donation) currentSession()
+                .createQuery("from Donation d where d.id = :id")
+                .setParameter("id", id.longValue())
+                .uniqueResult();
+    }
+
 
 }

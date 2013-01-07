@@ -7,4 +7,6 @@ public interface DonationRepository {
     DonationId save(Donation donation);
 
     List<Donation> newDonations();
+
+    Donation find(DonationId id);
 }

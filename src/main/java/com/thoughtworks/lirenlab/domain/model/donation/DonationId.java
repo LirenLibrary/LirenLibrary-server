@@ -20,6 +20,10 @@ public class DonationId implements Serializable {
         return id;
     }
 
+    public Long longValue() {
+        return Long.valueOf(this.id);
+    }
+
     @Override
     public String toString() {
         return "DonationId{" +
