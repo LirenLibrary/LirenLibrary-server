@@ -142,7 +142,7 @@ private def dropUser(sql, user, host){
     }
 }
 
-['dev', 'local', 'test'].each {
+['local', 'test'].each {
     if(env == it) initDatabase.dependsOn 'dropDatabase'
 }
 
