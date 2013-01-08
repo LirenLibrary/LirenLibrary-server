@@ -17,7 +17,9 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.approvedBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -55,5 +57,28 @@ public class DonationIntegrationTest {
 
         assertThat(donations.size(), is(2));
         assertThat(anotherDonations.size(), is(1));
+    }
+
+    @Test
+    public void should_reject_and_approve_book_of_donation_by_isbn() throws Exception {
+        DonationId donationId = donationService.newDonation(deviceId("device"),
+                newArrayList(newBook("isbn1", "title1"), newBook("isbn2", "title2")));
+
+        Donation donation = donationRepository.find(donationId);
+        assertThat(donation.books().size(), is(2));
+        assertThat(donation.books(), hasItem(approvedBook("isbn1", "title1")));
+        assertThat(donation.books(), hasItem(approvedBook("isbn2", "title2")));
+
+        donationService.rejectBook(donationId, "isbn1");
+        Donation donationWithRejectedBook = donationRepository.find(donationId);
+        assertThat(donationWithRejectedBook.books().size(), is(2));
+        assertThat(donationWithRejectedBook.books(), hasItem(rejectedBook("isbn1", "title1")));
+        assertThat(donationWithRejectedBook.books(), hasItem(approvedBook("isbn2", "title2")));
+
+        donationService.approveBook(donationId, "isbn1");
+        Donation donationWithApprovedBook = donationRepository.find(donationId);
+        assertThat(donationWithApprovedBook.books().size(), is(2));
+        assertThat(donationWithApprovedBook.books(), hasItem(approvedBook("isbn1", "title1")));
+        assertThat(donationWithApprovedBook.books(), hasItem(approvedBook("isbn2", "title2")));
     }
 }

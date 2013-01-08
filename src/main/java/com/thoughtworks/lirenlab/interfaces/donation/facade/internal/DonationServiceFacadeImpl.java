@@ -58,4 +58,14 @@ public class DonationServiceFacadeImpl implements DonationServiceFacade {
         return assembler.toDonationDTOs(donations);
     }
 
+    @Override
+    public void approveBook(String donationId, String isbn) {
+        donationService.approveBook(donationId(donationId), isbn);
+    }
+
+    @Override
+    public void rejectBook(String donationId, String isbn) {
+        donationService.rejectBook(donationId(donationId), isbn);
+    }
+
 }

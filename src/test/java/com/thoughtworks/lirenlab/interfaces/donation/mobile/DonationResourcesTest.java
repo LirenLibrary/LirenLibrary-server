@@ -19,6 +19,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DonationResourcesTest {
@@ -68,5 +69,25 @@ public class DonationResourcesTest {
 
         assertThat(response.getStatus(), is(200));
         assertThat((List<DonationDTO>)response.getEntity(), hasItem(donationDTO));
+    }
+
+    @Test
+    public void should_approve_book_of_donation_by_isbn() throws Exception {
+        String isbn = "isbn";
+        String donationId = "12345";
+        Response response = donationResources.approveBook(donationId, isbn);
+
+        assertThat(response.getStatus(), is(200));
+        verify(donationServiceFacade).approveBook(donationId, isbn);
+    }
+
+    @Test
+    public void should_reject_book_of_donation_by_isbn() throws Exception {
+        String isbn = "isbn";
+        String donationId = "12345";
+        Response response = donationResources.rejectBook(donationId, isbn);
+
+        assertThat(response.getStatus(), is(200));
+        verify(donationServiceFacade).rejectBook(donationId, isbn);
     }
 }

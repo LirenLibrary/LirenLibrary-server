@@ -72,4 +72,22 @@ public class DonationResources {
         List<DonationDTO> donationsOfDevice = donationServiceFacade.getDonationsOfDevice(deviceId);
         return Response.ok().entity(donationsOfDevice).build();
     }
+
+    @PUT
+    @Path("/{id:\\d+}/approve/book/{isbn}")
+    @Versions(version = {"v1"})
+    public Response approveBook(@PathParam("id") String donationId,
+                                @PathParam("isbn") String isbn) {
+        donationServiceFacade.approveBook(donationId, isbn);
+        return Response.ok().build();
+    }
+
+    @PUT
+    @Path("/{id:\\d+}/reject/book/{isbn}")
+    @Versions(version = {"v1"})
+    public Response rejectBook(@PathParam("id") String donationId,
+                               @PathParam("isbn") String isbn) {
+        donationServiceFacade.rejectBook(donationId, isbn);
+        return Response.ok().build();
+    }
 }

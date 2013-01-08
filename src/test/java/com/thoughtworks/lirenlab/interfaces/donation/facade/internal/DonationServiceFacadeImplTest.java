@@ -18,6 +18,7 @@ import static com.thoughtworks.lirenlab.utils.Fixtures.loadDonation;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DonationServiceFacadeImplTest {
@@ -65,4 +66,15 @@ public class DonationServiceFacadeImplTest {
         assertThat(result.get(0).getId(), is(donation.id().strValue()));
     }
 
+    @Test
+    public void should_approve_book_of_donation_by_isbn() throws Exception {
+        donationServiceFacade.approveBook("123", "isbn");
+        verify(donationService).approveBook(donationId("123"), "isbn");
+    }
+
+    @Test
+    public void should_reject_book_of_donation_by_isbn() throws Exception {
+        donationServiceFacade.rejectBook("123", "isbn");
+        verify(donationService).rejectBook(donationId("123"), "isbn");
+    }
 }

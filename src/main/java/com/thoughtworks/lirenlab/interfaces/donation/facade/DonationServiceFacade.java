@@ -14,4 +14,8 @@ public interface DonationServiceFacade {
     DonationDTO getDonationById(String id);
 
     List<DonationDTO> getDonationsOfDevice(String deviceId);
+
+    void approveBook(String donationId, String isbn);
+
+    void rejectBook(String donationId, String isbn);
 }
