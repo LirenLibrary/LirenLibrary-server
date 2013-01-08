@@ -48,7 +48,7 @@ public class Book implements Serializable {
     }
 
     public static Book newBook(String isbn, String title) {
-        return new Book(isbn, title, NEW);
+        return new Book(isbn, title, APPROVED);
     }
 
     public static Book rejectedBook(String isbn, String title) {
@@ -75,5 +75,14 @@ public class Book implements Serializable {
         result = 31 * result + status.hashCode();
         result = 31 * result + title.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "isbn='" + isbn + '\'' +
+                ", status=" + status +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

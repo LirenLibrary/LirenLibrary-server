@@ -29,4 +29,18 @@ public class DonationServiceImpl implements DonationService {
         return donationId;
     }
 
+    @Override
+    public void approveBook(DonationId donationId, String isbn) {
+        Donation donation = donationRepository.find(donationId);
+        donation.approve(isbn);
+        donationRepository.save(donation);
+    }
+
+    @Override
+    public void rejectBook(DonationId donationId, String isbn) {
+        Donation donation = donationRepository.find(donationId);
+        donation.reject(isbn);
+        donationRepository.save(donation);
+    }
+
 }

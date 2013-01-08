@@ -10,4 +10,7 @@ public interface DonationService {
 
     public DonationId newDonation(DeviceId deviceId, List<Book> books);
 
+    void approveBook(DonationId donationId, String isbn);
+
+    void rejectBook(DonationId donationId, String isbn);
 }
