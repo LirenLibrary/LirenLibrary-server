@@ -1,9 +1,0 @@
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    compile gradleApi()
-    groovy localGroovy()
-    compile "commons-configuration:commons-configuration:1.9"
-}

@@ -1,8 +1,18 @@
-apply plugin: 'groovy'
+import org.apache.commons.configuration.PropertiesConfiguration
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "commons-configuration:commons-configuration:1.9"
+    }
+}
+
 apply plugin: 'war'
 apply plugin: 'idea'
 apply plugin: 'jetty'
-apply plugin: 'properties-configuration'
 
 version = 1.0
 
@@ -18,9 +28,10 @@ ext {
     env = environment()
 }
 
-propertiesConfiguration {
-    load "env/${env}/database.properties"
-}
+/**
+ * Put before other configurations to load environmental properties ahead
+ */
+loadProperties "env/${env}/database.properties"
 
 configurations {
     liquibase
@@ -100,13 +111,6 @@ sourceSets {
     }
 }
 
-def environment() {
-    def env = System.properties['env'] == null ? 'local' : System.properties['env']
-    logger.quiet "Current environment: ${env}"
-
-    return env
-}
-
 war {
     archiveName = 'lirenlibrary.war'
 }
@@ -122,3 +126,23 @@ task wrapper(type: Wrapper) {
 
 apply from: 'migration.gradle'
 apply from: 'deployment.gradle'
+
+
+private def environment() {
+    def env = System.properties['env'] == null ? 'local' : System.properties['env']
+    logger.quiet "Current environment: ${env}"
+
+    return env
+}
+
+private void loadProperties(propFile) {
+    logger.quiet "loading property file ${propFile}"
+    def configuration = new PropertiesConfiguration(propFile)
+    configuration.getKeys().each { key ->
+        def value = configuration.getString(key)
+//                project.logger.quiet "${key}=${value}"
+        def camelKey = key.split('\\.')*.capitalize().join()
+        def camelizedKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
+        project.ext[camelizedKey] = value
+    }
+}
