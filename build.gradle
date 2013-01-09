@@ -1,15 +1,3 @@
-import org.apache.commons.configuration.PropertiesConfiguration
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "commons-configuration:commons-configuration:1.9"
-    }
-}
-
 apply plugin: 'war'
 apply plugin: 'idea'
 apply plugin: 'jetty'
@@ -37,7 +25,7 @@ configurations {
     liquibase
     mysql
     jsch
-    compile {extendsFrom mysql}
+    compile { extendsFrom mysql }
 
     all*.exclude group: "commons-logging", module: "commons-logging"
 }
@@ -130,19 +118,32 @@ apply from: 'deployment.gradle'
 
 private def environment() {
     def env = System.properties['env'] == null ? 'local' : System.properties['env']
-    logger.quiet "Current environment: ${env}"
-
-    return env
+    logger.lifecycle "Current environment: ${env}"
+    env
 }
 
 private void loadProperties(propFile) {
-    logger.quiet "loading property file ${propFile}"
-    def configuration = new PropertiesConfiguration(propFile)
-    configuration.getKeys().each { key ->
-        def value = configuration.getString(key)
-//                project.logger.quiet "${key}=${value}"
-        def camelKey = key.split('\\.')*.capitalize().join()
-        def camelizedKey = camelKey.replaceFirst(camelKey[0], camelKey[0].toLowerCase())
-        project.ext[camelizedKey] = value
+    logger.lifecycle "Loading property file ${propFile}"
+
+    def properties = new Properties()
+    new File(propFile).withInputStream { properties.load it }
+
+    properties.each { key, value ->
+        ext.setProperty camelCase(key), evaluateValue(value, properties)
+//        logger.lifecycle "${camelCase(key)} = ${ext[camelCase(key)]}"
     }
+
+}
+
+private def camelCase(key) {
+    def capitalizedKey = key.split('\\.')*.capitalize().join()
+    capitalizedKey.replaceFirst(capitalizedKey[0], capitalizedKey[0].toLowerCase())
+}
+
+private def evaluateValue(value, properties) {
+    def matcher = (value =~ /(.*?)\$\{(.*?)\}(.*)/)
+    if(matcher.find()) {
+        return evaluateValue(matcher.group(1) + properties[matcher.group(2)] + matcher.group(3), properties)
+    }
+    return value;
 }
