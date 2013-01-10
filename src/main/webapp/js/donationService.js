@@ -29,6 +29,30 @@ angular.module('donationService', []).
                     }).error(function() {
                         console.log("cann't get the donation from donation service")
                     })
+            },
+
+            approveBook: function (donationId, bookIsbn, callback) {
+                $http.put("/lirenlibrary/api/donations/" + donationId + "/approve/book/"+ bookIsbn,{},{
+                    headers:{
+                        Version:'v1'
+                    }
+                }).success(function (response) {
+                        callback(response);
+                }).error(function() {
+                   console.log("cann't approve book with isbn:" + bookIsbn);
+                });
+            },
+
+            rejectBook: function (donationId, bookIsbn, callback) {
+                $http.put("/lirenlibrary/api/donations/" + donationId + "/reject/book/"+ bookIsbn,{},{
+                    headers:{
+                        Version:'v1'
+                    }
+                }).success(function (response) {
+                        callback(response);
+                }).error(function() {
+                   console.log("cann't reject book with isbn:" + bookIsbn);
+                });
             }
         }
 

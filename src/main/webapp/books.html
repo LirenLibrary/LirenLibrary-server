@@ -7,6 +7,7 @@
         <tr>
             <th width="10%">ISBN号</th>
             <th width="70%">书名</th>
+            <th width="20%">动作</th>
         </tr>
         </thead>
         <tbody>
@@ -14,6 +15,10 @@
         <tr ng-repeat="book in books">
             <td>{{book.ISBN}}</td>
             <td>{{book.title}}</td>
+            <td>
+                <a href="#/donations/{{donation.donation_id}}/approve/book/{{book.ISBN}}" ng-class="{APPROVED: 'button plain green',REJECTED: 'button plain green active'}[book.status]">通过</a>
+                <a href="#/donations/{{donation.donation_id}}/reject/book/{{book.ISBN}}" ng-class="{APPROVED: 'button plain green active',REJECTED: 'button plain green'}[book.status]">拒绝</a>
+            </td>
         </tr>
         </tbody>
     </table>

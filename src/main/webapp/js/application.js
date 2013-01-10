@@ -264,7 +264,7 @@ $('document').ready(function() {
       $('nav#secondary li').removeClass('active');
       $(this).parent().addClass('active');
     });
-  
+
     /********************
       Pretty checkboxes
     ********************/
@@ -405,11 +405,11 @@ $('document').ready(function() {
 
   // *****
 
-  $("td a.green, td a.red").click(function() {
-    $(this).toggleClass("active")
-           .siblings("a")
-           .toggleClass("active");
-  });
+//  $("td a.green, td a.red").click(function() {
+//    $(this).toggleClass("active")
+//           .siblings("a")
+//           .toggleClass("active");
+//  });
 });
 
 /*************************

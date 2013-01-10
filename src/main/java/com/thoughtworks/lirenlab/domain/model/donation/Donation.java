@@ -29,6 +29,7 @@ public class Donation {
     private DonationStatus status;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @OrderBy("isbn")
     @CollectionTable(name = "books", joinColumns = @JoinColumn(name = "donation_id"))
     private List<Book> books;
 
