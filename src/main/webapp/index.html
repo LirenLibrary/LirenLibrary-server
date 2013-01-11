@@ -97,7 +97,7 @@
     <div ng-controller="DonationsCtrl">
         <ul class="book-order">
             <li ng-repeat="donation in donations">
-                <a href="#/donations/{{donation.donation_id}}">
+                <a ng-href="#/donations/{{donation.donation_id}}">
                     {{donation.donation_created_date | date:'MM/dd/yyyy HH:mm'}}
                     <label class="number">{{donation.donation_item_count}}</label>
                 </a>

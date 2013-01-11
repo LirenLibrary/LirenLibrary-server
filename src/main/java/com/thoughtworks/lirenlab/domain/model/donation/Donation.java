@@ -1,6 +1,6 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
-import com.google.common.base.Predicate;
+import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
@@ -10,9 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.collect.Iterables.find;
-import static com.thoughtworks.lirenlab.domain.model.donation.Book.approvedBook;
-import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
+import static com.google.common.collect.Lists.transform;
 
 @Entity
 @Table(name = "donations")
@@ -65,15 +63,23 @@ public class Donation {
     }
 
     public void approve(String isbn) {
-        Book book = find(books, byISBN(isbn));
-        books.remove(book);
-        books.add(approvedBook(book.isbn(), book.title()));
+        books = transform(books, updateStatusByIsbn(isbn, BookStatus.APPROVED));
     }
 
     public void reject(String isbn) {
-        Book book = find(books, byISBN(isbn));
-        books.remove(book);
-        books.add(rejectedBook(book.isbn(), book.title()));
+        books = transform(books, updateStatusByIsbn(isbn, BookStatus.REJECTED));
+    }
+
+    private Function<Book, Book> updateStatusByIsbn(final String isbn,final BookStatus status) {
+        return new Function<Book, Book>() {
+            @Override
+            public Book apply(Book book) {
+                if (book.isbn().equals(isbn)) {
+                    return new Book(isbn, book.title(), status);
+                }
+                return book;
+            }
+        };
     }
 
     public DonationId id() {
@@ -101,19 +107,6 @@ public class Donation {
 
     public Date updatedDate() {
         return updatedDate;
-    }
-
-    private Book booksOf(final String isbn) {
-        return find(books, byISBN(isbn));
-    }
-
-    private Predicate<Book> byISBN(final String isbn) {
-        return new Predicate<Book>() {
-            @Override
-            public boolean apply(Book book) {
-                return book.isbn().equals(isbn);
-            }
-        };
     }
 
     @Override

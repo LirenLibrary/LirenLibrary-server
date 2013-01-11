@@ -1,6 +1,6 @@
 <div class="box">
     <div class="box-header">
-        <h1>选择通过的书目：当前捐赠书单编号－{{donation.donation_id}}</h1>
+        <h1 ng-bind-template="选择通过的书目：当前捐赠书单编号－{{donation.donation_id}}"></h1>
     </div>
     <table>
         <thead>
@@ -16,8 +16,8 @@
             <td>{{book.ISBN}}</td>
             <td>{{book.title}}</td>
             <td>
-                <a href="#/donations/{{donation.donation_id}}/approve/book/{{book.ISBN}}" ng-class="{APPROVED: 'button plain green',REJECTED: 'button plain green active'}[book.status]">通过</a>
-                <a href="#/donations/{{donation.donation_id}}/reject/book/{{book.ISBN}}" ng-class="{APPROVED: 'button plain green active',REJECTED: 'button plain green'}[book.status]">拒绝</a>
+                <a ng-href="#/donations/{{donation.donation_id}}/approve/book/{{book.ISBN}}" ng-class="{APPROVED: 'button plain green',REJECTED: 'button plain green active'}[book.status]">通过</a>
+                <a ng-href="#/donations/{{donation.donation_id}}/reject/book/{{book.ISBN}}" ng-class="{APPROVED: 'button plain green active',REJECTED: 'button plain green'}[book.status]">拒绝</a>
             </td>
         </tr>
         </tbody>
