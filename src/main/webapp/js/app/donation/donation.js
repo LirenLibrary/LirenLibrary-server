@@ -1,4 +1,4 @@
-angular.module('donation', ['donationService']).
+angular.module('donation', ['donationService', 'commonFilters']).
     config(function ($routeProvider) {
         $routeProvider.
             when('/', {controller:DonationsCtrl, templateUrl:'books.html'}).
@@ -10,9 +10,6 @@ angular.module('donation', ['donationService']).
 
 function DonationsCtrl($scope, Donations) {
     Donations.get(function(donations){
-        donations.forEach(function(donation){
-           donation.donation_created_date = new Date(donation.donation_time);
-        });
         $scope.donations = donations;
         $scope.donation = donations[0];
         $scope.books = donations[0].books;

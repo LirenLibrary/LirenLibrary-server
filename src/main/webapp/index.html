@@ -57,6 +57,7 @@
     <script src="./js/angular-resource.min.js"></script>
     <script src="./js/app/donation/donation.js"></script>
     <script src="./js/app/donation/donationService.js"></script>
+    <script src="./js/app/filters/commonFilters.js"></script>
 </head>
 
 <body>
@@ -98,7 +99,7 @@
         <ul class="book-order">
             <li ng-repeat="donation in donations">
                 <a ng-href="#/donations/{{donation.donation_id}}">
-                    {{donation.donation_created_date | date:'MM/dd/yyyy HH:mm'}}
+                    {{donation.donation_time | timestamp: 'MM/dd/yyyy HH:mm' }}
                     <label class="number">{{donation.donation_item_count}}</label>
                 </a>
             </li>
