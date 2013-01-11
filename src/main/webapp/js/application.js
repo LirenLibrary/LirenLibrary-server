@@ -405,11 +405,11 @@ $('document').ready(function() {
 
   // *****
 
-//  $("td a.green, td a.red").click(function() {
-//    $(this).toggleClass("active")
-//           .siblings("a")
-//           .toggleClass("active");
-//  });
+  $("td a.green, td a.red").click(function() {
+    $(this).toggleClass("active")
+           .siblings("a")
+           .toggleClass("active");
+  });
 });
 
 /*************************
