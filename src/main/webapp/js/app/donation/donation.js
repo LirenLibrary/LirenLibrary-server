@@ -13,8 +13,10 @@ function DonationsCtrl($scope, Donations, Donation) {
         $scope.donations = donations;
         $scope.donation = donations[0];
 
-        $scope.showDonationDetail = function(donation) {
-            $scope.donation = donation;
+        $scope.showDonationDetail = function(donationId) {
+            Donation.get(donationId, function(donation){
+                $scope.donation = donation;
+            });
         }
 
 
