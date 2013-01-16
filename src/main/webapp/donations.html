@@ -34,7 +34,7 @@
         <ul class="book-order">
             <li ng-repeat="donation in donations">
                 <a ng-click="showDonationDetail(donation.donation_id)">
-                    {{donation.donation_time | timestamp: 'MM/dd/yyyy HH:mm' }}
+                    {{donation.donation_time | unixTimestamp: 'MM/dd/yyyy HH:mm' }}
                     <label class="number">{{donation.donation_item_count}}</label>
                 </a>
             </li>

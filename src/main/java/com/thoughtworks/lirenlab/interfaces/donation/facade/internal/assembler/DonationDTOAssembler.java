@@ -42,10 +42,14 @@ public class DonationDTOAssembler {
                 DonationDTO donationDTO = new DonationDTO();
                 donationDTO.setId(donation.id().strValue());
                 donationDTO.setStatus(donation.status().toString());
-                donationDTO.setCreatedTimeStamp(donation.createdDate().getTime());
+                donationDTO.setCreatedTimeStamp(unixTimeStamp(donation));
                 donationDTO.setBookAmount(donation.books().size());
                 donationDTO.setBooks(transform(donation.books(), toBookDTOFunction()));
                 return donationDTO;
+            }
+
+            private long unixTimeStamp(Donation donation) {
+                return donation.createdDate().getTime() / 1000L;
             }
         };
     }
