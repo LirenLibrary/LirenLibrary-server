@@ -17,7 +17,7 @@ public class SetCharacterEncodingFilter implements Filter {
 
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
-        String encoding = filterConfig.getInitParameter(ENCODING);
+        encoding = filterConfig.getInitParameter(ENCODING);
         checkState(encoding != null, "encoding must be set");
     }
 
