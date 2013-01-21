@@ -14,12 +14,11 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.postSpecification;
 import static com.thoughtworks.lirenlab.utils.Fixtures.loadDonation;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class DonationServiceFacadeImplTest {
 
@@ -76,5 +75,17 @@ public class DonationServiceFacadeImplTest {
     public void should_reject_book_of_donation_by_isbn() throws Exception {
         donationServiceFacade.rejectBook("123", "isbn");
         verify(donationService).rejectBook(donationId("123"), "isbn");
+    }
+
+    @Test
+    public void should_update_post_specification_of_donation() throws Exception {
+        donationServiceFacade.updatePostSpecification("123", "some spec");
+        verify(donationService).updatePostSpecification(donationId("123"), postSpecification("some spec"));
+    }
+
+    @Test
+    public void should_confirm_donation() throws Exception {
+        donationServiceFacade.confirm("123");
+        verify(donationService).confirm(donationId("123"));
     }
 }

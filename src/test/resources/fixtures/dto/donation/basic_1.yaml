@@ -4,7 +4,7 @@ id: '99999'
 createdTimeStamp: 1357537688640
 bookAmount: 2
 status: NEW
-
+postSpecification: 'some spec'
 books:
 - {isbn: isbn1, status: NEW, title: title1}
 - {isbn: isbn2, status: NEW, title: title2}

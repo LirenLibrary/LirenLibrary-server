@@ -90,4 +90,25 @@ public class DonationResourcesTest {
         assertThat(response.getStatus(), is(200));
         verify(donationServiceFacade).rejectBook(donationId, isbn);
     }
+
+    @Test
+    public void should_update_post_specification_of_donation() throws Exception {
+        String postSpecification = "postSpecification";
+        String donationId = "12345";
+        UpdatePostSpecificationRequest request = new UpdatePostSpecificationRequest();
+        request.setSpecification(postSpecification);
+        Response response = donationResources.updatePostSpecification(donationId, request);
+
+        assertThat(response.getStatus(), is(200));
+        verify(donationServiceFacade).updatePostSpecification(donationId, postSpecification);
+    }
+
+    @Test
+    public void should_confirm_donation() throws Exception {
+        String donationId = "12345";
+        Response response = donationResources.confirm(donationId);
+
+        assertThat(response.getStatus(), is(200));
+        verify(donationServiceFacade).confirm(donationId);
+    }
 }

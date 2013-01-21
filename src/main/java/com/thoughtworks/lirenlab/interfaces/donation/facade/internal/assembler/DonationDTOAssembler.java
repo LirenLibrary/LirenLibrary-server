@@ -44,6 +44,7 @@ public class DonationDTOAssembler {
                 donationDTO.setStatus(donation.status().toString());
                 donationDTO.setCreatedTimeStamp(unixTimeStamp(donation));
                 donationDTO.setBookAmount(donation.books().size());
+                donationDTO.setPostSpecification(donation.postSpecification().strValue());
                 donationDTO.setBooks(transform(donation.books(), toBookDTOFunction()));
                 return donationDTO;
             }

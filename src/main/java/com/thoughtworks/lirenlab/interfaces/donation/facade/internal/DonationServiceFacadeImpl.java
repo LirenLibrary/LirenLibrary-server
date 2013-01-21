@@ -17,6 +17,7 @@ import java.util.List;
 
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.postSpecification;
 
 @Service
 @Transactional
@@ -68,4 +69,13 @@ public class DonationServiceFacadeImpl implements DonationServiceFacade {
         donationService.rejectBook(donationId(donationId), isbn);
     }
 
+    @Override
+    public void updatePostSpecification(String donationId, String postSpecification) {
+        donationService.updatePostSpecification(donationId(donationId), postSpecification(postSpecification));
+    }
+
+    @Override
+    public void confirm(String donationId) {
+        donationService.confirm(donationId(donationId));
+    }
 }

@@ -6,7 +6,7 @@ config(function ($routeProvider) {
 
 });
 
-function DonationsCtrl($scope, Donations, Donation) {
+function DonationsCtrl($location, $scope, Donations, Donation) {
 
     Donations.getNewDonations(function(donations){
 
@@ -36,6 +36,17 @@ function DonationsCtrl($scope, Donations, Donation) {
           Donation.rejectBook(donation.donation_id, book.ISBN, function(response){
                 book.status = 'REJECTED';
           });
-      }
+        }
+
+        $scope.updatePostSpecification = function(donation) {
+          Donation.updatePostSpecification(donation.donation_id, donation.post_specification, function(response){
+          });
+        }
+
+        $scope.confirmDonation = function(donation) {
+          Donation.confirm(donation.donation_id, function(response){
+             $location.path("#/donations");
+          });
+        }
   });
 }

@@ -1,5 +1,6 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -8,6 +9,8 @@ import static com.thoughtworks.lirenlab.domain.model.donation.Book.approvedBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Donation.donation;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.*;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.core.IsNot.not;
@@ -49,5 +52,25 @@ public class DonationTest {
         donation.reject("isbn1234");
         assertThat(donation.books(), not(hasItem(approvedBook("isbn1234", "title"))));
         assertThat(donation.books(), hasItem(rejectedBook("isbn1234", "title")));
+    }
+
+    @Test
+    public void can_update_post_specification() throws Exception {
+        Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList());
+        donation.updatePostSpecification(postSpecification("Phone:1234\nAddress:There\n"));
+        assertThat(donation.postSpecification(), is(postSpecification("Phone:1234\nAddress:There\n")));
+    }
+
+    @Test
+    public void post_specification_is_empty_by_default() throws Exception {
+        Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList());
+        assertThat(donation.postSpecification(), is(emptySpecification()));
+    }
+
+    @Test
+    public void confirm_donation_change_the_status_to_approved() throws Exception {
+        Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList());
+        donation.confirm();
+        assertThat(donation.status(), is(APPROVED));
     }
 }

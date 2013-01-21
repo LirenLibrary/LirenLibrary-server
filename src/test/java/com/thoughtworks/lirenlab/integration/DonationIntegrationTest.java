@@ -4,6 +4,7 @@ import com.thoughtworks.lirenlab.application.DonationService;
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationStatus;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +18,9 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
-import static com.thoughtworks.lirenlab.domain.model.donation.Book.approvedBook;
-import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
-import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
+import static com.thoughtworks.lirenlab.domain.model.donation.Book.*;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.emptySpecification;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.postSpecification;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -81,4 +82,33 @@ public class DonationIntegrationTest {
         assertThat(donationWithApprovedBook.books(), hasItem(approvedBook("isbn1", "title1")));
         assertThat(donationWithApprovedBook.books(), hasItem(approvedBook("isbn2", "title2")));
     }
+
+    @Test
+    public void should_update_post_specification() throws Exception {
+        DonationId donationId = donationService.newDonation(deviceId("device1"),
+                newArrayList(newBook("isbn1", "title1")));
+
+        Donation donation = donationRepository.find(donationId);
+        assertThat(donation.postSpecification(), is(emptySpecification()));
+
+        donationService.updatePostSpecification(donationId, postSpecification("Phone:124\nAddress:there\n"));
+
+        Donation updatedDonation = donationRepository.find(donationId);
+        assertThat(updatedDonation.postSpecification(), is(postSpecification("Phone:124\nAddress:there\n")));
+    }
+
+    @Test
+    public void should_confirm_donation() throws Exception {
+        DonationId donationId = donationService.newDonation(deviceId("device1"),
+                newArrayList(newBook("isbn1", "title1")));
+
+        Donation donation = donationRepository.find(donationId);
+        assertThat(donation.status(), is(DonationStatus.NEW));
+
+        donationService.confirm(donationId);
+
+        Donation updatedDonation = donationRepository.find(donationId);
+        assertThat(updatedDonation.status(), is(DonationStatus.APPROVED));
+    }
+
 }

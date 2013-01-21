@@ -11,6 +11,7 @@ import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Lists.transform;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
 
 @Entity
 @Table(name = "donations")
@@ -43,6 +44,10 @@ public class Donation {
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date updatedDate;
 
+    @Embedded
+    @AttributeOverride(name = "specification", column = @Column(name = "post_spec"))
+    private PostSpecification postSpecification;
+
 
     private Donation(DeviceId deviceId, List<Book> books) {
         this.deviceId = deviceId;
@@ -50,6 +55,7 @@ public class Donation {
         this.createdDate = new Date();
         this.updatedDate = createdDate;
         this.status = DonationStatus.NEW;
+        this.postSpecification = PostSpecification.emptySpecification();
     }
 
     /**
@@ -68,6 +74,14 @@ public class Donation {
 
     public void reject(String isbn) {
         books = transform(books, updateStatusByIsbn(isbn, BookStatus.REJECTED));
+    }
+
+    public void updatePostSpecification(PostSpecification postSpecification) {
+        this.postSpecification = postSpecification;
+    }
+
+    public void confirm() {
+        this.status = APPROVED;
     }
 
     private Function<Book, Book> updateStatusByIsbn(final String isbn,final BookStatus status) {
@@ -92,6 +106,7 @@ public class Donation {
         return status;
     }
 
+
     public DeviceId deviceId() {
         return deviceId;
     }
@@ -100,13 +115,16 @@ public class Donation {
         return ImmutableList.copyOf(books);
     }
 
-
     public Date createdDate() {
         return createdDate;
     }
 
     public Date updatedDate() {
         return updatedDate;
+    }
+
+    public PostSpecification postSpecification() {
+        return this.postSpecification;
     }
 
     @Override

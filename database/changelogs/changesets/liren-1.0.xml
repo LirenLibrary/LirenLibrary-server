@@ -5,9 +5,15 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-    <include relativeToChangelogFile="true" file="changesets/createDonationAndBookTable.xml"/>
-    <include relativeToChangelogFile="true" file="changesets/createDeviceTable.xml"/>
-    <include relativeToChangelogFile="true" file="changesets/addTitleFieldToBook.xml"/>
-    <include relativeToChangelogFile="true" file="changesets/liren-1.0.xml"/>
+    <changeSet id="addPostSpecificationToDonation" author="UNKNOWN">
+        <sql>
+            ALTER TABLE `donations` ADD COLUMN `post_spec` VARCHAR(1024);
+        </sql>
+        <rollback>
+             <sql>
+                ALTER TABLE `donations` DROP COLUMN `post_spec`;
+             </sql>
+        </rollback>
+    </changeSet>
 
 </databaseChangeLog>

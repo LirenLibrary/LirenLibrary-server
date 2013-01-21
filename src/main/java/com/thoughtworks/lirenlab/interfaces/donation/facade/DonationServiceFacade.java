@@ -18,4 +18,8 @@ public interface DonationServiceFacade {
     void approveBook(String donationId, String isbn);
 
     void rejectBook(String donationId, String isbn);
+
+    void updatePostSpecification(String donationId, String postSpecification);
+
+    void confirm(String donationId);
 }

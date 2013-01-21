@@ -43,4 +43,17 @@ public class DonationServiceImpl implements DonationService {
         donationRepository.save(donation);
     }
 
+    @Override
+    public void updatePostSpecification(DonationId donationId, PostSpecification postSpecification) {
+        Donation donation = donationRepository.find(donationId);
+        donation.updatePostSpecification(postSpecification);
+        donationRepository.save(donation);
+    }
+
+    @Override
+    public void confirm(DonationId donationId) {
+        Donation donation = donationRepository.find(donationId);
+        donation.confirm();
+        donationRepository.save(donation);
+    }
 }

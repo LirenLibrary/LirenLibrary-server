@@ -19,6 +19,9 @@ public class DonationDTO {
     @JsonProperty("donation_item_count")
     private Integer bookAmount;
 
+    @JsonProperty("post_specification")
+    private String postSpecification;
+
     @JsonProperty("books")
     private List<BookDTO> books;
 
@@ -64,5 +67,13 @@ public class DonationDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPostSpecification() {
+        return postSpecification;
+    }
+
+    public void setPostSpecification(String postSpecification) {
+        this.postSpecification = postSpecification;
     }
 }

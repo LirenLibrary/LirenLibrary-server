@@ -53,6 +53,36 @@ angular.module('donationService', []).
                 }).error(function() {
                    console.log("cann't reject book with isbn:" + bookIsbn);
                 });
+            },
+
+            updatePostSpecification: function (donationId, specification, callback) {
+                $http.put("/lirenlibrary/api/donations/" + donationId + "/update/post/specification",
+                    {
+                        specification: specification
+                    },
+                    {
+                        headers:{
+                            'Content-Type':'application/vnd.liren-donation-update-post-specification-request+json',
+                            'Version':'v1'
+                        }
+                }).success(function (response) {
+                   callback(response);
+                }).error(function() {
+                   console.log("cann't update donation post specification. " + donation.donation_id);
+                });
+            },
+
+            confirm: function (donationId, callback) {
+                $http.put("/lirenlibrary/api/donations/" + donationId + "/confirm", {},
+                    {
+                        headers:{
+                            Version:'v1'
+                        }
+                }).success(function (response) {
+                   callback(response);
+                }).error(function() {
+                   console.log("cann't confirm donation. " + donation.donation_id);
+                });
             }
         }
 

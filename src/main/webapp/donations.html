@@ -70,31 +70,19 @@
                 </tbody>
             </table>
         </div>
-        <!--<div class="box ">-->
-        <!--<div class="box-header">-->
-        <!--<h1>选择寄送的图书馆</h1>-->
-        <!--</div>-->
-        <!--<form action="/" method="post">-->
-        <!--<p>-->
-        <!--<select name="city" id="city" placeholder="City" class="{validate:{required:true}}">-->
-        <!--<option>h黄侃图书馆</option>-->
-        <!--<option>z张国栋图书馆</option>-->
-        <!--<option>z张国栋图书馆二分馆</option>-->
-        <!--<option>t唐仲容图书馆</option>-->
-        <!--<option>y晏阳初图书馆</option>-->
-        <!--<option>y晏阳初图书馆二分馆</option>-->
-        <!--<option>s孙世祥图书馆</option>-->
-        <!--<option>g甘泉图书馆</option>-->
-        <!--<option>x熊培云图书馆</option>-->
-        <!--<option>z志翔图书馆</option>-->
-        <!--<option>t陶行知图书馆</option>-->
-        <!--<option>z卓英图书馆</option>-->
-        <!--</select>-->
-        <!--</p>-->
-        <!--</form>-->
-        <!--</div>-->
-        <!--<input type="submit" class="button blue" value="确认捐助"/>-->
-
+        <div class="box ">
+            <div class="box-header">
+                <h1>选择寄送的图书馆</h1>
+            </div>
+            <form action="#">
+                <p>
+                    <textarea ng-model="donation.post_specification" ng-change="updatePostSpecification(donation)"></textarea>
+                </p>
+            </form>
+        </div>
+        <form ng-submit="confirmDonation(donation)">
+            <input type="submit" class="button blue" value="确认捐助"/>
+        </form>
     </div>
 </section>
 

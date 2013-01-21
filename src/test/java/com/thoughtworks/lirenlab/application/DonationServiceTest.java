@@ -15,6 +15,7 @@ import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Donation.donation;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.postSpecification;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
@@ -76,6 +77,28 @@ public class DonationServiceTest {
 
         assertThat(donation.books(), hasItem(rejectedBook(isbn, "title2")));
         assertThat(donation.books(), not(hasItem(approvedBook(isbn, "title2"))));
+        verify(donationRepository).save(donation);
+    }
+
+    @Test
+    public void should_update_post_specification() throws Exception {
+        Donation donation = Fixtures.loadDonation("id_1");
+        when(donationRepository.find(donationId("1"))).thenReturn(donation);
+
+        donationService.updatePostSpecification(donationId("1"), postSpecification("some spec"));
+
+        assertThat(donation.postSpecification(), is(postSpecification("some spec")));
+        verify(donationRepository).save(donation);
+    }
+
+    @Test
+    public void should_confirm_donation() throws Exception {
+        Donation donation = Fixtures.loadDonation("id_1");
+        when(donationRepository.find(donationId("1"))).thenReturn(donation);
+
+        donationService.confirm(donationId("1"));
+
+        assertThat(donation.status(), is(DonationStatus.APPROVED));
         verify(donationRepository).save(donation);
     }
 }
