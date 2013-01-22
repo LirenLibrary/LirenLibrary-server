@@ -1,6 +1,14 @@
 package com.thoughtworks.lirenlab.domain.model.device;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import static com.google.common.base.Preconditions.checkArgument;
 
 @Entity
 @Table(name = "devices")
@@ -16,6 +24,8 @@ public class Device {
     private DeviceToken token;
 
     private Device(DeviceId id, DeviceToken deviceToken) {
+        checkArgument(id != null, "device id is required.");
+        checkArgument(deviceToken != null, "device token is required.");
         this.id = id;
         this.token = deviceToken;
     }
