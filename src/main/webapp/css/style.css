@@ -21,3 +21,8 @@ label.number {position: absolute; right: 10px;}
   color: #111;
   text-shadow: 0 1px 0 #dce9d3;
 }
+
+
+.min-width-250 {
+    min-width: 250px;
+}
