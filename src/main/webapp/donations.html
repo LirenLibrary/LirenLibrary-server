@@ -63,8 +63,8 @@
                     <td>{{book.ISBN}}</td>
                     <td>{{book.title}}</td>
                     <td>
-                        <a ng-click="approveBook(donation,book)" ng-class="{APPROVED: 'button plain green',REJECTED: 'button plain green active'}[book.status]">通过</a>
-                        <a ng-click="rejectBook(donation,book)" ng-class="{APPROVED: 'button plain green active',REJECTED: 'button plain green'}[book.status]">拒绝</a>
+                        <a ng-click="approveBook(donation,book)" ng-class="{APPROVED: 'button plain green active',REJECTED: 'button plain active'}[book.status]">通过</a>
+                        <a ng-click="rejectBook(donation,book)" ng-class="{APPROVED: 'button plain active',REJECTED: 'button plain red active'}[book.status]">拒绝</a>
                     </td>
                 </tr>
                 </tbody>
