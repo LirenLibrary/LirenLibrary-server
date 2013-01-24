@@ -1,17 +1,38 @@
 package com.thoughtworks.lirenlab.domain.model.donation;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 
-import javax.persistence.*;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.transform;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.REJECTED;
 
 @Entity
 @Table(name = "donations")
@@ -81,7 +102,20 @@ public class Donation {
     }
 
     public void confirm() {
-        this.status = APPROVED;
+        if (any(books, isApprovedBook())) {
+            this.status = APPROVED;
+            return;
+        }
+        this.status = REJECTED;
+    }
+
+    private Predicate<Book> isApprovedBook() {
+        return new Predicate<Book>() {
+            @Override
+            public boolean apply(Book book) {
+                return book.status().equals(BookStatus.APPROVED);
+            }
+        };
     }
 
     private Function<Book, Book> updateStatusByIsbn(final String isbn,final BookStatus status) {

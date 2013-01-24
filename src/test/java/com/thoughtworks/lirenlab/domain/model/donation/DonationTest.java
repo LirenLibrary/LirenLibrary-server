@@ -10,6 +10,7 @@ import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Donation.donation;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.REJECTED;
 import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.*;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
@@ -68,9 +69,20 @@ public class DonationTest {
     }
 
     @Test
-    public void confirm_donation_change_the_status_to_approved() throws Exception {
-        Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList());
+    public void confirm_donation_change_the_status_to_approved_if_contains_at_least_one_approved_book() throws Exception {
+        Donation donation = donation(deviceId("12345"), newArrayList(
+                approvedBook("isbn", "title"),
+                rejectedBook("isbn1", "title2")));
         donation.confirm();
         assertThat(donation.status(), is(APPROVED));
+    }
+
+    @Test
+    public void confirm_donation_change_the_status_to_rejected_if_contains_no_approved_book() throws Exception {
+        Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList(
+                rejectedBook("isbn", "title"),
+                rejectedBook("isbn1", "title1")));
+        donation.confirm();
+        assertThat(donation.status(), is(REJECTED));
     }
 }
