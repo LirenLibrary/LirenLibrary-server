@@ -103,8 +103,8 @@ public class Donation {
     }
 
     public void confirm() {
-        checkState(!postSpecification().isEmpty(), "post specifications should not be empty.");
         if (any(books, isApprovedBook())) {
+            checkState(!postSpecification().isEmpty(), "post specifications should not be empty.");
             this.status = APPROVED;
             return;
         }

@@ -83,15 +83,14 @@ public class DonationTest {
         Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList(
                 rejectedBook("isbn", "title"),
                 rejectedBook("isbn1", "title1")));
-        donation.updatePostSpecification(postSpecification("some address"));
         donation.confirm();
         assertThat(donation.status(), is(REJECTED));
     }
 
     @Test(expected = IllegalStateException.class)
-    public void confirm_donation_is_not_allowed_if_post_specification_is_not_specified() throws Exception {
+    public void confirm_donation_is_not_allowed_if_has_approved_book_and_post_specification_is_not_specified() throws Exception {
         Donation donation = donation(deviceId("12345"), Lists.<Book>newArrayList(
-                rejectedBook("isbn", "title"),
+                approvedBook("isbn", "title"),
                 rejectedBook("isbn1", "title1")));
         donation.confirm();
     }
