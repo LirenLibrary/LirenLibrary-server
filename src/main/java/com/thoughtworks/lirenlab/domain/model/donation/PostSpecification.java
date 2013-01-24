@@ -26,6 +26,10 @@ public class PostSpecification implements Serializable {
         return specification;
     }
 
+    boolean isEmpty() {
+        return equals(emptySpecification());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -33,6 +33,7 @@ import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.transform;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.REJECTED;
+import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.emptySpecification;
 
 @Entity
 @Table(name = "donations")
@@ -76,7 +77,7 @@ public class Donation {
         this.createdDate = new Date();
         this.updatedDate = createdDate;
         this.status = DonationStatus.NEW;
-        this.postSpecification = PostSpecification.emptySpecification();
+        this.postSpecification = emptySpecification();
     }
 
     /**
@@ -102,6 +103,7 @@ public class Donation {
     }
 
     public void confirm() {
+        checkState(!postSpecification().isEmpty(), "post specifications should not be empty.");
         if (any(books, isApprovedBook())) {
             this.status = APPROVED;
             return;
