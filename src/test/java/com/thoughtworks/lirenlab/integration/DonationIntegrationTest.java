@@ -105,6 +105,7 @@ public class DonationIntegrationTest {
         Donation donation = donationRepository.find(donationId);
         assertThat(donation.status(), is(DonationStatus.NEW));
 
+        donationService.updatePostSpecification(donationId, postSpecification("some address"));
         donationService.confirm(donationId);
 
         Donation updatedDonation = donationRepository.find(donationId);
