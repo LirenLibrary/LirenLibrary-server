@@ -62,8 +62,10 @@ dependencies {
             "ch.qos.logback:logback-core:1.0.9",
             "com.google.guava:guava:14.0-rc1",
             "org.yaml:snakeyaml:1.11",
-            "joda-time:joda-time:2.1"
-
+            "joda-time:joda-time:2.1",
+            fileTree(dir: "lib", include: '*.jar'),
+//            "com.googlecode.disruptor:disruptor:2.7.1" ,
+//            "bouncycastle:bcprov-jdk16:140"
     )
 
     mysql(

@@ -2,6 +2,7 @@ package com.thoughtworks.lirenlab.application;
 
 import com.thoughtworks.lirenlab.application.impl.DonationServiceImpl;
 import com.thoughtworks.lirenlab.domain.model.donation.*;
+import com.thoughtworks.lirenlab.domain.service.PushService;
 import com.thoughtworks.lirenlab.utils.Fixtures;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,12 +31,14 @@ public class DonationServiceTest {
     private DonationRepository donationRepository;
     private DonationFactory donationFactory;
     private DonationService donationService;
+    private PushService pushService;
 
     @Before
     public void setUp() throws Exception {
         donationRepository = mock(DonationRepository.class);
         donationFactory = mock(DonationFactory.class);
-        donationService = new DonationServiceImpl(donationRepository, donationFactory);
+        pushService = mock(PushService.class);
+        donationService = new DonationServiceImpl(donationRepository, donationFactory, pushService);
     }
 
     @Test

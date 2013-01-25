@@ -4,14 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <context:property-placeholder location="classpath:database.properties,classpath:apns.properties" />
 
-    <import resource="classpath:context-interfaces-mobile.xml"/>
-    <import resource="classpath:context-infrastructure-persistence.xml"/>
-    <import resource="classpath:context-domain.xml"/>
+    <import resource="classpath:context.xml"/>
 
-    <context:annotation-config  />
-    <context:component-scan base-package="com.thoughtworks.lirenlab"/>
-
-
+    <bean id="pushService" class="com.thoughtworks.lirenlab.integration.FakeApnsPushService"></bean>
 </beans>

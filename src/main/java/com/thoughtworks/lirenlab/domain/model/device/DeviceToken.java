@@ -9,8 +9,9 @@ public class DeviceToken implements Serializable {
     private String token;
 
     private DeviceToken(String token) {
-       this.token = token;
+        this.token = token;
     }
+
 
     /**
      * Required By Hibernate
@@ -20,6 +21,10 @@ public class DeviceToken implements Serializable {
 
     public static DeviceToken deviceToken(String token) {
         return new DeviceToken(token);
+    }
+
+    public String strValue() {
+        return token;
     }
 
     @Override

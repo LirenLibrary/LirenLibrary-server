@@ -2,7 +2,14 @@ package com.thoughtworks.lirenlab.application.impl;
 
 import com.thoughtworks.lirenlab.application.DonationService;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
-import com.thoughtworks.lirenlab.domain.model.donation.*;
+import com.thoughtworks.lirenlab.domain.model.donation.Book;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationFactory;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationStatus;
+import com.thoughtworks.lirenlab.domain.model.donation.PostSpecification;
+import com.thoughtworks.lirenlab.domain.service.PushService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +22,15 @@ public class DonationServiceImpl implements DonationService {
 
     private DonationRepository donationRepository;
     private DonationFactory donationFactory;
+    private PushService pushService;
 
     @Autowired
-    public DonationServiceImpl(final DonationRepository donationRepository,final DonationFactory donationFactory) {
+    public DonationServiceImpl(final DonationRepository donationRepository,
+                               final DonationFactory donationFactory,
+                               final PushService pushService) {
         this.donationRepository = donationRepository;
         this.donationFactory = donationFactory;
+        this.pushService = pushService;
     }
 
     @Override
@@ -55,5 +66,12 @@ public class DonationServiceImpl implements DonationService {
         Donation donation = donationRepository.find(donationId);
         donation.confirm();
         donationRepository.save(donation);
+
+        if (donation.status().equals(DonationStatus.APPROVED))
+            pushService.push(donation.deviceId(), "您有捐赠通过审核，可寄送");
+
+        if (donation.status().equals(DonationStatus.REJECTED))
+            pushService.push(donation.deviceId(), "您有捐赠未通过审核");
+
     }
 }
