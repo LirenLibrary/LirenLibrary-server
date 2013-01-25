@@ -58,6 +58,7 @@ dependencies {
             "com.sun.jersey:jersey-json:1.16",
             "org.slf4j:slf4j-api:1.7.2",
             "org.slf4j:jcl-over-slf4j:1.7.2",
+            "org.slf4j:log4j-over-slf4j:1.7.2",
             "ch.qos.logback:logback-classic:1.0.9",
             "ch.qos.logback:logback-core:1.0.9",
             "com.google.guava:guava:14.0-rc1",
