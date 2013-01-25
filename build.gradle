@@ -9,6 +9,10 @@ archivesBaseName = 'lirenlibrary'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+tasks.withType(Compile) {
+    options.encoding = 'UTF-8'
+}
+
 ext {
     junitVersion = '4.11'
     springVersion = '3.2.0.RELEASE'
@@ -145,7 +149,7 @@ private def camelCase(key) {
 
 private def evaluateValue(value, properties) {
     def matcher = (value =~ /(.*?)\$\{(.*?)\}(.*)/)
-    if(matcher.find()) {
+    if (matcher.find()) {
         return evaluateValue(matcher.group(1) + properties[matcher.group(2)] + matcher.group(3), properties)
     }
     return value;
