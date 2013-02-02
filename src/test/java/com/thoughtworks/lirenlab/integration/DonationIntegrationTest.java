@@ -3,6 +3,7 @@ package com.thoughtworks.lirenlab.integration;
 import com.thoughtworks.lirenlab.application.DonationService;
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationNotFoundException;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationStatus;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.*;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
 import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.emptySpecification;
 import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.postSpecification;
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -112,4 +114,8 @@ public class DonationIntegrationTest {
         assertThat(updatedDonation.status(), is(DonationStatus.APPROVED));
     }
 
+    @Test(expected = DonationNotFoundException.class)
+    public void throw_exception_when_donation_not_existed() throws Exception {
+        donationRepository.find(donationId("999999"));
+    }
 }
