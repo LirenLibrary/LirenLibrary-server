@@ -44,4 +44,11 @@ public class DeviceId implements Serializable {
     public int hashCode() {
         return value.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "DeviceId{" +
+                "value='" + value + '\'' +
+                '}';
+    }
 }

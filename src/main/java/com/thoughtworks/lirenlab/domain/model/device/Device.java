@@ -68,4 +68,11 @@ public class Device {
     public int hashCode() {
         return id.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "id=" + id +
+                '}';
+    }
 }
