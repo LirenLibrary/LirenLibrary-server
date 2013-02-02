@@ -3,6 +3,7 @@ package com.thoughtworks.lirenlab.infrastructure.apns;
 import com.thoughtworks.lirenlab.domain.model.device.Device;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceRepository;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.service.PushService;
 import javapns.Push;
 import org.slf4j.Logger;
@@ -28,6 +29,12 @@ public class ApnsPushService implements PushService {
     @Value("${apns.production}")
     private Boolean production = Boolean.FALSE;
 
+    @Value("${apns.message.donation.approved}")
+    private String messageDonationApproved;
+
+    @Value("${apns.message.donation.rejected}")
+    private String messageDonationRejected;
+
     private DeviceRepository deviceRepository;
 
     @Autowired
@@ -36,7 +43,17 @@ public class ApnsPushService implements PushService {
     }
 
     @Override
-    public void push(DeviceId deviceId, final String message) {
+    public void notifyDonationApproved(Donation donation) {
+        alter(donation.deviceId(), getMessageDonationApproved());
+    }
+
+    @Override
+    public void notifyDonationRejected(Donation donation) {
+        alter(donation.deviceId(), getMessageDonationRejected());
+    }
+
+
+    private void alter(DeviceId deviceId, final String message) {
         Device device = deviceRepository.find(deviceId);
         LOGGER.info("pushing {} to device {}", message, device.id().strValue());
         doPush(message, device);
@@ -54,7 +71,6 @@ public class ApnsPushService implements PushService {
             LOGGER.error("failed to send notification to device {}, {} ", device, e.getMessage());
         }
     }
-
 
     public void setPassword(String password) {
         this.password = password;
@@ -78,5 +94,21 @@ public class ApnsPushService implements PushService {
 
     public Boolean getProduction() {
         return production;
+    }
+
+    public String getMessageDonationApproved() {
+        return messageDonationApproved;
+    }
+
+    public void setMessageDonationApproved(String messageDonationApproved) {
+        this.messageDonationApproved = messageDonationApproved;
+    }
+
+    public String getMessageDonationRejected() {
+        return messageDonationRejected;
+    }
+
+    public void setMessageDonationRejected(String messageDonationRejected) {
+        this.messageDonationRejected = messageDonationRejected;
     }
 }

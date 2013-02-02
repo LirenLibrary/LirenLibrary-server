@@ -69,12 +69,7 @@ public class DonationServiceImpl implements DonationService {
         donation.confirm();
         donationRepository.save(donation);
 
-        if (donation.status().equals(APPROVED))
-            pushService.push(donation.deviceId(), "您有捐赠通过审核，可寄送");
-
-        if (donation.status().equals(REJECTED))
-            pushService.push(donation.deviceId(), "您有捐赠未通过审核");
-
+        onConfirm(donation);
     }
 
     @Override
@@ -82,6 +77,14 @@ public class DonationServiceImpl implements DonationService {
         Donation donation = donationRepository.find(donationId);
         if (donation.isHistorical()) return donation;
         throw new InvalidHistoricalDonationException(donationId);
+    }
+
+    private void onConfirm(Donation donation) {
+        if (donation.status().equals(APPROVED))
+            pushService.notifyDonationApproved(donation);
+
+        if (donation.status().equals(REJECTED))
+            pushService.notifyDonationRejected(donation);
     }
 
 }

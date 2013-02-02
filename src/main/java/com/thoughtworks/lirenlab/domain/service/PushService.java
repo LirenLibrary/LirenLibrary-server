@@ -1,8 +1,10 @@
 package com.thoughtworks.lirenlab.domain.service;
 
-import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 
 public interface PushService {
 
-    public void push(DeviceId deviceId, String message);
+    void notifyDonationApproved(Donation donation);
+
+    void notifyDonationRejected(Donation donation);
 }

@@ -2,11 +2,16 @@ package com.thoughtworks.lirenlab.infrastructure.apns;
 
 import com.thoughtworks.lirenlab.domain.model.device.Device;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceRepository;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.service.PushService;
+import com.thoughtworks.lirenlab.utils.Fixtures;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.io.ClassPathResource;
+
+import java.util.Properties;
 
 import static com.thoughtworks.lirenlab.domain.model.device.Device.device;
-import static com.thoughtworks.lirenlab.domain.model.device.DeviceId.deviceId;
 import static com.thoughtworks.lirenlab.domain.model.device.DeviceToken.deviceToken;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -15,24 +20,42 @@ import static org.mockito.Mockito.when;
 
 public class ApnsPushServiceTest {
 
-    private boolean doPushed = false;
     private Device actualDevice;
     private String actualMessage;
+    private Properties apnsProps;
+    private PushService pushService;
+    private DeviceRepository deviceRepository;
+
+    @Before
+    public void setUp() throws Exception {
+        apnsProps = new Properties();
+        apnsProps.load(new ClassPathResource("apns.properties").getInputStream());
+        deviceRepository = mock(DeviceRepository.class);
+        StubApnsPushService stubApnsPushService = new StubApnsPushService(deviceRepository);
+        stubApnsPushService.setMessageDonationApproved(apnsProps.getProperty("apns.message.donation.approved"));
+        stubApnsPushService.setMessageDonationRejected(apnsProps.getProperty("apns.message.donation.rejected"));
+        pushService = stubApnsPushService;
+    }
+
+    @Test
+    public void can_notify_donation_approved() throws Exception {
+        Donation donation = Fixtures.loadDonation("approved");
+        Device device = device(donation.deviceId(), deviceToken("abc"));
+        when(deviceRepository.find(donation.deviceId())).thenReturn(device);
+        pushService.notifyDonationApproved(donation);
+        assertThat(actualDevice, is(device));
+        assertThat(actualMessage, is(apnsProps.getProperty("apns.message.donation.approved")));
+    }
 
 
     @Test
-    public void can_push_message() throws Exception {
-        doPushed = false;
-        DeviceRepository deviceRepository = mock(DeviceRepository.class);
-        PushService apnsPushService = new StubApnsPushService(deviceRepository);
-
-        Device device = device(deviceId("123"), deviceToken("abc"));
-        String message = "message";
-        when(deviceRepository.find(deviceId("123"))).thenReturn(device);
-        apnsPushService.push(deviceId("123"), message);
+    public void can_notify_donation_rejected() throws Exception {
+        Donation donation = Fixtures.loadDonation("rejected");
+        Device device = device(donation.deviceId(), deviceToken("abc"));
+        when(deviceRepository.find(donation.deviceId())).thenReturn(device);
+        pushService.notifyDonationRejected(donation);
         assertThat(actualDevice, is(device));
-        assertThat(actualMessage, is(message));
-
+        assertThat(actualMessage, is(apnsProps.getProperty("apns.message.donation.rejected")));
     }
 
 
