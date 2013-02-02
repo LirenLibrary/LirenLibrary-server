@@ -7,7 +7,7 @@ import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationFactory;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
-import com.thoughtworks.lirenlab.domain.model.donation.DonationStatus;
+import com.thoughtworks.lirenlab.domain.model.donation.InvalidHistoricalDonationException;
 import com.thoughtworks.lirenlab.domain.model.donation.PostSpecification;
 import com.thoughtworks.lirenlab.domain.service.PushService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.*;
 
 @Service
 @Transactional
@@ -67,11 +69,19 @@ public class DonationServiceImpl implements DonationService {
         donation.confirm();
         donationRepository.save(donation);
 
-        if (donation.status().equals(DonationStatus.APPROVED))
+        if (donation.status().equals(APPROVED))
             pushService.push(donation.deviceId(), "您有捐赠通过审核，可寄送");
 
-        if (donation.status().equals(DonationStatus.REJECTED))
+        if (donation.status().equals(REJECTED))
             pushService.push(donation.deviceId(), "您有捐赠未通过审核");
 
     }
+
+    @Override
+    public Donation findHistorical(DonationId donationId) {
+        Donation donation = donationRepository.find(donationId);
+        if (donation.isHistorical()) return donation;
+        throw new InvalidHistoricalDonationException(donationId);
+    }
+
 }

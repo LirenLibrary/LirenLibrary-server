@@ -1,7 +1,8 @@
 package com.thoughtworks.lirenlab.application;
 
-import com.thoughtworks.lirenlab.domain.model.donation.Book;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
+import com.thoughtworks.lirenlab.domain.model.donation.Book;
+import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
 import com.thoughtworks.lirenlab.domain.model.donation.PostSpecification;
 
@@ -18,4 +19,6 @@ public interface DonationService {
     void updatePostSpecification(DonationId donationId, PostSpecification postSpecification);
 
     void confirm(DonationId donationId);
+
+    Donation findHistorical(DonationId donationId);
 }

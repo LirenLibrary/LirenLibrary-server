@@ -1,0 +1,10 @@
+!!com.thoughtworks.lirenlab.domain.model.donation.Donation
+id: 1
+deviceId: { value: 'device12234' }
+status: NEW
+postSpecification: { specification: 'some spec'}
+createdDate: 2012-12-28 15:01:42 +8
+updatedDate: 2012-12-28 15:01:42 +8
+books:
+    - {isbn: 'isbn1', title: 'title1', status: REJECTED}
+    - {isbn: 'isbn2', title: 'title2', status: APPROVED}

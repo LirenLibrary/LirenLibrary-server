@@ -32,6 +32,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.transform;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.NEW;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.REJECTED;
 import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.emptySpecification;
 
@@ -120,7 +121,7 @@ public class Donation {
         };
     }
 
-    private Function<Book, Book> updateStatusByIsbn(final String isbn,final BookStatus status) {
+    private Function<Book, Book> updateStatusByIsbn(final String isbn, final BookStatus status) {
         return new Function<Book, Book>() {
             @Override
             public Book apply(Book book) {
@@ -178,5 +179,9 @@ public class Donation {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public boolean isHistorical() {
+        return !NEW.equals(status());
     }
 }
