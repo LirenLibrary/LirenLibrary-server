@@ -8,8 +8,8 @@ angular.module('donationService', []).
                         'Version':'v1'
                     }}).success(function (response) {
                         callback(response);
-                    }).error(function () {
-                        console.log("Can not get donations from donation service")
+                    }).error(function(error) {
+                        alert(error.message);
                     })
             }
         };
@@ -26,9 +26,9 @@ angular.module('donationService', []).
                     }
                 }).success(function (response) {
                         callback(response);
-                    }).error(function() {
-                        console.log("cann't get the donation from donation service")
-                    })
+                    }).error(function(error) {
+                        alert(error.message);
+                    });
             },
 
             approveBook: function (donationId, bookIsbn, callback) {
@@ -38,8 +38,8 @@ angular.module('donationService', []).
                     }
                 }).success(function (response) {
                         callback(response);
-                }).error(function() {
-                   console.log("cann't approve book with isbn:" + bookIsbn);
+                }).error(function(error) {
+                        alert(error.message);
                 });
             },
 
@@ -49,9 +49,9 @@ angular.module('donationService', []).
                         Version:'v1'
                     }
                 }).success(function (response) {
-                        callback(response);
-                }).error(function() {
-                   console.log("cann't reject book with isbn:" + bookIsbn);
+                    callback(response);
+                }).error(function(error) {
+                    alert(error.message);
                 });
             },
 
@@ -67,8 +67,8 @@ angular.module('donationService', []).
                         }
                 }).success(function (response) {
                    callback(response);
-                }).error(function() {
-                   console.log("cann't update donation post specification. " + donation.donation_id);
+                }).error(function(error) {
+                   alert(error.message);
                 });
             },
 
@@ -80,8 +80,8 @@ angular.module('donationService', []).
                         }
                 }).success(function (response) {
                    callback(response);
-                }).error(function() {
-                   console.log("cann't confirm donation. " + donation.donation_id);
+                }).error(function(error) {
+                   alert(error.message);
                 });
             }
         }
