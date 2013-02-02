@@ -2,6 +2,7 @@ package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationNotFoundException;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationStatus;
 import org.hibernate.Query;
@@ -17,6 +18,7 @@ import static com.thoughtworks.lirenlab.utils.Fixtures.loadDonation;
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class DonationRepositoryHibernateTest {
@@ -69,6 +71,19 @@ public class DonationRepositoryHibernateTest {
         Donation actual = donationRepository.find(donation.id());
 
         assertThat(actual.id(), is(donation.id()));
+    }
+
+    @Test
+    public void should_throw_exception_if_donation_not_existed() throws Exception {
+        when(session.createQuery("from Donation d where d.id = :id")).thenReturn(query);
+        when(query.setParameter("id", donation.id().longValue())).thenReturn(query);
+        when(query.uniqueResult()).thenReturn(null);
+        try {
+            donationRepository.find(donation.id());
+            fail("should throw DonationNotFoundException");
+        } catch (DonationNotFoundException e) {
+            assertThat(e.donationId(), is(donation.id()));
+        }
     }
 
     @Test

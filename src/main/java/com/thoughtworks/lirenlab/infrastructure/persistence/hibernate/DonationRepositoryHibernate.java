@@ -3,6 +3,7 @@ package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceId;
 import com.thoughtworks.lirenlab.domain.model.donation.Donation;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationId;
+import com.thoughtworks.lirenlab.domain.model.donation.DonationNotFoundException;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationRepository;
 import com.thoughtworks.lirenlab.domain.model.donation.DonationStatus;
 import org.springframework.stereotype.Repository;
@@ -27,10 +28,13 @@ public class DonationRepositoryHibernate extends HibernateRepository implements 
 
     @Override
     public Donation find(DonationId id) {
-        return (Donation) currentSession()
+        Donation donation = (Donation) currentSession()
                 .createQuery("from Donation d where d.id = :id")
                 .setParameter("id", id.longValue())
                 .uniqueResult();
+
+        if (donation == null) throw new DonationNotFoundException(id);
+        return donation;
     }
 
     @Override
