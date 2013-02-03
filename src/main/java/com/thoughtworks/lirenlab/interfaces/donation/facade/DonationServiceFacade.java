@@ -22,4 +22,6 @@ public interface DonationServiceFacade {
     void updatePostSpecification(String donationId, String postSpecification);
 
     void confirm(String donationId);
+
+    DonationDTO findHistorical(String id);
 }

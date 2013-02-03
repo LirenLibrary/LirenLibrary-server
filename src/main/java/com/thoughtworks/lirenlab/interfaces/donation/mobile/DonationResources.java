@@ -115,4 +115,13 @@ public class DonationResources {
         donationServiceFacade.confirm(donationId);
         return Response.ok().build();
     }
+
+    @GET
+    @Path("/historical/{id:\\d+}")
+    @Produces("application/vnd.liren-donation+json")
+    @Versions(version = {"v1"})
+    public Response findHistoricalDonation(@PathParam("id") String id) {
+        DonationDTO donationDTO = donationServiceFacade.findHistorical(id);
+        return Response.ok(donationDTO).build();
+    }
 }

@@ -78,4 +78,10 @@ public class DonationServiceFacadeImpl implements DonationServiceFacade {
     public void confirm(String donationId) {
         donationService.confirm(donationId(donationId));
     }
+
+    @Override
+    public DonationDTO findHistorical(String id) {
+        Donation historical = donationService.findHistorical(donationId(id));
+        return assembler.toDonationDTO(historical);
+    }
 }

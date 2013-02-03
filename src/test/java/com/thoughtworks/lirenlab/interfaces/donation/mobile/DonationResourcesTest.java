@@ -111,4 +111,15 @@ public class DonationResourcesTest {
         assertThat(response.getStatus(), is(200));
         verify(donationServiceFacade).confirm(donationId);
     }
+
+    @Test
+    public void should_find_historical_donation_by_id() throws Exception {
+        DonationDTO donationDTO = Fixtures.loadDonationDTO("basic_1");
+        when(donationServiceFacade.findHistorical(donationDTO.getId())).thenReturn(donationDTO);
+
+        Response response = donationResources.findHistoricalDonation(donationDTO.getId());
+
+        assertThat(response.getStatus(), is(200));
+        assertThat((DonationDTO)response.getEntity(), is(donationDTO));
+    }
 }

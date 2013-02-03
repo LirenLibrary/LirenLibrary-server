@@ -56,6 +56,16 @@ public class DonationServiceFacadeImplTest {
     }
 
     @Test
+    public void find_historical_donation_by_id() throws Exception {
+        Donation donation = loadDonation("approved");
+        when(donationRepository.find(donation.id())).thenReturn(donation);
+
+        DonationDTO result = donationServiceFacade.getDonationById(donation.id().strValue());
+
+        assertThat(result.getId(), is(donation.id().strValue()));
+    }
+
+    @Test
     public void get_donations_by_device_id() throws Exception {
         Donation donation = loadDonation("id_1");
         when(donationRepository.find(donation.deviceId())).thenReturn(newArrayList(donation));

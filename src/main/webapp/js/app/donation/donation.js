@@ -2,9 +2,38 @@ angular.module('donation', ['donationService', 'commonFilters']).
 config(function ($routeProvider) {
     $routeProvider.
     when('/donations', {controller:DonationsCtrl, templateUrl:'donations.html'}).
+    when('/history', {controller:HistoryCtrl, templateUrl:'history.html'}).
     otherwise({redirectTo:'/donations'});
 
 });
+
+
+function HistoryCtrl($scope, Donations, Donation) {
+
+     $scope.found = 'hidden';
+
+     $scope.findHistorical = function(donationId) {
+
+       if(!isPositiveInteger(donationId)) {
+          $scope.donation = null;
+          $scope.found = 'hidden';
+          return;
+       }
+
+       Donations.findHistorical(donationId, function(donation){
+           $scope.donation = donation;
+           $scope.found = '';
+       }, function(error){
+           $scope.found = 'hidden';
+       })
+     }
+}
+
+function isPositiveInteger(str){
+    var regex=new RegExp("^[1-9]+\\d*$");
+    return regex.test(str);
+}
+
 
 function DonationsCtrl($location, $scope, Donations, Donation) {
 

@@ -26,3 +26,26 @@ label.number {position: absolute; right: 10px;}
 .min-width-250 {
     min-width: 250px;
 }
+
+.hidden {
+    display: none;
+}
+
+.history-search {
+    height: 40px;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.history-search input {
+  height: 30px;
+  line-height: 150%;
+  border-radius: 4px;
+  color: #666;
+  font-family: "Aller", "Lucida Grande", sans-serif;
+  width: 180px;
+}
+
+.history-search input::-webkit-input-placeholder, .history-search input::-moz-placeholder {
+  color: #999;
+}
