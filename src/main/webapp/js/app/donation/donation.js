@@ -52,6 +52,11 @@ function isPositiveInteger(str){
 
 function DonationsCtrl($location, $scope, Donations, Donation) {
 
+    $scope.hasDonations = function(donations) {
+       if(donations && donations.length != 0) return true;
+       return false;
+    }
+
     Donations.getNewDonations(function(donations){
 
         $scope.donations = donations;
