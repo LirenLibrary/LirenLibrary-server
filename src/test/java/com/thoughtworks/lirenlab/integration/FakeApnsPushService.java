@@ -14,4 +14,9 @@ public class FakeApnsPushService implements PushService {
     public void notifyDonationRejected(Donation donation) {
         //do nothing
     }
+
+    @Override
+    public void notifyDonationReceived(Donation donation) {
+        //do nothing
+    }
 }

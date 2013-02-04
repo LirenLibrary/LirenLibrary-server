@@ -114,6 +114,18 @@ public class DonationIntegrationTest {
         assertThat(updatedDonation.status(), is(DonationStatus.APPROVED));
     }
 
+    @Test
+    public void should_receive_donation() throws Exception {
+        DonationId donationId = donationService.newDonation(deviceId("device1"),
+                newArrayList(newBook("isbn1", "title1")));
+        donationService.updatePostSpecification(donationId, postSpecification("some address"));
+        donationService.confirm(donationId);
+        donationService.receive(donationId);
+
+        Donation updatedDonation = donationRepository.find(donationId);
+        assertThat(updatedDonation.status(), is(DonationStatus.NOTIFIED));
+    }
+
     @Test(expected = DonationNotFoundException.class)
     public void throw_exception_when_donation_not_existed() throws Exception {
         donationRepository.find(donationId("999999"));

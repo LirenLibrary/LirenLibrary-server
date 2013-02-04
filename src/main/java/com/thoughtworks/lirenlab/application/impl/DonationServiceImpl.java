@@ -79,12 +79,25 @@ public class DonationServiceImpl implements DonationService {
         throw new InvalidHistoricalDonationException(donationId);
     }
 
+    @Override
+    public void receive(DonationId donationId) {
+        Donation donation = donationRepository.find(donationId);
+        donation.receive();
+        donationRepository.save(donation);
+        onReceive(donation);
+    }
+
     private void onConfirm(Donation donation) {
         if (donation.status().equals(APPROVED))
             pushService.notifyDonationApproved(donation);
 
         if (donation.status().equals(REJECTED))
             pushService.notifyDonationRejected(donation);
+    }
+
+    private void onReceive(Donation donation) {
+        if (donation.status().equals(NOTIFIED))
+            pushService.notifyDonationReceived(donation);
     }
 
 }

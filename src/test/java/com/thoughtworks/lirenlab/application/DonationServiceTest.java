@@ -16,6 +16,7 @@ import static com.thoughtworks.lirenlab.domain.model.donation.Book.newBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Book.rejectedBook;
 import static com.thoughtworks.lirenlab.domain.model.donation.Donation.donation;
 import static com.thoughtworks.lirenlab.domain.model.donation.DonationId.donationId;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.*;
 import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.postSpecification;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
@@ -101,7 +102,19 @@ public class DonationServiceTest {
 
         donationService.confirm(donationId("1"));
 
-        assertThat(donation.status(), is(DonationStatus.APPROVED));
+        assertThat(donation.status(), is(APPROVED));
         verify(donationRepository).save(donation);
+    }
+
+    @Test
+    public void should_notify_book_received() throws Exception {
+        Donation donation = Fixtures.loadDonation("approved");
+        when(donationRepository.find(donationId("1"))).thenReturn(donation);
+
+        donationService.receive(donationId("1"));
+
+        assertThat(donation.status(), is(NOTIFIED));
+        verify(donationRepository).save(donation);
+        verify(pushService).notifyDonationReceived(donation);
     }
 }

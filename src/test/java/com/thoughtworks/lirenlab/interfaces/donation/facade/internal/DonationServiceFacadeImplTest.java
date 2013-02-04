@@ -98,4 +98,10 @@ public class DonationServiceFacadeImplTest {
         donationServiceFacade.confirm("123");
         verify(donationService).confirm(donationId("123"));
     }
+
+    @Test
+    public void should_receive_donation() throws Exception {
+        donationServiceFacade.receive("123");
+        verify(donationService).receive(donationId("123"));
+    }
 }

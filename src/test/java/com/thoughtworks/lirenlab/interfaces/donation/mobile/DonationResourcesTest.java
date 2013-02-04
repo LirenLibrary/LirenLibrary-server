@@ -113,6 +113,15 @@ public class DonationResourcesTest {
     }
 
     @Test
+    public void should_receive_donation() throws Exception {
+        String donationId = "12345";
+        Response response = donationResources.receive(donationId);
+
+        assertThat(response.getStatus(), is(200));
+        verify(donationServiceFacade).receive(donationId);
+    }
+
+    @Test
     public void should_find_historical_donation_by_id() throws Exception {
         DonationDTO donationDTO = Fixtures.loadDonationDTO("basic_1");
         when(donationServiceFacade.findHistorical(donationDTO.getId())).thenReturn(donationDTO);

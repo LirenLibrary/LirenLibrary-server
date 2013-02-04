@@ -7,4 +7,6 @@ public interface PushService {
     void notifyDonationApproved(Donation donation);
 
     void notifyDonationRejected(Donation donation);
+
+    void notifyDonationReceived(Donation donation);
 }

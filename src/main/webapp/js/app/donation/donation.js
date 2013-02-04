@@ -10,22 +10,37 @@ config(function ($routeProvider) {
 
 function HistoryCtrl($scope, Donations, Donation) {
 
-     $scope.found = 'hidden';
-
      $scope.findHistorical = function(donationId) {
 
        if(!isPositiveInteger(donationId)) {
           $scope.donation = null;
-          $scope.found = 'hidden';
           return;
        }
 
        Donations.findHistorical(donationId, function(donation){
-           $scope.donation = donation;
-           $scope.found = '';
+          $scope.donation = donation;
        }, function(error){
-           $scope.found = 'hidden';
        })
+     };
+
+
+     $scope.isFound = function(donation) {
+        if(donation) return true;
+        return false;
+     };
+
+     $scope.receiveDonation = function(donation) {
+         Donation.receive(donation.donation_id, function(response){
+           $scope.findHistorical(donation.donation_id);
+           alert("通知已发出");
+         });
+     };
+
+     $scope.isAllowNotify = function(donation) {
+        if (!donation) return false;
+        if (donation.donation_status == 'REJECTED') return false;
+        if (donation.donation_status == 'NOTIFIED') return false;
+        return true;
      }
 }
 
@@ -74,6 +89,7 @@ function DonationsCtrl($location, $scope, Donations, Donation) {
 
         $scope.confirmDonation = function(donation) {
           Donation.confirm(donation.donation_id, function(response){
+             alert("捐赠 "+donation.donation_id+" 审核完成");
              $location.path("#/donations");
           });
         }

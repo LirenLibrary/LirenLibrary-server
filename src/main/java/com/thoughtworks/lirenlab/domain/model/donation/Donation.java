@@ -31,9 +31,7 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.Iterables.any;
 import static com.google.common.collect.Lists.transform;
-import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.APPROVED;
-import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.NEW;
-import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.REJECTED;
+import static com.thoughtworks.lirenlab.domain.model.donation.DonationStatus.*;
 import static com.thoughtworks.lirenlab.domain.model.donation.PostSpecification.emptySpecification;
 
 @Entity
@@ -164,6 +162,14 @@ public class Donation {
         return this.postSpecification;
     }
 
+    public boolean isHistorical() {
+        return !NEW.equals(status());
+    }
+
+    public void receive() {
+        this.status = NOTIFIED;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -179,9 +185,5 @@ public class Donation {
     @Override
     public int hashCode() {
         return id.hashCode();
-    }
-
-    public boolean isHistorical() {
-        return !NEW.equals(status());
     }
 }

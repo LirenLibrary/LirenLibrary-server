@@ -124,4 +124,12 @@ public class DonationResources {
         DonationDTO donationDTO = donationServiceFacade.findHistorical(id);
         return Response.ok(donationDTO).build();
     }
+
+    @PUT
+    @Path("/{id:\\d+}/receive")
+    @Versions(version = {"v1"})
+    public Response receive(@PathParam("id") String donationId) {
+        donationServiceFacade.receive(donationId);
+        return Response.ok().build();
+    }
 }

@@ -21,4 +21,6 @@ public interface DonationService {
     void confirm(DonationId donationId);
 
     Donation findHistorical(DonationId donationId);
+
+    void receive(DonationId donationId);
 }

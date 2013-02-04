@@ -34,6 +34,7 @@ public class ApnsPushServiceTest {
         StubApnsPushService stubApnsPushService = new StubApnsPushService(deviceRepository);
         stubApnsPushService.setMessageDonationApproved(apnsProps.getProperty("apns.message.donation.approved"));
         stubApnsPushService.setMessageDonationRejected(apnsProps.getProperty("apns.message.donation.rejected"));
+        stubApnsPushService.setMessageDonationReceived(apnsProps.getProperty("apns.message.donation.received"));
         pushService = stubApnsPushService;
     }
 
@@ -56,6 +57,16 @@ public class ApnsPushServiceTest {
         pushService.notifyDonationRejected(donation);
         assertThat(actualDevice, is(device));
         assertThat(actualMessage, is(apnsProps.getProperty("apns.message.donation.rejected")));
+    }
+
+    @Test
+    public void can_notify_donation_received() throws Exception {
+        Donation donation = Fixtures.loadDonation("approved");
+        Device device = device(donation.deviceId(), deviceToken("abc"));
+        when(deviceRepository.find(donation.deviceId())).thenReturn(device);
+        pushService.notifyDonationReceived(donation);
+        assertThat(actualDevice, is(device));
+        assertThat(actualMessage, is(apnsProps.getProperty("apns.message.donation.received")));
     }
 
 

@@ -97,8 +97,21 @@ angular.module('donationService', []).
                 }).error(function(error) {
                    alert(error.message);
                 });
+            },
+
+            receive: function (donationId, callback) {
+                $http.put("/lirenlibrary/api/donations/" + donationId + "/receive", {},
+                    {
+                        headers:{
+                            Version:'v1'
+                        }
+                }).success(function (response) {
+                   callback(response);
+                }).error(function(error) {
+                   alert(error.message);
+                });
             }
-        }
+        };
 
         return Donation;
     });

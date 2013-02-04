@@ -24,4 +24,6 @@ public interface DonationServiceFacade {
     void confirm(String donationId);
 
     DonationDTO findHistorical(String id);
+
+    void receive(String donationId);
 }

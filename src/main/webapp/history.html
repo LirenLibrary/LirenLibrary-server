@@ -28,11 +28,13 @@
         <ul class="book-order">
             <li>
                 <div class="history-search">
+                    <form ng-submit="findHistorical(donationId)">
                     <input type="text" ng-model="donationId" placeholder="请输入捐赠ID...">
-                    <button class="button blue" ng-click="findHistorical(donationId)">搜索</button>
+                    <input type="submit" class="button blue" value="搜索"></button>
+                    </form>
                 </div>
             </li>
-            <li ng-class="found">
+            <li ng-show="isFound(donation)">
                 <a> {{donation.donation_time | unixTimestamp: 'MM/dd/yyyy HH:mm' }}
                     <label class="number">{{donation.donation_item_count}}</label>
                 </a>
@@ -44,7 +46,7 @@
 
 <section id="maincontainer">
     <div id="main" class="container_12">
-        <div ng-class="found">
+        <div ng-show="isFound(donation)">
             <div class="box">
                 <div class="box-header">
                     <h1 class="min-width-250" ng-bind-template="当前捐赠书单编号－{{donation.donation_id}}"></h1>
@@ -81,6 +83,9 @@
                 </form>
             </div>
         </div>
+        <form ng-show="isAllowNotify(donation)" ng-submit="receiveDonation(donation)">
+            <input type="submit" class="button blue" value="通知书籍已收到"/>
+        </form>
     </div>
 </section>
 

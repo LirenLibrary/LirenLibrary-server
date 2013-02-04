@@ -35,6 +35,9 @@ public class ApnsPushService implements PushService {
     @Value("${apns.message.donation.rejected}")
     private String messageDonationRejected;
 
+    @Value("${apns.message.donation.received}")
+    private String messageDonationReceived;
+
     private DeviceRepository deviceRepository;
 
     @Autowired
@@ -50,6 +53,11 @@ public class ApnsPushService implements PushService {
     @Override
     public void notifyDonationRejected(Donation donation) {
         alter(donation.deviceId(), getMessageDonationRejected());
+    }
+
+    @Override
+    public void notifyDonationReceived(Donation donation) {
+        alter(donation.deviceId(), getMessageDonationReceived());
     }
 
 
@@ -110,5 +118,13 @@ public class ApnsPushService implements PushService {
 
     public void setMessageDonationRejected(String messageDonationRejected) {
         this.messageDonationRejected = messageDonationRejected;
+    }
+
+    public void setMessageDonationReceived(String messageDonationReceived) {
+        this.messageDonationReceived = messageDonationReceived;
+    }
+
+    public String getMessageDonationReceived() {
+        return messageDonationReceived;
     }
 }
