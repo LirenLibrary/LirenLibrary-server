@@ -1,8 +1,8 @@
 import groovy.sql.Sql
 
 ext {
-    databaseMigrationBaseDir = 'database'
-    liquibaseChangeLogFile = "${databaseMigrationBaseDir}/changelogs/changelog.xml"
+    databaseMigrationBaseDir = 'src/main/resources'
+    liquibaseChangeLogFile = "${databaseMigrationBaseDir}/changelogs/master.xml"
     liquibaseChangeLogTable = 'liquibase_change_log'
     liquibaseChangeLogLockTable = 'liquibase_change_log_lock'
     liquibaseRollbackCount = 1
