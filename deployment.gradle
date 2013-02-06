@@ -10,10 +10,10 @@ ext {
     sshHost = System.properties['sshHost']
     sshPass = System.properties['sshPass']
     sshUser = System.properties['sshUser']
-
+    sshPrivateKey = System.properties['sshPrivateKey']
 }
 
-task deploy(dependsOn: ['updateDatabase', 'war']) {
+task deploy(dependsOn: ['war']) {
 
     doLast {
         assert tomcatHome != null
@@ -34,6 +34,9 @@ task deploy(dependsOn: ['updateDatabase', 'war']) {
         logger.quiet "Deploying ${war.archiveName} to remote server..."
         scp war.archivePath.path, "${sshUser}@${sshHost}:${tomcatHome}/webapps/${war.archiveName}"
 
+        logger.quiet "Migrating database..."
+        doDbMigration()
+
         logger.quiet "Starting remote server..."
         sshexec "${tomcatHome}/bin/startup.sh"
 
@@ -41,10 +44,31 @@ task deploy(dependsOn: ['updateDatabase', 'war']) {
     }
 }
 
+private void doDbMigration() {
+    logger.quiet "Preparing liquibase runtime..."
+
+    configurations.liquibase.files.each {
+        scp it.path, "${sshUser}@${sshHost}:/tmp"
+    }
+
+    def command = "java -jar /tmp/liquibase-core-2.0.5.jar " +
+            "--driver=${dbConnectionDriver} " +
+            "--classpath=`dirname ${tomcatHome}/webapps/${war.archiveName}`/${war.archiveName} " +
+            "--changeLogFile=changelogs/master.xml " +
+            "--url=${dbConnectionUrl} " +
+            "--username=${dbConnectionUsername} " +
+            "--password=${dbConnectionPassword} " +
+            "update"
+
+    logger.quiet "Doing liquibase migration..."
+    sshexec command
+}
+
+
 private void scp(source, destination) {
     ant.scp(file: source, todir: destination, password: sshPass, verbose: 'true', trust: 'true')
 }
 
 private void sshexec(command) {
-    ant.sshexec(username: sshUser, host: sshHost, password: sshPass, command: command, trust: 'true')
+    ant.sshexec(verbose: true, username: sshUser, host: sshHost, password: sshPass, command: command, trust: 'true')
 }

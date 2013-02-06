@@ -1,10 +1,14 @@
 import groovy.sql.Sql
 
+/**
+ * This DB migration is used only in local and test.
+ */
+
 ext {
     databaseMigrationBaseDir = 'src/main/resources'
     liquibaseChangeLogFile = "${databaseMigrationBaseDir}/changelogs/master.xml"
-    liquibaseChangeLogTable = 'liquibase_change_log'
-    liquibaseChangeLogLockTable = 'liquibase_change_log_lock'
+    liquibaseChangeLogTable = 'DATABASECHANGELOG'
+    liquibaseChangeLogLockTable = 'DATABASECHANGELOGLOCK'
     liquibaseRollbackCount = 1
 }
 
@@ -125,9 +129,9 @@ private def sql() {
     }
 
     return Sql.newInstance(
-            "jdbc:mysql://${dbHost}:${dbPort}/mysql",
-            dbRootUsername,
-            dbRootPassword,
+            "jdbc:mysql://${dbConnectionHost}:${dbConnectionPort}/mysql",
+            "root",
+            "",
             dbConnectionDriver
     )
 }
