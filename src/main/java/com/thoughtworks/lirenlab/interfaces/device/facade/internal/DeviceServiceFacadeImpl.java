@@ -25,3 +25,4 @@ public class DeviceServiceFacadeImpl implements DeviceServiceFacade {
         this.deviceService.register(deviceId(deviceId), deviceToken(deviceToken));
     }
 }
+

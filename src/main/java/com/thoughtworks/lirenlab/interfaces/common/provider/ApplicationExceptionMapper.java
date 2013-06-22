@@ -2,6 +2,8 @@ package com.thoughtworks.lirenlab.interfaces.common.provider;
 
 import com.thoughtworks.lirenlab.domain.model.donation.DonationNotFoundException;
 import com.thoughtworks.lirenlab.domain.model.donation.InvalidHistoricalDonationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.core.MediaType;
@@ -12,12 +14,14 @@ import javax.ws.rs.ext.Provider;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
 /**
- *  quick and dirty solution, please refactor it.
+ * quick and dirty solution, please refactor it.
  */
 
 @Provider
 @Component
 public class ApplicationExceptionMapper implements ExceptionMapper<Exception> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationExceptionMapper.class);
 
     @Override
     public Response toResponse(Exception exception) {
@@ -42,11 +46,14 @@ public class ApplicationExceptionMapper implements ExceptionMapper<Exception> {
                     .build();
         }
 
+        LOGGER.info("wocao",exception);
+
         return Response
                 .serverError()
+                .type(MediaType.APPLICATION_JSON)
                 .entity(new ErrorMessage(
                         "9999",
-                        "未知错误，请联系管理员: "+exception.getMessage()))
+                        "未知错误，请联系管理员: " + exception.getMessage()))
                 .build();
     }
 
