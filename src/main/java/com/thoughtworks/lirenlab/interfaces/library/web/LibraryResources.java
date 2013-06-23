@@ -32,7 +32,7 @@ public class LibraryResources {
     @Versions(version = {"v1"})
     public Response add(LibraryDTO dto) {
         LOGGER.info("the dto get from browser is: " + dto.getId() + ":" + dto.getAddress());
-        libraryServerFacade.add(dto.getAddress());
+        libraryServerFacade.add(Long.parseLong(dto.getId()), dto.getAddress());
         return Response.ok().build();
     }
 }

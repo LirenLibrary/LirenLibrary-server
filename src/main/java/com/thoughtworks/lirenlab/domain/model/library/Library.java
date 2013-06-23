@@ -9,7 +9,6 @@ import java.util.Date;
 public class Library {
 
     @Id
-    @GeneratedValue
     private Long id;
 
     @Column(name = "address")
@@ -26,8 +25,16 @@ public class Library {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public Library(String address) {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Library(Long id, String address) {
+        this.id = id;
         this.address = address;
         this.createdDate = new Date();
         this.updatedDate = this.createdDate;
@@ -39,5 +46,9 @@ public class Library {
 
     public Long id() {
         return id;
+    }
+
+    public void setUpdatedDate() {
+        this.updatedDate = new Date();
     }
 }

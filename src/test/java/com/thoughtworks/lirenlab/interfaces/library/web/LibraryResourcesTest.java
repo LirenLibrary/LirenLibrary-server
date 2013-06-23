@@ -35,7 +35,7 @@ public class LibraryResourcesTest {
 
         libraryResources.add(dto);
 
-        verify(libraryServerFacade).add(address);
+        verify(libraryServerFacade).add(12l, address);
     }
 
     @Test

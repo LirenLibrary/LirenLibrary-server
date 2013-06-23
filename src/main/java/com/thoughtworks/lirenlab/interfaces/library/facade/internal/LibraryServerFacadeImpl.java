@@ -19,8 +19,8 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
     }
 
     @Override
-    public Long add(String address) {
-        return libraryService.add(address);
+    public Long add(Long id, String address) {
+        return libraryService.add(id, address);
     }
 
     @Override

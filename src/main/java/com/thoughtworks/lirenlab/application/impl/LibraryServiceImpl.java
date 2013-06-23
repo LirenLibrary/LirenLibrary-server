@@ -6,6 +6,8 @@ import com.thoughtworks.lirenlab.domain.model.library.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LibraryServiceImpl implements LibraryService {
 
@@ -17,9 +19,26 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Long add(String address) {
-        Library library = new Library(address);
+    public Long add(Long id, String address) {
+        Library library = new Library(id, address);
         libraryRepository.save(library);
         return library.id();
+    }
+
+    @Override
+    public void update(Long id, String address) {
+        Library library = new Library(id, address);
+        library.setUpdatedDate();
+        libraryRepository.update(library);
+    }
+
+    @Override
+    public void delete(Long id) {
+        libraryRepository.delete(id);
+    }
+
+    @Override
+    public List<Library> findAll() {
+        return libraryRepository.findAll();
     }
 }

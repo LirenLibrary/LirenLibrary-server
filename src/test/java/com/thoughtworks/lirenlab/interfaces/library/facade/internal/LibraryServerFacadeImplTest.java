@@ -25,8 +25,8 @@ public class LibraryServerFacadeImplTest {
         LibraryServerFacade libraryServerFacade = new LibraryServerFacadeImpl(libraryService);
         String address = "Sichuan Chengdu tianfu";
 
-        libraryServerFacade.add(address);
+        libraryServerFacade.add(12l, address);
 
-        verify(libraryService).add(address);
+        verify(libraryService).add(12l, address);
     }
 }
