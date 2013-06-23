@@ -2,9 +2,6 @@ package com.thoughtworks.lirenlab.infrastructure.persistence.hibernate;
 
 import com.thoughtworks.lirenlab.domain.model.device.Device;
 import com.thoughtworks.lirenlab.domain.model.device.DeviceRepository;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.junit.Before;
 import org.junit.Test;
 
 import static com.thoughtworks.lirenlab.domain.model.device.Device.device;
@@ -13,18 +10,15 @@ import static com.thoughtworks.lirenlab.domain.model.device.DeviceToken.deviceTo
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
-public class DeviceRepositoryHibernateTest {
+public class DeviceRepositoryHibernateTest extends RepositoryTestBase {
 
-    private SessionFactory sessionFactory;
-    private Session session;
     private DeviceRepository deviceRepository;
 
-    @Before
-    public void setUp() throws Exception {
-        sessionFactory = mock(SessionFactory.class);
-        session = mock(Session.class);
+    @Override
+    public void moreSetUp() {
         DeviceRepositoryHibernate deviceRepositoryHibernate = new DeviceRepositoryHibernate();
         deviceRepositoryHibernate.setSessionFactory(sessionFactory);
         deviceRepository = deviceRepositoryHibernate;
@@ -34,7 +28,6 @@ public class DeviceRepositoryHibernateTest {
     public void should_save_device() throws Exception {
         //Given
         Device device = device(deviceId("12234"), deviceToken("token"));
-        when(sessionFactory.getCurrentSession()).thenReturn(session);
 
         //When
         deviceRepository.save(device);
@@ -47,7 +40,6 @@ public class DeviceRepositoryHibernateTest {
     public void should_update_device() throws Exception {
         //Given
         Device device = device(deviceId("12234"), deviceToken("token"));
-        when(sessionFactory.getCurrentSession()).thenReturn(session);
 
         //When
         deviceRepository.update(device);
@@ -60,8 +52,7 @@ public class DeviceRepositoryHibernateTest {
     public void should_find_device_by_id() throws Exception {
         //Given
         Device device = device(deviceId("12234"), deviceToken("token"));
-        when(sessionFactory.getCurrentSession()).thenReturn(session);
-        when(session.get(Device.class, deviceId("12234"))).thenReturn(device);
+        given(session.get(Device.class, deviceId("12234"))).willReturn(device);
 
         //When
         Device actualDevice = deviceRepository.find(deviceId("12234"));
