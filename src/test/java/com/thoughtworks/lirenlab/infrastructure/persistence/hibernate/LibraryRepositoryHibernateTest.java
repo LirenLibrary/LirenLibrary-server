@@ -10,6 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -45,6 +46,8 @@ public class LibraryRepositoryHibernateTest extends RepositoryTestBase {
 
     @Test
     public void should_update_a_library() {
+        given(session.load(any(Class.class), anyLong())).willReturn(mock(Library.class));
+
         libraryRepositoryHibernate.update(new Library(12l, "Chengdu, China"));
 
         verify(session).update(any());

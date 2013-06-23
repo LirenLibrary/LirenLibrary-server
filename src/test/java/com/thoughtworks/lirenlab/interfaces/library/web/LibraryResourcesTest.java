@@ -32,6 +32,7 @@ public class LibraryResourcesTest {
         String address = "Sichuan Chengdu";
         LibraryDTO dto = new LibraryDTO();
         dto.setAddress(address);
+        dto.setId("12");
 
         libraryResources.add(dto);
 
@@ -41,6 +42,9 @@ public class LibraryResourcesTest {
     @Test
     public void should_return_success_statue_after_added_a_new_library(){
         LibraryDTO dto = new LibraryDTO();
+        String address = "Sichuan Chengdu";
+        dto.setAddress(address);
+        dto.setId("12");
 
         Response response = libraryResources.add(dto);
 
