@@ -3,6 +3,8 @@ config(function ($routeProvider) {
     $routeProvider.
     when('/donations', {controller:DonationsCtrl, templateUrl:'donations.html'}).
     when('/history', {controller:HistoryCtrl, templateUrl:'history.html'}).
+    when('/manage', {controller:ManageCtrl, templateUrl:'manage.html'}).
+    when('/address', {controller:AddressCtrl, templateUrl:'address.html'}).
     otherwise({redirectTo:'/donations'});
 
 });
@@ -99,4 +101,12 @@ function DonationsCtrl($location, $scope, Donations, Donation) {
           });
         }
   });
+}
+
+function ManageCtrl($location, $scope) {
+
+}
+
+function AddressCtrl($location, $scope) {
+
 }
