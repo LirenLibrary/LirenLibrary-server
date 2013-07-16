@@ -3,8 +3,9 @@ package com.thoughtworks.lirenlab.integration;
 import com.thoughtworks.lirenlab.application.LibraryService;
 import com.thoughtworks.lirenlab.domain.model.library.Library;
 import com.thoughtworks.lirenlab.domain.model.library.LibraryRepository;
+import org.hibernate.NonUniqueObjectException;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.SessionFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,14 @@ public class LibraryIntegrationTest {
         assertThat(all.get(0).address(), is(address));
     }
 
+    @Test(expected = NonUniqueObjectException.class)
+    public void should_not_create_an_already_existing_library(){
+        String address = "Chengdu Sichuan";
+        libraryService.add(1l, address);
+
+        libraryService.add(1l, address);
+    }
+
     @Test
     public void should_update_a_library() {
         libraryService.add(1l, "Chengdu Sichuan");
@@ -51,6 +60,11 @@ public class LibraryIntegrationTest {
         assertThat(all.get(0).address(), is(newAddress));
     }
 
+    @Test(expected = ObjectNotFoundException.class)
+    public void should_not_update_an_non_exist_library(){
+        libraryService.update(1l, "Chongqing");
+    }
+
     @Test
     public void should_delete_a_library() {
         libraryService.add(1l, "Chengdu Sichuan");
@@ -59,5 +73,10 @@ public class LibraryIntegrationTest {
         List<Library> all = libraryService.findAll();
 
         assertThat(all.size(), is(0));
+    }
+
+    @Test(expected = ObjectNotFoundException.class)
+    public void should_not_delete_an_non_exist_library(){
+        libraryService.delete(2l);
     }
 }

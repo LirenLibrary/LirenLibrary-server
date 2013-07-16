@@ -50,7 +50,7 @@ public class LibraryRepositoryHibernateTest extends RepositoryTestBase {
 
         libraryRepositoryHibernate.update(new Library(12l, "Chengdu, China"));
 
-        verify(session).update(any());
+        verify(session).flush();
     }
 
     @Test

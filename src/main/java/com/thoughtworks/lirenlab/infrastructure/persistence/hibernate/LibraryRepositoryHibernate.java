@@ -26,7 +26,8 @@ public class LibraryRepositoryHibernate extends HibernateRepository implements L
         oldLibrary.setId(library.id());
         oldLibrary.setAddress(library.address());
         oldLibrary.setUpdatedDate();
-        currentSession().update(oldLibrary);
+        currentSession().flush();
+//        currentSession().update(oldLibrary);
     }
 
     @Override
