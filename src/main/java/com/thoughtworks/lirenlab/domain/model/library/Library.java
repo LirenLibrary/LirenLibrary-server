@@ -1,5 +1,7 @@
 package com.thoughtworks.lirenlab.domain.model.library;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,8 +11,9 @@ import java.util.Date;
 public class Library {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    private String id;
 
     @Column(name = "address")
     private String address;
@@ -42,7 +45,7 @@ public class Library {
     }
 
 
-    public String address(){
+    public String address() {
         return address;
     }
 
@@ -50,12 +53,11 @@ public class Library {
         this.address = address;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Library(Long id, String address) {
-        this.id = id;
+    public Library(String address) {
         this.address = address;
         this.createdDate = new Date();
         this.updatedDate = this.createdDate;
@@ -65,7 +67,7 @@ public class Library {
     public Library() {
     }
 
-    public Long id() {
+    public String id() {
         return id;
     }
 

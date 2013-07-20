@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:context-test.xml"})
@@ -37,27 +38,30 @@ public class LibraryIntegrationTest {
     @Test
     public void should_create_a_library() {
         String address = "Chengdu Sichuan";
-        libraryService.add("江南图书馆", "koly", address, "3000", "13789612345");
-        List<Library> all = libraryService.findAll();
 
+        String result = libraryService.add("江南图书馆", "koly", address, "3000", "13789612345");
+
+        List<Library> all = libraryService.findAll();
         assertThat(all.get(0).address(), is(address));
+        System.out.println("The returning value is: " + result);
+        assertThat(result, notNullValue());
     }
 
     @Ignore(value = "for not deciding which is same")
     @Test(expected = NonUniqueObjectException.class)
     public void should_not_create_an_already_existing_library(){
         String address = "Chengdu Sichuan";
-        libraryService.add(1l, address);
+        libraryService.add("sdgdf23f", address);
 
-        libraryService.add(1l, address);
+        libraryService.add("sdgdf23f", address);
     }
 
     @Ignore
     @Test
     public void should_update_a_library() {
-        libraryService.add(1l, "Chengdu Sichuan");
+        libraryService.add("sdgdf23f", "Chengdu Sichuan");
         String newAddress = "chengdu Sichuan China";
-        libraryService.update(1l, newAddress);
+        libraryService.update("sdgdf23f", newAddress);
         List<Library> all = libraryService.findAll();
 
         assertThat(all.get(0).address(), is(newAddress));
@@ -66,14 +70,14 @@ public class LibraryIntegrationTest {
     @Ignore
     @Test(expected = ObjectNotFoundException.class)
     public void should_not_update_an_non_exist_library(){
-        libraryService.update(1l, "Chongqing");
+        libraryService.update("sdgdf23f", "Chongqing");
     }
 
     @Ignore
     @Test
     public void should_delete_a_library() {
-        libraryService.add(1l, "Chengdu Sichuan");
-        libraryService.delete(1l);
+        libraryService.add("sdgdf23f", "Chengdu Sichuan");
+        libraryService.delete("sdgdf23f");
 
         List<Library> all = libraryService.findAll();
 
@@ -83,6 +87,6 @@ public class LibraryIntegrationTest {
     @Ignore
     @Test(expected = ObjectNotFoundException.class)
     public void should_not_delete_an_non_exist_library(){
-        libraryService.delete(2l);
+        libraryService.delete("2l");
     }
 }

@@ -11,8 +11,9 @@ import java.util.List;
 public class LibraryRepositoryHibernate extends HibernateRepository implements LibraryRepository {
 
     @Override
-    public void save(Library library) {
+    public String save(Library library) {
         currentSession().saveOrUpdate(library);
+        return library.id();
     }
 
     @Override
@@ -31,8 +32,7 @@ public class LibraryRepositoryHibernate extends HibernateRepository implements L
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         currentSession().delete(currentSession().load(Library.class, id));
-
     }
 }
