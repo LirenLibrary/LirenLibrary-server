@@ -10,4 +10,6 @@ public interface LibraryService {
     public void update(Long id, String address);
     public void delete(Long id);
     public List<Library> findAll();
+
+    public void add(String name, String contacter, String address, String postcode, String telphone);
 }

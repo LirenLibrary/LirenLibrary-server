@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -33,10 +32,16 @@ public class LibraryResourcesTest {
         LibraryDTO dto = new LibraryDTO();
         dto.setAddress(address);
         dto.setId("12");
+        dto.setContacter("koly");
+        dto.setName("江南图书馆");
+        dto.setPostcode("2000");
+        dto.setTelphone("13987016457");
 
         libraryResources.add(dto);
 
-        verify(libraryServerFacade).add(12l, address);
+        verify(libraryServerFacade).add(dto.getName(),
+                dto.getContacter(), dto.getAddress(),
+                dto.getPostcode(), dto.getTelphone());
     }
 
     @Test

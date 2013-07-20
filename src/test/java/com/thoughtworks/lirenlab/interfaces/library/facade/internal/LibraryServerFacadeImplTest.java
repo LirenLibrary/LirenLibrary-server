@@ -24,9 +24,13 @@ public class LibraryServerFacadeImplTest {
     public void should_add_a_library(){
         LibraryServerFacade libraryServerFacade = new LibraryServerFacadeImpl(libraryService);
         String address = "Sichuan Chengdu tianfu";
+        String name = "江南图书馆";
+        String contacter = "koly";
+        String postcode = "3000";
+        String telphone = "13987645673";
 
-        libraryServerFacade.add(12l, address);
+        libraryServerFacade.add(name, contacter, address, postcode, telphone);
 
-        verify(libraryService).add(12l, address);
+        verify(libraryService).add(name, contacter, address, postcode, telphone);
     }
 }

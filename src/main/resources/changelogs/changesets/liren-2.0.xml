@@ -9,6 +9,10 @@
         <sql>
             CREATE TABLE `libraries` (
             `id` bigint(20) NOT NULL AUTO_INCREMENT,
+            `name` varchar(20) NOT NULL,
+            `contacter` varchar(10) NOT NULL,
+            `post_code` varchar(10) NOT NULL,
+            `telephone` varchar(15) NOT NULL,
             `address` varchar(255) NOT NULL,
             `created_date` datetime DEFAULT NULL,
             `updated_date` datetime DEFAULT NULL,

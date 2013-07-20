@@ -41,4 +41,10 @@ public class LibraryServiceImpl implements LibraryService {
     public List<Library> findAll() {
         return libraryRepository.findAll();
     }
+
+    @Override
+    public void add(String name, String contacter, String address, String postcode, String telphone) {
+        Library library = new Library(name, contacter, address, postcode, telphone);
+        libraryRepository.save(library);
+    }
 }
