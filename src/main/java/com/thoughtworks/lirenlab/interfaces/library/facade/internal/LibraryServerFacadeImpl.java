@@ -19,12 +19,14 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
     }
 
     @Override
-    public Long add(Long id, String address) {
-        return libraryService.add(id, address);
-    }
-
-    @Override
     public LibraryDTO find(String id) {
         return null;
     }
+
+    @Override
+    public Long add(String name, String contacter, String address, String postcode, String telphone) {
+        libraryService.add(name, contacter, address, postcode, telphone);
+        return new Long(0);
+    }
+
 }

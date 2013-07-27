@@ -1,16 +1,22 @@
 <!-- Primary navigation -->
 <nav id="primary">
     <ul>
-        <li class="active">
+        <li>
             <a href="#donations">
                 <span class="icon32 love"></span>
                 待审核
             </a>
         </li>
-        <li>
+        <li class="active">
             <a href="#history">
                 <span class="icon32 listicon"></span>
                 历史
+            </a>
+        </li>
+        <li>
+            <a href="#manage">
+                <span class="icon32 tools"></span>
+                管理
             </a>
         </li>
         <li class="bottom">
@@ -30,7 +36,7 @@
                 <div class="history-search">
                     <form ng-submit="findHistorical(donationId)">
                     <input type="text" ng-model="donationId" placeholder="请输入捐赠ID...">
-                    <input type="submit" class="button blue" value="搜索"></button>
+                    <input type="submit" class="button blue" value="搜索">
                     </form>
                 </div>
             </li>

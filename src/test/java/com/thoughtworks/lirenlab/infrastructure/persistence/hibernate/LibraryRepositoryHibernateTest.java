@@ -27,7 +27,7 @@ public class LibraryRepositoryHibernateTest extends RepositoryTestBase {
 
     @Test
     public void should_save_a_library() {
-        Library library = new Library(1l, "ChengDu, Sichuan");
+        Library library = new Library("江南图书馆", "koly", "chengdu sichuan", "610060", "13789645321");
         libraryRepositoryHibernate.save(library);
 
         verify(session).saveOrUpdate(library);
@@ -48,14 +48,14 @@ public class LibraryRepositoryHibernateTest extends RepositoryTestBase {
     public void should_update_a_library() {
         given(session.load(any(Class.class), anyLong())).willReturn(mock(Library.class));
 
-        libraryRepositoryHibernate.update(new Library(12l, "Chengdu, China"));
+        libraryRepositoryHibernate.update(new Library("江南图书馆", "koly", "chengdu sichuan", "610060", "13789645321"));
 
-        verify(session).update(any());
+        verify(session).flush();
     }
 
     @Test
     public void should_delete_a_library(){
-        libraryRepositoryHibernate.delete(12l);
+        libraryRepositoryHibernate.delete("12l");
 
         verify(session).delete(any());
     }

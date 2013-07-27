@@ -19,26 +19,33 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public Long add(Long id, String address) {
-        Library library = new Library(id, address);
+    public String add(String id, String address) {
+        Library library = new Library(address);
         libraryRepository.save(library);
         return library.id();
     }
 
     @Override
-    public void update(Long id, String address) {
-        Library library = new Library(id, address);
+    public void update(String id, String address) {
+        Library library = new Library(address);
         library.setUpdatedDate();
         libraryRepository.update(library);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         libraryRepository.delete(id);
     }
 
     @Override
     public List<Library> findAll() {
         return libraryRepository.findAll();
+    }
+
+    @Override
+    public String add(String name, String contacter, String address, String postcode, String telphone) {
+        Library library = new Library(name, contacter, address, postcode, telphone);
+        libraryRepository.save(library);
+        return library.id();
     }
 }

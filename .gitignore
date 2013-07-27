@@ -9,6 +9,9 @@ buildSrc/.gradle
 out
 logs
 *.log
+.gradletasknamecache
+.htaccess
+data/
 
 .DS_Store
 .AppleDouble
