@@ -19,11 +19,22 @@ public class LibraryDTO {
     @JsonProperty("postcode")
     private String postcode;
 
-    @JsonProperty("telphone")
-    private String telphone;
+    @JsonProperty("telephone")
+    private String telephone;
+
+    public LibraryDTO() {
+    }
 
     public String getName() {
         return name;
+    }
+
+    public LibraryDTO(String address, String name, String contacter, String postcode, String telphone) {
+        this.address = address;
+        this.name = name;
+        this.contacter = contacter;
+        this.postcode = postcode;
+        this.telephone = telphone;
     }
 
     public void setName(String name) {
@@ -46,12 +57,12 @@ public class LibraryDTO {
         this.postcode = postcode;
     }
 
-    public String getTelphone() {
-        return telphone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTelphone(String telphone) {
-        this.telphone = telphone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getId() {

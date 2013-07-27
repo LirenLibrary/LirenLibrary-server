@@ -28,20 +28,17 @@ public class LibraryResourcesTest {
 
     @Test
     public void should_add_a_new_library(){
-        String address = "Sichuan Chengdu";
         LibraryDTO dto = new LibraryDTO();
-        dto.setAddress(address);
+        dto.setAddress("Sichuan Chengdu");
         dto.setId("12");
         dto.setContacter("koly");
         dto.setName("江南图书馆");
         dto.setPostcode("2000");
-        dto.setTelphone("13987016457");
+        dto.setTelephone("13987016457");
 
         libraryResources.add(dto);
 
-        verify(libraryServerFacade).add(dto.getName(),
-                dto.getContacter(), dto.getAddress(),
-                dto.getPostcode(), dto.getTelphone());
+        verify(libraryServerFacade).add(dto);
     }
 
     @Test

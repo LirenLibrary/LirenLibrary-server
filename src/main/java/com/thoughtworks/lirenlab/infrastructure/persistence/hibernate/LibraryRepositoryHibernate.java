@@ -12,6 +12,7 @@ public class LibraryRepositoryHibernate extends HibernateRepository implements L
 
     @Override
     public String save(Library library) {
+        library.setUpdatedDate();
         currentSession().saveOrUpdate(library);
         return library.id();
     }
@@ -24,11 +25,7 @@ public class LibraryRepositoryHibernate extends HibernateRepository implements L
     @Override
     public void update(Library library) {
         Library oldLibrary = (Library) currentSession().load(Library.class, library.id());
-        oldLibrary.setId(library.id());
-        oldLibrary.setAddress(library.address());
-        oldLibrary.setUpdatedDate();
-        currentSession().flush();
-//        currentSession().update(oldLibrary);
+        oldLibrary.update(library);
     }
 
     @Override

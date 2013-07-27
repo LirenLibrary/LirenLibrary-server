@@ -42,6 +42,8 @@ public class Library {
         this.address = address;
         this.postCode = postcode;
         this.telephone = telphone;
+        this.createdDate = new Date();
+        this.updatedDate = this.createdDate;
     }
 
 
@@ -57,6 +59,7 @@ public class Library {
         this.id = id;
     }
 
+    @Deprecated
     public Library(String address) {
         this.address = address;
         this.createdDate = new Date();
@@ -71,7 +74,48 @@ public class Library {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getContacter() {
+        return contacter;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setContacter(String contacter) {
+        this.contacter = contacter;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     public void setUpdatedDate() {
         this.updatedDate = new Date();
+    }
+
+    public void update(Library that) {
+        this.address = that.address;
+        this.contacter = that.contacter;
+        this.name = that.name;
+        this.telephone = that.telephone;
+        this.postCode = that.postCode;
+        this.updatedDate = that.updatedDate;
     }
 }

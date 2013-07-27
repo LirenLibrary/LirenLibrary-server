@@ -5,6 +5,7 @@ import com.thoughtworks.lirenlab.domain.model.library.Library;
 import com.thoughtworks.lirenlab.domain.model.library.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,20 +20,7 @@ public class LibraryServiceImpl implements LibraryService {
     }
 
     @Override
-    public String add(String id, String address) {
-        Library library = new Library(address);
-        libraryRepository.save(library);
-        return library.id();
-    }
-
-    @Override
-    public void update(String id, String address) {
-        Library library = new Library(address);
-        library.setUpdatedDate();
-        libraryRepository.update(library);
-    }
-
-    @Override
+    @Transactional
     public void delete(String id) {
         libraryRepository.delete(id);
     }
@@ -42,10 +30,25 @@ public class LibraryServiceImpl implements LibraryService {
         return libraryRepository.findAll();
     }
 
+    @Deprecated
     @Override
+    @Transactional
     public String add(String name, String contacter, String address, String postcode, String telphone) {
         Library library = new Library(name, contacter, address, postcode, telphone);
-        libraryRepository.save(library);
-        return library.id();
+        return add(library);
+    }
+
+    @Override
+    @Transactional
+    public String add(Library library) {
+        return libraryRepository.save(library);
+    }
+
+    @Override
+    @Transactional
+    public void update(String id, Library library) {
+        library.setId(id);
+        library.setUpdatedDate();
+        libraryRepository.update(library);
     }
 }

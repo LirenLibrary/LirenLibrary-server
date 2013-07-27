@@ -68,7 +68,8 @@ dependencies {
             "org.yaml:snakeyaml:1.11",
             "joda-time:joda-time:2.1",
             fileTree(dir: "lib", include: '*.jar'),
-            "bouncycastle:bcprov-jdk16:140"
+            "bouncycastle:bcprov-jdk16:140",
+            "commons-beanutils:commons-beanutils-core:1.8.3"
 //            "com.googlecode.disruptor:disruptor:2.7.1" ,
     )
 

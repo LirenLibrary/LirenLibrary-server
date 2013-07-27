@@ -19,14 +19,8 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
     }
 
     @Override
-    public LibraryDTO find(String id) {
-        return null;
-    }
-
-    @Override
-    public Long add(String name, String contacter, String address, String postcode, String telphone) {
-        libraryService.add(name, contacter, address, postcode, telphone);
-        return new Long(0);
+    public void add(LibraryDTO dto) {
+        libraryService.add(LibraryDTOAssembler.toLibrary(dto));
     }
 
 }
