@@ -7,19 +7,19 @@ config(function ($routeProvider) {
     when('/address', {controller:AddressCtrl, templateUrl:'address.html'}).
     otherwise({redirectTo:'/donations'});
 
-}).directive('lrButtonStyle', function(){
-    return function(scope, element, attrs){
-        console.log("lr button style directive");
-        console.log(element);
-        jQuery(element).click(function(){
-            var isGreen = jQuery(element).hasClass('green');
-            if (isGreen){
-                jQuery(element).removeClass('green active');
-            }else {
-                jQuery(element).addClass('green active');
-            }
-        });
-    };
+//}).directive('lrButtonStyle', function(){
+//    return function(scope, element, attrs){
+//        console.log("lr button style directive");
+//        console.log(element);
+//        jQuery(element).click(function(){
+//            var isGreen = jQuery(element).hasClass('green');
+//            if (isGreen){
+//                jQuery(element).removeClass('green active');
+//            }else {
+//                jQuery(element).addClass('green active');
+//            }
+//        });
+//    };
 });
 
 
@@ -124,22 +124,38 @@ function AddressCtrl($location, $scope, Libraries) {
 
     $scope.init = function(){
         Libraries.getAllLibraries(function(response){
-            console.log(response);
-            $scope.libraries = response;
-
+            var libs = [];
+            for (var lib in response){
+                response[lib].shown=true;
+                response[lib].saveOrEdit="编辑";
+                libs.push(response[lib]);
+            }
+            $scope.libraries = libs;
         });
-        $scope.shown = true;
-        $scope.saveOrEdit = "编辑";
     };
 
     $scope.edit = function(library){
-//        $scope.shown = !$scope.shown;
-
+        console.log("library shown:");
+        console.log(library.shown);
         library.shown = !library.shown;
-        $scope.saveOrEdit = library.shown ? "编辑" : "保存";
+        library.saveOrEdit = library.shown ? "编辑" : "保存";
     }
 
     $scope.delete = function(){
 
+    }
+
+    $scope.add = function(){
+        console.log("addition");
+        $scope.libraries.push({
+            address: "",
+            contacter: "",
+            id: "",
+            name: "",
+            postcode: "",
+            telephone: "",
+            shown:false,
+            saveOrEdit:"保存"
+        });
     }
 }

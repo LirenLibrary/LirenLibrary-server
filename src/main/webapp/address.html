@@ -127,7 +127,7 @@
                     <td><input type="text" value="{{library.telephone}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
 
                     <td>
-                        <a ng-click="edit(library)" class="button plain" lr-button-style>{{saveOrEdit}}</a>
+                        <a ng-click="edit(library)" class="button plain" ng-class="{green : !library.shown, active: !library.shown}">{{library.saveOrEdit}}</a>
                         <a ng-click="delete($index)" class="button plain">删除</a>
                     </td>
                 </tr>
@@ -135,7 +135,7 @@
                 <tfoot>
                 <tr>
                     <td colspan="5">
-                        <a href="#" class="button">添加</a>
+                        <a href="" ng-click="add()" class="button">添加</a>
                     </td>
                 </tr>
                 </tfoot>
