@@ -52,4 +52,11 @@ public class LibraryResourcesTest {
 
         assertThat(response.getStatus(), is(200));
     }
+
+    @Test
+    public void should_return_all_the_libraries(){
+        libraryResources.findAllLibraries();
+
+        verify(libraryServerFacade).findLibraries();
+    }
 }

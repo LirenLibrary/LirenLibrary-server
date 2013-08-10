@@ -1,4 +1,4 @@
-angular.module('donation', ['donationService', 'commonFilters']).
+angular.module('donation', ['donationService', 'libraryService', 'commonFilters']).
 config(function ($routeProvider) {
     $routeProvider.
     when('/donations', {controller:DonationsCtrl, templateUrl:'donations.html'}).
@@ -107,6 +107,8 @@ function ManageCtrl($location, $scope) {
 
 }
 
-function AddressCtrl($location, $scope) {
-
+function AddressCtrl($location, $scope, Libraries) {
+    Libraries.getAllLibraries(function(response){
+        console.log(response);
+    });
 }

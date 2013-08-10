@@ -110,6 +110,10 @@ public class Library {
         this.updatedDate = new Date();
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public void update(Library that) {
         this.address = that.address;
         this.contacter = that.contacter;

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class LibraryServerFacadeImpl implements LibraryServerFacade
@@ -21,6 +23,11 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
     @Override
     public void add(LibraryDTO dto) {
         libraryService.add(LibraryDTOAssembler.toLibrary(dto));
+    }
+
+    @Override
+    public List<LibraryDTO> findLibraries() {
+        return LibraryDTOAssembler.toLibraryDTOs(libraryService.findAll());
     }
 
 }
