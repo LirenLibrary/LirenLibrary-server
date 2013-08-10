@@ -127,7 +127,7 @@
                     <td><input type="text" value="{{library.telephone}}" ng-readonly="shown" ng-class="{borderless: shown}"></td>
 
                     <td>
-                        <a ng-click="save()" class="button plain" lr-button-style>编辑</a>
+                        <a ng-click="edit()" class="button plain" lr-button-style>{{saveOrEdit}}</a>
                         <a ng-click="delete()" class="button plain">删除</a>
                     </td>
                 </tr>

@@ -128,9 +128,11 @@ function AddressCtrl($location, $scope, Libraries) {
             $scope.libraries = response;
         });
         $scope.shown = true;
+        $scope.saveOrEdit = "编辑";
     };
 
-    $scope.save = function(){
+    $scope.edit = function(){
         $scope.shown = !$scope.shown;
+        $scope.saveOrEdit = $scope.shown ? "编辑" : "保存";
     }
 }
