@@ -54,3 +54,7 @@ label.number {position: absolute; right: 10px;}
 .history-search input::-webkit-input-placeholder, .history-search input::-moz-placeholder {
   color: #999;
 }
+
+.borderless{
+  border: 0 !important;
+}

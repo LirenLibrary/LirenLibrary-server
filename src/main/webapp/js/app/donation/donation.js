@@ -127,21 +127,10 @@ function AddressCtrl($location, $scope, Libraries) {
             console.log(response);
             $scope.libraries = response;
         });
-        $scope.isActive = false;
-        $scope.isGreen = false;
+        $scope.shown = true;
     };
 
-    $scope.delete = function(){
-        $scope.isActive = !$scope.isActive;
-        $scope.isGreen = !$scope.isGreen;
-    }
-
-    var buttonStyle = function(){
-        $scope.isActive = !$scope.isActive;
-        $scope.isGreen = !$scope.isGreen;
-    }
-
     $scope.save = function(){
-        buttonStyle();
+        $scope.shown = !$scope.shown;
     }
 }
