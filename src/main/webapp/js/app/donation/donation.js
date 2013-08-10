@@ -126,13 +126,20 @@ function AddressCtrl($location, $scope, Libraries) {
         Libraries.getAllLibraries(function(response){
             console.log(response);
             $scope.libraries = response;
+
         });
         $scope.shown = true;
         $scope.saveOrEdit = "编辑";
     };
 
-    $scope.edit = function(){
-        $scope.shown = !$scope.shown;
-        $scope.saveOrEdit = $scope.shown ? "编辑" : "保存";
+    $scope.edit = function(library){
+//        $scope.shown = !$scope.shown;
+
+        library.shown = !library.shown;
+        $scope.saveOrEdit = library.shown ? "编辑" : "保存";
+    }
+
+    $scope.delete = function(){
+
     }
 }

@@ -120,15 +120,15 @@
                 </tr>
 
                 <tr ng-repeat="library in libraries">
-                    <td><input type="text" value="{{library.name}}" ng-readonly="shown" ng-class="{borderless: shown}"></td>
-                    <td><input type="text" value="{{library.contacter}}" ng-readonly="shown" ng-class="{borderless: shown}"></td>
-                    <td><input type="text" value="{{library.address}}" ng-readonly="shown" ng-class="{borderless: shown}"></td>
-                    <td><input type="text" value="{{library.postcode}}" ng-readonly="shown" ng-class="{borderless: shown}"></td>
-                    <td><input type="text" value="{{library.telephone}}" ng-readonly="shown" ng-class="{borderless: shown}"></td>
+                    <td><input type="text" value="{{library.name}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" value="{{library.contacter}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" value="{{library.address}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" value="{{library.postcode}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" value="{{library.telephone}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
 
                     <td>
-                        <a ng-click="edit()" class="button plain" lr-button-style>{{saveOrEdit}}</a>
-                        <a ng-click="delete()" class="button plain">删除</a>
+                        <a ng-click="edit(library)" class="button plain" lr-button-style>{{saveOrEdit}}</a>
+                        <a ng-click="delete($index)" class="button plain">删除</a>
                     </td>
                 </tr>
                 </tbody>
