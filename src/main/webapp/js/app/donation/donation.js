@@ -7,6 +7,19 @@ config(function ($routeProvider) {
     when('/address', {controller:AddressCtrl, templateUrl:'address.html'}).
     otherwise({redirectTo:'/donations'});
 
+}).directive('lrButtonStyle', function(){
+    return function(scope, element, attrs){
+        console.log("lr button style directive");
+        console.log(element);
+        jQuery(element).click(function(){
+            var isGreen = jQuery(element).hasClass('green');
+            if (isGreen){
+                jQuery(element).removeClass('green active');
+            }else {
+                jQuery(element).addClass('green active');
+            }
+        });
+    };
 });
 
 
@@ -108,7 +121,27 @@ function ManageCtrl($location, $scope) {
 }
 
 function AddressCtrl($location, $scope, Libraries) {
-    Libraries.getAllLibraries(function(response){
-        console.log(response);
-    });
+
+    $scope.init = function(){
+        Libraries.getAllLibraries(function(response){
+            console.log(response);
+            $scope.libraries = response;
+        });
+        $scope.isActive = false;
+        $scope.isGreen = false;
+    };
+
+    $scope.delete = function(){
+        $scope.isActive = !$scope.isActive;
+        $scope.isGreen = !$scope.isGreen;
+    }
+
+    var buttonStyle = function(){
+        $scope.isActive = !$scope.isActive;
+        $scope.isGreen = !$scope.isGreen;
+    }
+
+    $scope.save = function(){
+        buttonStyle();
+    }
 }
