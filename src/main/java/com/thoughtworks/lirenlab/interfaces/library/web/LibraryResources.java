@@ -50,7 +50,6 @@ public class LibraryResources {
     @Produces("application/vnd.liren-libraries+json")
     @Versions(version = {"v1"})
     public Response findAllLibraries() {
-        System.out.println("========================================================");
         List<LibraryDTO> libraries1 = libraryServerFacade.findLibraries();
         List<LibraryDTO> libraries = Lists.newArrayList();
         LibraryDTO one = new LibraryDTO("chengdu", "jiangnan", "koly", "610046", "13881989076");

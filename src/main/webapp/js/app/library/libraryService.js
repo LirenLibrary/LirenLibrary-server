@@ -29,4 +29,11 @@ angular.module('libraryService', []).
 
         };
         return Libraries;
+    }).factory('Library', function($http){
+        var Library = {
+            saveOrUpdate: function(library, successHandler, failHandler){
+                $http.post
+            }
+        };
+        return Library;
     });

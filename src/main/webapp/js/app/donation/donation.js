@@ -6,20 +6,6 @@ config(function ($routeProvider) {
     when('/manage', {controller:ManageCtrl, templateUrl:'manage.html'}).
     when('/address', {controller:AddressCtrl, templateUrl:'address.html'}).
     otherwise({redirectTo:'/donations'});
-
-//}).directive('lrButtonStyle', function(){
-//    return function(scope, element, attrs){
-//        console.log("lr button style directive");
-//        console.log(element);
-//        jQuery(element).click(function(){
-//            var isGreen = jQuery(element).hasClass('green');
-//            if (isGreen){
-//                jQuery(element).removeClass('green active');
-//            }else {
-//                jQuery(element).addClass('green active');
-//            }
-//        });
-//    };
 });
 
 
@@ -134,15 +120,20 @@ function AddressCtrl($location, $scope, Libraries) {
         });
     };
 
-    $scope.edit = function(library){
-        console.log("library shown:");
-        console.log(library.shown);
+    $scope.editOrSave = function(library){
+        if (library.shown == false){
+            Library.save();
+        }
         library.shown = !library.shown;
         library.saveOrEdit = library.shown ? "编辑" : "保存";
     }
 
-    $scope.delete = function(){
+    $scope.remove = function(id){
+        var deleteLibrary = confirm('确定删除？');
+        console.log(deleteLibrary);
+        if (deleteLibrary){
 
+        }
     }
 
     $scope.add = function(){
