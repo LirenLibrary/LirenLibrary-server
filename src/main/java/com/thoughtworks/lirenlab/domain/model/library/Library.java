@@ -25,7 +25,7 @@ public class Library {
     private String contacter;
 
     @Column(name = "post_code")
-    private String postCode;
+    private String postcode;
 
     @Column(name = "telephone")
     private String telephone;
@@ -40,7 +40,7 @@ public class Library {
         this.name = name;
         this.contacter = contacter;
         this.address = address;
-        this.postCode = postcode;
+        this.postcode = postcode;
         this.telephone = telphone;
         this.createdDate = new Date();
         this.updatedDate = this.createdDate;
@@ -82,8 +82,8 @@ public class Library {
         return contacter;
     }
 
-    public String getPostCode() {
-        return postCode;
+    public String getPostcode() {
+        return postcode;
     }
 
     public String getTelephone() {
@@ -98,8 +98,8 @@ public class Library {
         this.contacter = contacter;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public void setTelephone(String telephone) {
@@ -119,7 +119,7 @@ public class Library {
         this.contacter = that.contacter;
         this.name = that.name;
         this.telephone = that.telephone;
-        this.postCode = that.postCode;
+        this.postcode = that.postcode;
         this.updatedDate = that.updatedDate;
     }
 }

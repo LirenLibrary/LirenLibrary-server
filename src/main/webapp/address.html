@@ -120,11 +120,11 @@
                 </tr>
 
                 <tr ng-repeat="library in libraries">
-                    <td><input type="text" value="{{library.name}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" value="{{library.contacter}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" value="{{library.address}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" value="{{library.postcode}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" value="{{library.telephone}}" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.name" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.contacter" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.address" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.postcode" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.telephone" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
 
                     <td>
                         <a ng-click="editOrSave(library)" class="button plain" ng-class="{green : !library.shown, active: !library.shown}">{{library.saveOrEdit}}</a>

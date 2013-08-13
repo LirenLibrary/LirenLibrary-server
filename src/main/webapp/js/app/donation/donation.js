@@ -106,7 +106,7 @@ function ManageCtrl($location, $scope) {
 
 }
 
-function AddressCtrl($location, $scope, Libraries) {
+function AddressCtrl($location, $scope, Libraries, Library) {
 
     $scope.init = function(){
         Libraries.getAllLibraries(function(response){
@@ -121,8 +121,19 @@ function AddressCtrl($location, $scope, Libraries) {
     };
 
     $scope.editOrSave = function(library){
+        console.log(library);
+        var data = {};
+        data.name = library.name;
+        data.contacter = library.contacter;
+        data.address = library.address;
+        data.postcode = library.postcode;
+        data.telephone = library.telephone;
         if (library.shown == false){
-            Library.save();
+            Library.saveOrUpdate(data, function(){
+                console.log("save sucessful");
+            }), function(){
+                console.log("failed");
+            };
         }
         library.shown = !library.shown;
         library.saveOrEdit = library.shown ? "编辑" : "保存";

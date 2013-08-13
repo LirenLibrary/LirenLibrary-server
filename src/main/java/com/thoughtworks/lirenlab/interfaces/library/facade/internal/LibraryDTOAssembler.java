@@ -27,7 +27,7 @@ public class LibraryDTOAssembler {
             public LibraryDTO apply(@Nullable Library input) {
                 try {
                     LibraryDTO dto = new LibraryDTO();
-                    BeanUtils.copyProperties(input, dto);
+                    BeanUtils.copyProperties(dto, input);
                     return dto;
                 } catch (Exception e) {
                     throw new AssembleException(e);

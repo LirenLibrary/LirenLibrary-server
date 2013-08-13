@@ -32,7 +32,15 @@ angular.module('libraryService', []).
     }).factory('Library', function($http){
         var Library = {
             saveOrUpdate: function(library, successHandler, failHandler){
-                $http.post
+                $http.post('/lirenlibrary/api/libraries/new', library, {
+                    headers:{
+                        'Content-Type':'application/vnd.liren-library+json',
+                        'Version':'v1'
+                    }}).success(function(response){
+                        successHandler(response);
+                    }).error(function(error){
+                        failHandler(error.message);
+                    });
             }
         };
         return Library;

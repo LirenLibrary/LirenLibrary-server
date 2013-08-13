@@ -3,6 +3,8 @@ package com.thoughtworks.lirenlab.application.impl;
 import com.thoughtworks.lirenlab.application.LibraryService;
 import com.thoughtworks.lirenlab.domain.model.library.Library;
 import com.thoughtworks.lirenlab.domain.model.library.LibraryRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +13,7 @@ import java.util.List;
 
 @Service
 public class LibraryServiceImpl implements LibraryService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(LibraryServiceImpl.class);
     private final LibraryRepository libraryRepository;
 
     @Autowired
@@ -41,6 +43,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     @Transactional
     public String add(Library library) {
+        LOGGER.info("library post_code is: " + library.getPostcode());
         return libraryRepository.save(library);
     }
 
