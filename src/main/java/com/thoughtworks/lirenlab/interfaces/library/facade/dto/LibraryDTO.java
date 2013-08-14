@@ -80,4 +80,11 @@ public class LibraryDTO {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "id: " + getId() + "; name: " + getName() + "; address: " + getAddress() +
+                "; contacter: " + getContacter() + "; postcode: " + getPostcode() +
+                "; telephone: " + getTelephone() + ";";
+    }
 }

@@ -26,17 +26,21 @@ public class LibraryDTOAssemblerTest {
     }
 
     @Test
-    @Ignore
     public void testToLibraryDTOs() throws Exception {
+        Library libraryA = new Library("jiangnan", "koly", "sichuan chengdu", "610065", "13887654321");
+        libraryA.setId("402881e54077c629014077c69ccb0000");
+        Library libraryB = new Library("jiangnan", "koly", "sichuan chengdu", "610063", "19087654321");
+        libraryB.setId("402881e54077c629014077c69ccb0001");
         List<Library> libraries = Lists.newArrayList(
-                new Library("jiangnan", "koly", "sichuan chengdu", "610065", "13887654321"),
-                new Library("jiangnan", "koly", "sichuan chengdu", "610063", "19087654321")
+                libraryA,
+                libraryB
         );
 
         List<LibraryDTO> libraryDTOs = LibraryDTOAssembler.toLibraryDTOs(libraries);
 
         assertThat(libraryDTOs.size(), is(2));
         LibraryDTO firstLibrary = libraryDTOs.get(0);
+        assertThat(firstLibrary.getId(), is("402881e54077c629014077c69ccb0000"));
         assertThat(firstLibrary.getName(), is("jiangnan"));
         assertThat(firstLibrary.getContacter(), is("koly"));
         assertThat(firstLibrary.getAddress(), is("sichuan chengdu"));

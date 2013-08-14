@@ -55,6 +55,10 @@ public class Library {
         this.address = address;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -121,5 +125,12 @@ public class Library {
         this.telephone = that.telephone;
         this.postcode = that.postcode;
         this.updatedDate = that.updatedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + "; name: " + getName() + "; address: " + getAddress() +
+                "; contacter: " + getContacter() + "; postcode: " + getPostcode() +
+                "; telephone: " + getTelephone() + ";";
     }
 }

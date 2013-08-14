@@ -36,13 +36,7 @@ public class LibraryResources {
         LOGGER.info("the dto get from browser is: " + dto.getId() + ":" + dto.getAddress());
         LOGGER.info("postcode is: " + dto.getPostcode());
         libraryServerFacade.add(dto);
-        LOGGER.info("library added: " + dto.getAddress());
-//        libraryServerFacade.add(
-//                dto.getName(),
-//                dto.getContacter(),
-//                dto.getAddress(),
-//                dto.getPostcode(),
-//                dto.getTelephone());
+        LOGGER.info("library added: " + dto);
         return Response.ok().build();
     }
 
@@ -51,17 +45,8 @@ public class LibraryResources {
     @Produces("application/vnd.liren-libraries+json")
     @Versions(version = {"v1"})
     public Response findAllLibraries() {
-        List<LibraryDTO> libraries1 = libraryServerFacade.findLibraries();
-        List<LibraryDTO> libraries = Lists.newArrayList();
-        LibraryDTO one = new LibraryDTO("chengdu", "jiangnan", "koly", "610046", "13881989076");
-        one.setId("123456");
-        libraries.add(one);
-
-
-        LibraryDTO two = new LibraryDTO("sichuan", "thought", "aaaaa", "100006", "13881989076");
-        one.setId("654321");
-        libraries.add(two);
-
+        List<LibraryDTO> libraries = libraryServerFacade.findLibraries();
+        LOGGER.info("the first library from database is: " + libraries.get(0).toString());
         return Response.ok().entity(libraries).build();
     }
 }

@@ -117,12 +117,14 @@ function AddressCtrl($location, $scope, Libraries, Library) {
                 libs.push(response[lib]);
             }
             $scope.libraries = libs;
+            console.log($scope.libraries);
         });
     };
 
     $scope.editOrSave = function(library){
         console.log(library);
         var data = {};
+        data.id = library.id;
         data.name = library.name;
         data.contacter = library.contacter;
         data.address = library.address;

@@ -1,8 +1,11 @@
 package com.thoughtworks.lirenlab.interfaces.library.facade.internal;
 
 import com.thoughtworks.lirenlab.application.LibraryService;
+import com.thoughtworks.lirenlab.domain.model.library.Library;
 import com.thoughtworks.lirenlab.interfaces.library.facade.LibraryServerFacade;
 import com.thoughtworks.lirenlab.interfaces.library.facade.dto.LibraryDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,7 @@ import java.util.List;
 @Transactional
 public class LibraryServerFacadeImpl implements LibraryServerFacade
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LibraryServerFacadeImpl.class);
     private LibraryService libraryService;
 
     @Autowired
@@ -27,7 +31,9 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
 
     @Override
     public List<LibraryDTO> findLibraries() {
-        return LibraryDTOAssembler.toLibraryDTOs(libraryService.findAll());
+        List<Library> libraries = libraryService.findAll();
+        LOGGER.info("library retrieve from database is: " + libraries.get(0).toString());
+        return LibraryDTOAssembler.toLibraryDTOs(libraries);
     }
 
 }
