@@ -145,7 +145,11 @@ function AddressCtrl($location, $scope, Libraries, Library) {
         var deleteLibrary = confirm('确定删除？');
         console.log(deleteLibrary);
         if (deleteLibrary){
-
+            Library.remove(id, function(){
+                console.log("delete sucessfully.");
+            }, function(){
+                console.log("delete failure");
+            });
         }
     }
 
