@@ -158,7 +158,6 @@ function AddressCtrl($location, $scope, Libraries, Library) {
         $scope.libraries.push({
             address: "",
             contacter: "",
-            id: "",
             name: "",
             postcode: "",
             telephone: "",
