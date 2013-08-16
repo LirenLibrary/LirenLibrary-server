@@ -46,7 +46,15 @@ public class LibraryResources {
     @Versions(version = {"v1"})
     public Response findAllLibraries() {
         List<LibraryDTO> libraries = libraryServerFacade.findLibraries();
-        LOGGER.info("the first library from database is: " + libraries.get(0).toString());
         return Response.ok().entity(libraries).build();
+    }
+
+    @DELETE
+    @Consumes("application/vnd.liren-library+json")
+    @Path("{id:\\d+}")
+    @Versions(version = {"v1"})
+    public Response delete(@PathParam("id") String id){
+        libraryServerFacade.delete(id);
+        return Response.ok().build();
     }
 }

@@ -41,7 +41,20 @@ angular.module('libraryService', []).
                     }).error(function(error){
                         failHandler(error.message);
                     });
+            },
+            remove: function(id, successHandler, failHandler){
+                $http.delete('/lirenlibrary/api/libraries/' + id, {
+                    headers:{
+                        'Content-Type':'application/vnd.liren-library+json',
+                        'Version':'v1'
+                    }
+                }).success(function(response){
+                    successHandler(response);
+                }).error(function(error){
+                    failHandler(error.message);
+                });
             }
+
         };
         return Library;
     });

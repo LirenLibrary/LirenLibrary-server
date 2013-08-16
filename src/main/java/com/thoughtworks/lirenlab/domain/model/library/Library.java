@@ -74,10 +74,6 @@ public class Library {
     public Library() {
     }
 
-    public String id() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }

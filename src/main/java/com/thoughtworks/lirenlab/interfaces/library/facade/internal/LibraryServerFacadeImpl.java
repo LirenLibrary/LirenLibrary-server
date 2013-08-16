@@ -32,8 +32,11 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
     @Override
     public List<LibraryDTO> findLibraries() {
         List<Library> libraries = libraryService.findAll();
-        LOGGER.info("library retrieve from database is: " + libraries.get(0).toString());
         return LibraryDTOAssembler.toLibraryDTOs(libraries);
     }
 
+    @Override
+    public void delete(String id) {
+        libraryService.delete(id);
+    }
 }

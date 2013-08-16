@@ -49,6 +49,20 @@ public class LibraryIntegrationTest {
     }
 
     @Test
+    public void should_create_a_library_with_null_id() {
+        String address = "Chengdu Sichuan";
+
+        Library library = new Library("江南图书馆", "koly", address, "3000", "13789612345");
+        library.setId(null);
+        String result = libraryService.add(library);
+
+        List<Library> all = libraryService.findAll();
+        assertThat(all.get(0).address(), is(address));
+        System.out.println("The returning value is: " + result);
+        assertThat(result, notNullValue());
+    }
+
+    @Test
     public void should_update_a_library() {
         String address = "Chengdu Sichuan";
 

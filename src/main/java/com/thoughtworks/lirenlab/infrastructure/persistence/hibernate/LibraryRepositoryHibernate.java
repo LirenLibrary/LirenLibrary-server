@@ -19,8 +19,8 @@ public class LibraryRepositoryHibernate extends HibernateRepository implements L
     public String save(Library library) {
         library.setUpdatedDate();
         currentSession().saveOrUpdate(library);
-        LOGGER.info("save into database: " + library.getAddress());
-        return library.id();
+        LOGGER.info("save into database: " + library);
+        return library.getId();
     }
 
     @Override
@@ -30,9 +30,9 @@ public class LibraryRepositoryHibernate extends HibernateRepository implements L
 
     @Override
     public void update(Library library) {
-        Library oldLibrary = (Library) currentSession().load(Library.class, library.id());
+        Library oldLibrary = (Library) currentSession().load(Library.class, library.getId());
         oldLibrary.update(library);
-        LOGGER.info("update library: " + library.getAddress());
+        LOGGER.info("update library: " + library);
     }
 
     @Override
