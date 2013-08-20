@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface LibraryServerFacade {
 
-    void add(LibraryDTO dto);
+    String add(LibraryDTO dto);
 
     List<LibraryDTO> findLibraries();
 

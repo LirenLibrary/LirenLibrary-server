@@ -25,8 +25,8 @@ public class LibraryServerFacadeImpl implements LibraryServerFacade
     }
 
     @Override
-    public void add(LibraryDTO dto) {
-        libraryService.add(LibraryDTOAssembler.toLibrary(dto));
+    public String add(LibraryDTO dto) {
+        return libraryService.add(LibraryDTOAssembler.toLibrary(dto));
     }
 
     @Override

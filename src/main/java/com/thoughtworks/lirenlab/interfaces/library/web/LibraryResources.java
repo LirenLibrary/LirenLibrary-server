@@ -35,9 +35,9 @@ public class LibraryResources {
     public Response add(LibraryDTO dto) {
         LOGGER.info("the dto get from browser is: " + dto.getId() + ":" + dto.getAddress());
         LOGGER.info("postcode is: " + dto.getPostcode());
-        libraryServerFacade.add(dto);
+        String id = libraryServerFacade.add(dto);
         LOGGER.info("library added: " + dto);
-        return Response.ok().build();
+        return Response.ok(id).build();
     }
 
     @GET

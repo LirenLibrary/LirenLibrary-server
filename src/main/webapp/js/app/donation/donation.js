@@ -131,7 +131,10 @@ function AddressCtrl($location, $scope, Libraries, Library) {
         data.postcode = library.postcode;
         data.telephone = library.telephone;
         if (library.shown == false){
-            Library.saveOrUpdate(data, function(){
+            Library.saveOrUpdate(data, function(response){
+                if (library.id === undefined){
+                    library.id = response;
+                }
                 console.log("save sucessful");
             }), function(){
                 console.log("failed");
