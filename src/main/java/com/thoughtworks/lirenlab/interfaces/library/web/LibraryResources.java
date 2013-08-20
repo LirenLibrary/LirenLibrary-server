@@ -41,7 +41,7 @@ public class LibraryResources {
     }
 
     @GET
-    @Path("/all")
+    @Path("/")
     @Produces("application/vnd.liren-libraries+json")
     @Versions(version = {"v1"})
     public Response findAllLibraries() {
@@ -50,10 +50,10 @@ public class LibraryResources {
     }
 
     @DELETE
-    @Consumes("application/vnd.liren-library+json")
-    @Path("{id:\\d+}")
+    @Path("{id}")
     @Versions(version = {"v1"})
     public Response delete(@PathParam("id") String id){
+        LOGGER.info("deleting library with id: " + id);
         libraryServerFacade.delete(id);
         return Response.ok().build();
     }

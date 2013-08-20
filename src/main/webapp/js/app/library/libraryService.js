@@ -2,7 +2,7 @@ angular.module('libraryService', []).
     factory('Libraries',function ($http) {
         var Libraries = {
             getAllLibraries:function (callback) {
-                $http.get('/lirenlibrary/api/libraries/all', {
+                $http.get('/lirenlibrary/api/libraries/', {
                     headers:{
                         'Accept':'application/vnd.liren-libraries+json',
                         'Version':'v1'

@@ -117,12 +117,10 @@ function AddressCtrl($location, $scope, Libraries, Library) {
                 libs.push(response[lib]);
             }
             $scope.libraries = libs;
-            console.log($scope.libraries);
         });
     };
 
     $scope.editOrSave = function(library){
-        console.log(library);
         var data = {};
         data.id = library.id;
         data.name = library.name;
@@ -135,9 +133,8 @@ function AddressCtrl($location, $scope, Libraries, Library) {
                 if (library.id === undefined){
                     library.id = response;
                 }
-                console.log("save sucessful");
             }), function(){
-                console.log("failed");
+                alert("保存失败！");
             };
         }
         library.shown = !library.shown;
@@ -146,18 +143,26 @@ function AddressCtrl($location, $scope, Libraries, Library) {
 
     $scope.remove = function(id){
         var deleteLibrary = confirm('确定删除？');
-        console.log(deleteLibrary);
         if (deleteLibrary){
-            Library.remove(id, function(){
-                console.log("delete sucessfully.");
-            }, function(){
-                console.log("delete failure");
-            });
+            if (id === undefined){
+                $scope.libraries.pop();
+            }else{
+                Library.remove(id, function(){
+                    for (var i = 0; i < $scope.libraries.length; i++){
+                        if ($scope.libraries[i].id === id){
+                            $scope.libraries.splice(i, 1);
+                            return;
+                        }
+                    }
+
+                }, function(){
+                    alert("删除失败");
+                });
+            }
         }
     }
 
     $scope.add = function(){
-        console.log("addition");
         $scope.libraries.push({
             address: "",
             contacter: "",

@@ -128,7 +128,7 @@
 
                     <td>
                         <a ng-click="editOrSave(library)" class="button plain" ng-class="{green : !library.shown, active: !library.shown}">{{library.saveOrEdit}}</a>
-                        <a ng-click="remove($index)" class="button plain">删除</a>
+                        <a ng-click="remove(library.id)" class="button plain">删除</a>
                     </td>
                 </tr>
                 </tbody>
