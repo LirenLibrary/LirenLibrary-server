@@ -41,47 +41,8 @@
 
         <div class="box">
             <div class="box-header">
-                <h1>黑白名单</h1>
-            </div>
-
-            <table class="datatable">
-                <thead>
-                <tr>
-                    <th width="30%">书名</th>
-                    <th width="15%">作者</th>
-                    <th width="30%">详情</th>
-                    <th>自动通过／拒绝</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>丰乳肥臀</td>
-                    <td>莫言</td>
-                    <td>诺贝尔文学奖作者写的黄色小说。</td>
-                    <td>
-                        <a href="#" class="button plain green">通过</a>
-                        <a href="#" class="button plain red active">拒绝</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>丰乳肥臀2</td>
-                    <td>莫言</td>
-                    <td>诺贝尔文学奖作者写的黄色小说。</td>
-                    <td>
-                        <a href="#" class="button plain green">通过</a>
-                        <a href="#" class="button plain red active">拒绝</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-            <div class="box">
-            <div class="box-header">
                 <h1>图书馆地址</h1>
             </div>
-
 
 
             <table class="datatable">
@@ -96,38 +57,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>张国栋图书馆二分馆</td>
-                    <td>张国栋</td>
-                    <td>河南省嵩山市少林寺A栋藏经阁2楼清洁处</td>
-                    <td>612921</td>
-                    <td>135 1000 2000</td>
-                    <td>
-                        <a href="#" class="button plain">编辑</a>
-                        <a href="#" class="button plain">删除</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="text" value="张国栋图书馆二分馆"></td>
-                    <td><input type="text" value="张国栋"></td>
-                    <td><input type="text" value="河南省嵩山市少林寺A栋藏经阁2楼清洁处"></td>
-                    <td><input type="text" value="612921"></td>
-                    <td><input type="text" value="135 1000 2000"></td>
-                    <td>
-                        <a href="#" class="button plain green active">保存</a>
-                        <a href="#" class="button plain">删除</a>
-                    </td>
-                </tr>
-
                 <tr ng-repeat="library in libraries">
-                    <td><input type="text" ng-model="library.name" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" ng-model="library.contacter" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" ng-model="library.address" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" ng-model="library.postcode" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
-                    <td><input type="text" ng-model="library.telephone" ng-readonly="library.shown" ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.name" ng-readonly="library.shown"
+                               ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.contacter" ng-readonly="library.shown"
+                               ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.address" ng-readonly="library.shown"
+                               ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.postcode" ng-readonly="library.shown"
+                               ng-class="{borderless: library.shown}"></td>
+                    <td><input type="text" ng-model="library.telephone" ng-readonly="library.shown"
+                               ng-class="{borderless: library.shown}"></td>
 
                     <td>
-                        <a ng-click="editOrSave(library)" class="button plain" ng-class="{green : !library.shown, active: !library.shown}">{{library.saveOrEdit}}</a>
+                        <a ng-click="editOrSave(library)" class="button plain"
+                           ng-class="{green : !library.shown, active: !library.shown}">{{library.saveOrEdit}}</a>
                         <a ng-click="remove(library.id)" class="button plain">删除</a>
                     </td>
                 </tr>
