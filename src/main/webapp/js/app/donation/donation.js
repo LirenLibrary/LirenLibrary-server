@@ -1,4 +1,4 @@
-angular.module('donation', ['donationService', 'libraryService', 'commonFilters']).
+angular.module('donation', ['donationService', 'libraryService', 'commonFilters', 'ui.mask']).
 config(function ($routeProvider) {
     $routeProvider.
     when('/donations', {controller:DonationsCtrl, templateUrl:'donations.html'}).
@@ -119,6 +119,11 @@ function AddressCtrl($location, $scope, Libraries, Library) {
             $scope.libraries = libs;
         });
     };
+
+    var validateLibrary = function(){
+
+        return true;
+    }
 
     $scope.editOrSave = function(library){
         var data = {};
