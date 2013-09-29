@@ -22,7 +22,7 @@
         <authentication-provider>
             <user-service>
                 <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-                <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+                <user name="bob" password="bob" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
     </authentication-manager>
