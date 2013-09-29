@@ -9,6 +9,7 @@
     <import resource="classpath:context-interfaces-mobile.xml"/>
     <import resource="classpath:context-infrastructure-persistence.xml"/>
     <import resource="classpath:context-domain.xml"/>
+    <import resource="classpath:context-security.xml" />
 
     <context:annotation-config  />
     <context:component-scan base-package="com.thoughtworks.lirenlab"/>

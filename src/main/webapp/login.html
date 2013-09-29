@@ -56,14 +56,14 @@
   
     <div id="login_container">
       <div id="login_form">
-        <form method="post" action="/login">
+        <form method="post" action="j_spring_security_check">
           <p>
-            <input type="text" id="username" name="username" placeholder="Username" class="{validate: {required: true}}" />
+            <input type="text" id="username" name="j_username" placeholder="Username" class="{validate: {required: true}}" />
           </p>
           <p>
-            <input type="password" id="password" name="password" placeholder="Password" class="{validate: {required: true}}" />
+            <input type="password" id="password" name="j_password" placeholder="Password" class="{validate: {required: true}}" />
           </p>
-          <button type="submit" class="button blue">Login</button>
+          <button type="submit" name="submit" class="button blue">Login</button>
         </form>
       </div>
     </div>

@@ -69,7 +69,10 @@ dependencies {
             "joda-time:joda-time:2.1",
             fileTree(dir: "lib", include: '*.jar'),
             "bouncycastle:bcprov-jdk16:140",
-            "commons-beanutils:commons-beanutils-core:1.8.3"
+            "commons-beanutils:commons-beanutils-core:1.8.3",
+            "org.springframework.security:spring-security-core:3.1.4.RELEASE",
+            "org.springframework.security:spring-security-web:3.1.4.RELEASE",
+            'org.springframework.security:spring-security-config:3.1.4.RELEASE'
     )
 
 
