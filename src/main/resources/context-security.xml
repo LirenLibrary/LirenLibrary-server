@@ -8,13 +8,13 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <http pattern="/css/**" security="none" />
-    <http pattern="/login.html" security="none" />
+    <http pattern="/login.jsp" security="none" />
+    <http pattern="/loginfailure" security="none" />
 
     <http auto-config="true">
         <intercept-url pattern="/**" access="ROLE_USER" />
-        <form-login login-page="/login.html" default-target-url="/index.html"
-                    authentication-failure-url="/login.html" always-use-default-target="true"/>
-        <!--<form-login default-target-url="/index.html" always-use-default-target="true"/>-->
+        <form-login login-page="/login.jsp" default-target-url="/index.html"
+                    authentication-failure-url="/loginfailure" always-use-default-target="true"/>
         <logout />
     </http>
 

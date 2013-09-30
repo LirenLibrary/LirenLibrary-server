@@ -1411,3 +1411,7 @@ h6 {
 #rotatedevice {
   display: none;
 }
+
+div#login_form span.error {
+    color: red;
+}

@@ -13,3 +13,8 @@ update post specification send too many onchange event
 separate mobile and admin interface APIs
 
 should throw exception when device not found by id
+
+To use debug:
+1) export GRADLE_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=9999,server=y,suspend=n"
+2) gradle jR
+3) In intellij, set up remote with command line arguments: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9999
