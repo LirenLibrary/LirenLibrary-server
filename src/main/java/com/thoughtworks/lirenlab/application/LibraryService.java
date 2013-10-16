@@ -13,7 +13,7 @@ public interface LibraryService {
     String add(Library library);
 
     @Deprecated
-    public String add(String name, String contacter, String address, String postcode, String telphone);
+    public String add(String name, String contact, String address, String postcode, String telephone);
 
     void update(String id, Library library);
 }

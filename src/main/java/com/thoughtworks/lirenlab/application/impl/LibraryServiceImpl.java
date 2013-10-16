@@ -35,8 +35,8 @@ public class LibraryServiceImpl implements LibraryService {
     @Deprecated
     @Override
     @Transactional
-    public String add(String name, String contacter, String address, String postcode, String telphone) {
-        Library library = new Library(name, contacter, address, postcode, telphone);
+    public String add(String name, String contact, String address, String postcode, String telephone) {
+        Library library = new Library(name, contact, address, postcode, telephone);
         return add(library);
     }
 
