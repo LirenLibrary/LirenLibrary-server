@@ -10,5 +10,6 @@
     <include relativeToChangelogFile="true" file="changesets/addTitleFieldToBook.xml"/>
     <include relativeToChangelogFile="true" file="changesets/liren-1.0.xml"/>
     <include relativeToChangelogFile="true" file="changesets/liren-2.0.xml"/>
+    <include relativeToChangelogFile="true" file="changesets/spring-security.xml"/>
 
 </databaseChangeLog>
