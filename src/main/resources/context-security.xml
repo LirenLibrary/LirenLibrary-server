@@ -18,15 +18,10 @@
         <logout />
     </http>
 
-    <beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <!--<beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
 
     <authentication-manager>
         <authentication-provider>
-            <!--<password-encoder ref="bcryptEncoder" />-->
-            <!--<user-service>-->
-                <!--<user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />-->
-                <!--<user name="bob" password="bob" authorities="ROLE_USER" />-->
-            <!--</user-service>-->
             <jdbc-user-service data-source-ref="dataSource" />
         </authentication-provider>
     </authentication-manager>
