@@ -72,7 +72,8 @@ dependencies {
             "commons-beanutils:commons-beanutils-core:1.8.3",
             "org.springframework.security:spring-security-core:3.1.4.RELEASE",
             "org.springframework.security:spring-security-web:3.1.4.RELEASE",
-            'org.springframework.security:spring-security-config:3.1.4.RELEASE'
+            'org.springframework.security:spring-security-config:3.1.4.RELEASE',
+            'javax.servlet:jstl:1.2'
     )
 
 
