@@ -10,8 +10,7 @@
     <http pattern="/css/**" security="none" />
     <http pattern="/js/**" security="none" />
     <http pattern="/img/**" security="none" />
-    <http pattern="/donations/**" security="none" />
-    <http pattern="/devices/**" security="none" />
+    <http pattern="/api/**" security="none" />
     <http pattern="/login.jsp" security="none" />
     <http pattern="/loginfailure" security="none" />
 
