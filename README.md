@@ -8,6 +8,6 @@ for more infomation, please see our [Wiki](https://github.com/LirenLibrary/Liren
 Environment
 -----------
 
-* [Build pipeline](http://10.17.7.2:8080/view/Liren-server-pipeline/?auto_refresh=false)
+* [Build pipeline](http://10.17.7.2:8080/view/Liren-server-pipeline/?auto_refresh=true)
 * [DEV environment](http://10.17.7.2:9080/lirenlibrary/login.jsp)
 * [UAT environment](http://10.17.7.2:9090/lirenlibrary/login.jsp)
