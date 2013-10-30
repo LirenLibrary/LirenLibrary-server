@@ -16,4 +16,6 @@ public interface LibraryService {
     public String add(String name, String contact, String address, String postcode, String telephone);
 
     void update(String id, Library library);
+
+    List<Library> findByNamePrefix(String prefix);
 }

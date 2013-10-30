@@ -54,4 +54,9 @@ public class LibraryServiceImpl implements LibraryService {
         library.setUpdatedDate();
         libraryRepository.update(library);
     }
+
+    @Override
+    public List<Library> findByNamePrefix(String prefix) {
+        return libraryRepository.findByNamePrefix(prefix);
+    }
 }

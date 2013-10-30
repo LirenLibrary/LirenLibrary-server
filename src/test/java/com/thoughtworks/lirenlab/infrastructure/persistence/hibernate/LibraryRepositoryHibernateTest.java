@@ -10,9 +10,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -56,9 +54,25 @@ public class LibraryRepositoryHibernateTest extends RepositoryTestBase {
     }
 
     @Test
-    public void should_delete_a_library(){
+    public void should_delete_a_library() {
         libraryRepositoryHibernate.delete("12l");
 
         verify(session).delete(any());
+    }
+
+    @Test
+    public void should_find_by_name_prefix() throws Exception {
+        final Query query = mock(Query.class);
+        given(session.createQuery(anyString())).willReturn(query);
+        given(query.setString(anyString(), anyString())).willReturn(query);
+        given(query.setMaxResults(anyInt())).willReturn(query);
+
+        final String prefix = "teda";
+        final List<Library> byName = libraryRepositoryHibernate.findByNamePrefix(prefix);
+        assertThat(byName, notNullValue());
+
+        verify(session).createQuery(contains(":prefix"));
+        verify(query).setString(eq("prefix"), eq(prefix + "%"));
+        verify(query).setMaxResults(eq(LibraryRepositoryHibernate.MAX_RESULTS));
     }
 }

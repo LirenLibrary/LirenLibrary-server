@@ -11,4 +11,6 @@ public interface LibraryRepository {
     public void update(Library library);
 
     public void delete(String id);
+
+    public List<Library> findByNamePrefix(String prefix);
 }
