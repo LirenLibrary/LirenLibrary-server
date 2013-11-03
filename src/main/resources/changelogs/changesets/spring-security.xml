@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog  logicalFilePath="database/changelogs/changesets/liren-2.0.xml"
-                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+<databaseChangeLog logicalFilePath="database/changelogs/changesets/liren-2.0.xml"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
     <changeSet id="createSecurityTables" author="UNKNOWN">
         <sql>
             CREATE TABLE `users` (
             `username` varchar(50) NOT NULL,
-            `password` varchar(50) NOT NULL,
+            `password` varchar(60) NOT NULL,
             `enabled` BOOLEAN NOT NULL,
             PRIMARY KEY (`username`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -22,8 +22,10 @@
 
             CREATE UNIQUE INDEX ix_auth_username on authorities (`username`,`authority`) USING BTREE;
 
-            INSERT INTO `users` VALUES ('liren01', '1qaz!QAZ', true);
-            INSERT INTO `users` VALUES ('liren02', '2wsx@WSX', true);
+            INSERT INTO `users` VALUES
+                    ('liren01', '$2a$10$wZamHxBZiKAW/6BLeuSSbOI4VogNA7LbXwH94P.SnflTvhyWno.7K', true);
+            INSERT INTO `users` VALUES
+            ('liren02', '$2a$10$A2HKt3zUI6zJwNjRQsey4OLi8X8I81NkhIrojU.P1XqLkwrQPXjCq', true);
 
             INSERT INTO `authorities` VALUES ('liren01', 'ROLE_USER');
             INSERT INTO `authorities` VALUES ('liren02', 'ROLE_USER');
@@ -35,5 +37,4 @@
             </sql>
         </rollback>
     </changeSet>
-
 </databaseChangeLog>
