@@ -21,11 +21,15 @@
         <logout />
     </http>
 
-    <!--<beans:bean name="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>-->
+    <beans:bean name="bCryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service data-source-ref="dataSource" />
+            <password-encoder ref="bCryptEncoder"/>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="SELECT username, password, enabled FROM users WHERE enabled='1' AND username=?"
+                               authorities-by-username-query="SELECT username, authority FROM authorities WHERE username=?"
+                    />
         </authentication-provider>
     </authentication-manager>
 </beans:beans>

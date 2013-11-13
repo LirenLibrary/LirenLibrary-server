@@ -36,4 +36,29 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="updateSecurityTablesSchema" author="MaxPeng">
+        <sql>
+            ALTER TABLE `users` MODIFY `password` varchar(65) NOT NULL;
+        </sql>
+        <rollback>
+            <sql>
+                ALTER TABLE `users` MODIFY `password` varchar(50) NOT NULL;
+            </sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="updatePasswordIntoCipherText" author="MaxPeng">
+        <sql>
+            UPDATE `users` SET `password`='$2a$10$wZamHxBZiKAW/6BLeuSSbOI4VogNA7LbXwH94P.SnflTvhyWno.7K' WHERE `username`='liren01';
+            UPDATE `users` SET `password`='$2a$10$A2HKt3zUI6zJwNjRQsey4OLi8X8I81NkhIrojU.P1XqLkwrQPXjCq' WHERE `username`='liren02';
+        </sql>
+        <rollback>
+            <sql>
+                UPDATE `users` SET `password`='1qaz!QAZ' WHERE `username`='liren01';
+                UPDATE `users` SET `password`='2wsx@WSX' WHERE `username`='liren02';
+            </sql>
+        </rollback>
+
+    </changeSet>
+
 </databaseChangeLog>
